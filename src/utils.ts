@@ -104,6 +104,18 @@ function flipDayAndYear(date: Date) {
   return day + '-' + month + '-' + year;
 }
 
+import { country } from './types'
+
+async function getCountries() {
+  try {
+      const response = await fetch('https://restcountries.com/v3.1/all');
+      const countries: country[] = await response.json();
+      return countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
+    } catch (error) {
+      console.error('Error fetching countries:', error);
+    }
+}
+
 export {
   getLanguageName,
   langList,
@@ -112,7 +124,8 @@ export {
   getIcon,
   formatDate,
   drawStars,
-  flipDayAndYear
+  flipDayAndYear,
+  getCountries
 }
 
 /*

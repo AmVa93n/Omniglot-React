@@ -9,8 +9,10 @@ export interface Notification {
 export interface User {
     _id: string
     username: string
+    email: string
     profilePic: string
     professional: boolean
+    private: boolean
     birthdate: string
     country: string
     gender: string
@@ -57,4 +59,24 @@ export interface Review {
     author: User
     text: string
     rating: number
+}
+
+export interface country {
+    name: {
+        common: string
+    }
+}
+
+export interface form {
+    username: string
+    email: string
+    password: string
+    profilePic: string
+    birthdate: string
+    country: string
+    gender: string
+    lang_teach: string[]
+    lang_learn: string[]
+    professional: boolean
+    private: boolean
 }
