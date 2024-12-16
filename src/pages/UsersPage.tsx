@@ -82,7 +82,7 @@ function UsersPage() {
                         <div className="mx-auto" style={{width: 'fit-content'}}>{user.ratingAvg} 
                             <span style={{color: '#ffca08'}}>&#9733;</span>
                         </div>}
-                        <div className="mx-auto small" style={{width: 'fit-content'}}>({user.reviews} Reviews)</div>
+                        <div className="mx-auto small" style={{width: 'fit-content'}}>({user.reviewsNr} Reviews)</div>
                     </div>
                 </div>}
 

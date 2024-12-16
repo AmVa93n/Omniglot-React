@@ -69,12 +69,6 @@ body {
   .lang-flag {
     width: 20px;
   }
-
-  .addedIconWrapper {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
   
   .link-text {
     text-decoration: none;
