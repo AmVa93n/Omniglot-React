@@ -1,11 +1,11 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 class AuthService {
   api: AxiosInstance
 
   constructor() {
     this.api = axios.create({
-      baseURL: process.env.REACT_APP_DEV_SERVER_URL || process.env.REACT_APP_SERVER_URL,
+      baseURL: import.meta.env.VITE_DEV_SERVER_URL || import.meta.env.VITE_SERVER_URL,
     });
 
     // Automatically set JWT token on the request headers for every request
@@ -21,8 +21,9 @@ class AuthService {
     });
   }
 
-  login(requestBody: object) {
-    return this.api.post("/auth/login", requestBody);
+  async login(requestBody: object) {
+    const response: AxiosResponse = await this.api.post("/auth/login", requestBody);
+    return response.data
   };
 
   signup(requestBody: object) {

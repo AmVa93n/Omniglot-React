@@ -1,7 +1,17 @@
 import { createContext, useState, useEffect, PropsWithChildren } from "react";
 import authService from "../services/auth.service";
+import { User } from "../types";
 
-const AuthContext = createContext({});
+const AuthContext = createContext({} as context);
+
+interface context {
+  isLoggedIn: boolean
+  isAuthenticating: boolean
+  user: null | User
+  storeToken: (token: string)=> void
+  authenticateUser: ()=> void
+  logOutUser: ()=> void
+}
 
 function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
