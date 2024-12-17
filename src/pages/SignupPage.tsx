@@ -1,13 +1,12 @@
 import LanguageCheckbox from "../components/LanguageCheckbox"
 import { country, form } from "../types"
-import { langList, getCountries } from "../utils"
+import { languages, getCountries } from "../utils"
 import { useState, useEffect } from "react"
 //import authService from "../services/auth.service" 
 
 function SignupPage() {
     const [signupForm, setSignupForm] = useState({} as form)
     const [countries, setCountries] = useState([] as country[])
-    const languages = Object.keys(langList).sort((a, b) => langList[a].localeCompare(langList[b]));
 
     useEffect(() => {
         async function fetchCountries() {

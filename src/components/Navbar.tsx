@@ -98,7 +98,7 @@ function Navbar() {
                         <ul className="dropdown-menu dropdown-menu-end">
                             <li><Link className="dropdown-item d-flex gap-2 align-items-center" to="/account/profile"><i className="bi bi-person-circle me-2"></i>Profile</Link></li>
                             <li><Link className="dropdown-item d-flex gap-2 align-items-center" to="/account/inbox"><i className="bi bi-inbox-fill me-2"></i>Inbox</Link></li>
-                            <li><Link className="dropdown-item d-flex gap-2 align-items-center" to="/account/classNamees"><i className="bi bi-easel3-fill me-2"></i>classNamees</Link></li>
+                            <li><Link className="dropdown-item d-flex gap-2 align-items-center" to="/account/classes"><i className="bi bi-easel3-fill me-2"></i>Classes</Link></li>
                             <li><Link className="dropdown-item d-flex gap-2 align-items-center" to="/account/decks"><i className="bi bi-stack me-2"></i>Decks</Link></li>
                             
                             {user?.professional &&

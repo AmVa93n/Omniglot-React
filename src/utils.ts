@@ -104,6 +104,8 @@ function flipDayAndYear(date: Date) {
   return day + '-' + month + '-' + year;
 }
 
+const languages = Object.keys(langList).sort((a, b) => langList[a].localeCompare(langList[b]))
+
 import { country } from './types'
 
 async function getCountries() {
@@ -116,6 +118,21 @@ async function getCountries() {
     }
 }
 
+function generateTimeslots() {
+  const timeslots = []
+  for (let hr = 7; hr < 21; hr++) {
+    for (const min of [0,15,30,45]) {
+      const hour = hr.toString().padStart(2, '0')
+      const minute = min.toString().padStart(2, '0')
+      const slot = `${hour}:${minute}`;
+      timeslots.push(slot);
+    }
+  }
+  return timeslots
+}
+
+const timeslots = generateTimeslots()
+
 export {
   getLanguageName,
   langList,
@@ -125,7 +142,9 @@ export {
   formatDate,
   drawStars,
   flipDayAndYear,
-  getCountries
+  languages,
+  getCountries,
+  timeslots
 }
 
 /*

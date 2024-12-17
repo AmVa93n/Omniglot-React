@@ -47,6 +47,28 @@ export interface Offer {
     level: string
 }
 
+export interface Class {
+    _id: string
+    name: string
+    locationType: string
+    location: string
+    classType: string
+    maxGroupSize: number
+    duration: number
+    language: string
+    level: string
+    date: string
+    timeslot: string
+    teacher: User
+    reschedule: {
+        status: string
+        new_date: string
+        new_timeslot: string
+        initiator: User | string
+    }
+    isRated: boolean
+}
+
 export interface Review {
     name: string
     locationType: string

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import accountService from "../services/account.service" 
 import { User } from '../types'
 import Language from "../components/Language"
-import { langList, formatDate, getCountries } from "../utils"
+import { languages, formatDate, getCountries } from "../utils"
 import '../styles/ProfilePage.css'
 import { country, form } from "../types"
 import LanguageCheckbox from "../components/LanguageCheckbox"
@@ -12,7 +12,6 @@ function ProfilePage() {
     const [editedFields, setEditedFields] = useState([] as string[])
     const [countries, setCountries] = useState([] as country[])
     const [editForm, setEditForm] = useState({} as form)
-    const languages = Object.keys(langList).sort((a, b) => langList[a].localeCompare(langList[b]));
 
     useEffect(() => {
         async function fetchUser() {

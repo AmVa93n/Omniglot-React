@@ -40,6 +40,31 @@ class AccountService {
     const response: AxiosResponse = await this.api.get('/account/classes');
     return response.data;
   }
+
+  async getClass(classId: string) {
+    const response: AxiosResponse = await this.api.get(`/account/class/${classId}`);
+    return response.data;
+  }
+
+  async cancelClass(classId: string) {
+    const response: AxiosResponse = await this.api.delete(`/account/class/${classId}`);
+    return response.data;
+  }
+
+  async rescheduleClass(classId: string) {
+    const response: AxiosResponse = await this.api.put(`/account/class/${classId}/reschedule`);
+    return response.data;
+  }
+
+  async acceptReschedule(classId: string) {
+    const response: AxiosResponse = await this.api.put(`/account/class/${classId}/reschedule/accept`);
+    return response.data;
+  }
+
+  async declineReschedule(classId: string) {
+    const response: AxiosResponse = await this.api.put(`/account/class/${classId}/reschedule/decline`);
+    return response.data;
+  }
 }
 
 // Create one instance (object) of the service
