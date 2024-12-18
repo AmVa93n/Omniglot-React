@@ -133,6 +133,28 @@ function generateTimeslots() {
 
 const timeslots = generateTimeslots()
 
+import $ from 'jquery'
+
+function createDatePicker() {
+  // Calculate start date (1 day from today)
+  const today = new Date();
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() + 1);
+
+  // Calculate end date (3 months from today)
+  const endDate = new Date(today);
+  endDate.setMonth(today.getMonth() + 3);
+  
+  $('#datepicker').datepicker({
+      format: 'dd-mm-yyyy', // Format of the date
+      startDate: flipDayAndYear(startDate), // Start date
+      endDate: flipDayAndYear(endDate),   // End date
+      autoclose: true, // Close datepicker after selection
+      todayHighlight: false, // Highlight today's date
+      weekStart: 1, // Start the week on Monday
+  });
+}
+
 export {
   getLanguageName,
   langList,
@@ -144,7 +166,8 @@ export {
   flipDayAndYear,
   languages,
   getCountries,
-  timeslots
+  timeslots,
+  createDatePicker
 }
 
 /*

@@ -1,36 +1,31 @@
-import { timeslots, flipDayAndYear } from "../utils"
-import { Class } from '../types'
-import $ from 'jquery';
+import { timeslots, flipDayAndYear, createDatePicker } from "../utils"
+import { reschedule } from '../types'
+import { useEffect } from "react";
+import accountService from "../services/account.service";
 
-function RescheduleModal({ selectedClass }: {selectedClass: Class | null}) {
+function RescheduleModal({ classId, reschedule, setReschedule }: 
+    {classId: string, reschedule: reschedule, setReschedule: React.Dispatch<React.SetStateAction<reschedule>> }) {
 
-    function handleChange() {
+    useEffect(()=> {
+        createDatePicker()
+    }, [])
 
+    function handleChange(event: React.ChangeEvent) {
+        const field = (event.target as HTMLInputElement).name
+        const value = (event.target as HTMLInputElement).value
+        setReschedule(prev => {
+            return {...prev, [field]: value}
+        })
     }
 
-    function handleSend() {
-
+    async function handleSend() {
+        await accountService.rescheduleClass(classId)
+        setReschedule({
+            isOpen: false,
+            date: undefined,
+            timeslot: undefined
+        })
     }
-
-    $(document).ready(() => {
-        // Calculate start date (1 day from today)
-        const today = new Date();
-        const startDate = new Date(today);
-        startDate.setDate(today.getDate() + 1);
-
-        // Calculate end date (3 months from today)
-        const endDate = new Date(today);
-        endDate.setMonth(today.getMonth() + 3);
-        
-        $('#datepicker').datepicker({
-            format: 'dd-mm-yyyy', // Format of the date
-            startDate: flipDayAndYear(startDate), // Start date
-            endDate: flipDayAndYear(endDate),   // End date
-            autoclose: true, // Close datepicker after selection
-            todayHighlight: false, // Highlight today's date
-            weekStart: 1, // Start the week on Monday
-        });
-    });
 
     return (
         <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,13 +41,13 @@ function RescheduleModal({ selectedClass }: {selectedClass: Class | null}) {
                                 <div className="form-group">
                                     <label htmlFor="datepicker">Choose a new date</label>
                                     <input type="text" id="datepicker" className="form-control" placeholder="Choose a date" name="date" required 
-                                        value={flipDayAndYear(new Date(selectedClass?.date || ''))} onChange={handleChange}/>
+                                        value={flipDayAndYear(new Date(reschedule?.date || ''))} onChange={handleChange}/>
                                 </div>
                             </div>
                             <div className="container mb-4">
                                 <label htmlFor="timeslot">Choose a new time slot</label>
                                 <select className="form-select" id="timeslots" name="timeslot" 
-                                    value={selectedClass?.timeslot} onChange={handleChange}> 
+                                    value={reschedule?.timeslot} onChange={handleChange}> 
                                     {timeslots.map(timeslot => (
                                         <option key={timeslot} value={timeslot}>{timeslot}</option>
                                     ))}

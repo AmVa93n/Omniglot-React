@@ -65,6 +65,11 @@ class AccountService {
     const response: AxiosResponse = await this.api.put(`/account/class/${classId}/reschedule/decline`);
     return response.data;
   }
+
+  async getCalendar() {
+    const response: AxiosResponse = await this.api.get('/account/calendar');
+    return response.data;
+  }
 }
 
 // Create one instance (object) of the service

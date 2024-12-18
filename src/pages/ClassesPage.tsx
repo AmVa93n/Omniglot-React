@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Class } from '../types'
+import { Class, reschedule } from '../types'
 import accountService from '../services/account.service'
 import ClassBox from '../components/ClassBox'
 import RescheduleModal from '../components/RescheduleModal'
@@ -7,6 +7,11 @@ import RescheduleModal from '../components/RescheduleModal'
 function ClassesPage() {
     const [classes, setClasses] = useState({} as classes)
     const [selectedClass, setSelectedClass] = useState({} as Class)
+    const [reschedule, setReschedule] = useState<reschedule>({
+            isOpen: false,
+            date: undefined,
+            timeslot: undefined
+    })
 
     interface classes {
         upcomingClasses:  Class[]
@@ -28,6 +33,11 @@ function ClassesPage() {
 
     function handleReschedule(cls: Class) {
         setSelectedClass(cls)
+        setReschedule({
+            isOpen: true,
+            date: cls?.date,
+            timeslot: cls?.timeslot
+        })
     }
 
     return (
@@ -55,7 +65,8 @@ function ClassesPage() {
                 ))}
             </div>
 
-            <RescheduleModal selectedClass={selectedClass} />
+            {reschedule.isOpen &&
+            <RescheduleModal classId={selectedClass._id} reschedule={reschedule} setReschedule={setReschedule} />}
         </>
     )
 }

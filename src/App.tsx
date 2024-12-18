@@ -5,6 +5,7 @@ import UsersPage from "./pages/UsersPage";
 import UserPage from "./pages/UserPage";
 import ProfilePage from "./pages/ProfilePage";
 import ClassesPage from "./pages/ClassesPage";
+import CalendarPage from "./pages/CalendarPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/Navbar";
@@ -32,6 +33,12 @@ function App() {
         <Route path="/account/classes" element={
             <IsPrivate>
               <ClassesPage />
+            </IsPrivate>
+          }/>
+
+        <Route path="/account/calendar" element={
+            <IsPrivate>
+              <CalendarPage />
             </IsPrivate>
           }/>
 

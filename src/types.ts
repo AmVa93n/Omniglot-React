@@ -60,6 +60,7 @@ export interface Class {
     date: string
     timeslot: string
     teacher: User
+    student: User
     reschedule: {
         status: string
         new_date: string
@@ -67,6 +68,8 @@ export interface Class {
         initiator: User | string
     }
     isRated: boolean
+    isPast: boolean
+    endTime: string
 }
 
 export interface Review {
@@ -101,4 +104,18 @@ export interface form {
     lang_learn: string[]
     professional: boolean
     private: boolean
+}
+
+export interface calendarEvent {
+    title: string,
+    id: string,
+    start: string,
+    end: string,
+    display: string
+}
+
+export interface reschedule {
+    isOpen: boolean,
+    date: string | undefined,
+    timeslot: string | undefined
 }
