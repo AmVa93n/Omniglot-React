@@ -1,5 +1,4 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { rescheduleForm } from "../types";
 
 class AccountService {
   api: AxiosInstance
@@ -27,8 +26,8 @@ class AccountService {
     return response.data;
   }
 
-  async updateProfile() {
-    const response: AxiosResponse = await this.api.put('/account/profile');
+  async updateProfile(requestBody: object) {
+    const response: AxiosResponse = await this.api.put('/account/profile', requestBody);
     return response.data;
   }
 
@@ -52,7 +51,7 @@ class AccountService {
     return response.data;
   }
 
-  async rescheduleClass(classId: string, requestBody: rescheduleForm) {
+  async rescheduleClass(classId: string, requestBody: {date: string, timeslot: string}) {
     const response: AxiosResponse = await this.api.put(`/account/classes/${classId}/reschedule`, requestBody);
     return response.data;
   }

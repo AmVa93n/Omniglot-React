@@ -11,6 +11,7 @@ function Navbar() {
     const { user, logOutUser } = useContext(AuthContext)
 
     useEffect(()=> {
+        if (!user) return
         async function fetchNotifications() {
             try {
                 const data: Notification[] = await appService.getNotifications()
@@ -21,7 +22,7 @@ function Navbar() {
         }
 
         fetchNotifications()
-    }, [])
+    }, [user])
 
     function getUnread() {
         return notifications.filter(n => !n.read).length

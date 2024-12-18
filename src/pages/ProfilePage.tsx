@@ -1,23 +1,38 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import accountService from "../services/account.service" 
-import { User } from '../types'
+import { editProfileForm, User, country } from '../types'
 import Language from "../components/Language"
 import { languages, formatDate, getCountries } from "../utils"
 import '../styles/ProfilePage.css'
-import { country, profileForm } from "../types"
 import LanguageCheckbox from "../components/LanguageCheckbox"
 
 function ProfilePage() {
-    const [user, setUser] = useState({} as User)
+    const [profile, setProfile] = useState({} as User)
     const [editedFields, setEditedFields] = useState([] as string[])
     const [countries, setCountries] = useState([] as country[])
-    const [editForm, setEditForm] = useState({} as profileForm)
+    const [editForm, setEditForm] = useState<editProfileForm>({
+        username: '',
+        email: '',
+        profilePic: '',
+        birthdate: '',
+        country: '',
+        gender: '',
+        lang_teach: [],
+        lang_learn: [],
+        professional: false,
+        private: false
+    })
+    const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>('');
+    const fileInputRef = useRef(null);
 
     useEffect(() => {
         async function fetchUser() {
             try {
-              const data = await accountService.getProfile()
-              setUser(data)
+              const profileData = await accountService.getProfile()
+              setProfile(profileData)
+              // initialize based on user data
+              setPfpPreview(profileData.profilePic)
+              setEditForm(profileData)
             } catch (error) {
               console.error('Error fetching data in component:', error);
             }
@@ -32,18 +47,17 @@ function ProfilePage() {
         fetchCountries()
     }, [])
 
-    function editProfilePic() {
-        document.getElementById('pfp')?.click();
-    }
-
     function toggleEdit(field: string) {
         if (!editedFields.includes(field)) {
             setEditedFields(prev => [...prev, field])
         } else {
             setEditedFields(prev => prev.filter(f => f !== field))
         }
+        // set to user's data if starting to edit or cancelling edit
         setEditForm(prev => {
-            return {...prev, [field]: user[field]}
+            return {...prev, [field]: profile[field as 
+                'username' | 'email' | 'birthdate' | 'country' | 'gender' | 'lang_teach' | 'lang_learn'
+            ]}
         })
     }
 
@@ -55,26 +69,40 @@ function ProfilePage() {
         })
     }
 
-    function handleCheckbox(event: React.ChangeEvent, list: string) {
+    function handleCheckbox(event: React.ChangeEvent, field: string) {
         const value = (event.target as HTMLInputElement).value
-        const field = 'lang_' + list
         const isChecked = editForm[field as 'lang_teach' | 'lang_learn'].includes(value)
         const newList = [...editForm[field as 'lang_teach' | 'lang_learn']]
-        if (isChecked) {
+        if (!isChecked) {
             newList.push(value)
-            setEditForm(prev => {return {...prev, [field]: newList}})
         } else {
             const index = newList.indexOf(value);
             newList.splice(index, 1);
         }
+        setEditForm(prev => {return {...prev, [field]: newList}})
     }
 
-    function handleFileUpload(event: React.ChangeEvent) {
-        console.log(event)
+    function handleFilePreview(event: React.ChangeEvent<HTMLInputElement>) {
+        const reader = new FileReader();
+        reader.onload = function(){
+          setPfpPreview(reader.result)
+        }
+        const file = event.target.files?.[0]
+        if (file) reader.readAsDataURL(file);
     }
 
-    async function handleSave() {
-        
+    async function handleSave(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget);
+        editForm.lang_teach.forEach((lang) => formData.append('lang_teach[]', lang));
+        editForm.lang_learn.forEach((lang) => formData.append('lang_learn[]', lang));
+        try {
+            const updatedProfile = await accountService.updateProfile(formData);
+            setProfile(updatedProfile)
+            setEditedFields([]); // Turn off edit mode for all fields
+        } catch (error) {
+            alert(error)
+        }
     }
     
     async function handleDelete() {
@@ -87,15 +115,15 @@ function ProfilePage() {
             <form onSubmit={handleSave} method="POST" encType="multipart/form-data">
                 <div className="position-relative">
                     <div className="mb-3 mx-auto circle-crop">
-                        <img id="profile-pic-preview" src={user?.profilePic || '/images/Profile-PNG-File.png'}/>
+                        <img id="profile-pic-preview" src={pfpPreview as string}/>
                     </div>
-                    <button type="button" id="edit-pfp-btn" className="btn btn-secondary btn-sm circle-btn editPfpBtn" onClick={editProfilePic}>
+                    <button type="button" id="edit-pfp-btn" className="btn btn-secondary btn-sm circle-btn editPfpBtn" onClick={() => toggleEdit('profilePic')}>
                         <i className="bi bi-pencil-square"></i>
+                        <input type="file" id="pfp" name="profilePic" style={{display: 'none'}} ref={fileInputRef} onChange={handleFilePreview} />
                     </button>
                 </div>
 
             <div className="d-flex justify-content-center my-3">
-                <input type="file" id="pfp" name="pfp" style={{display: 'none'}} onChange={(event) => handleFileUpload(event)} />
                 <button type="button" className="btn btn-sm pfp-cancel d-none" onClick={() => setEditedFields(prev => prev.filter(f => f !== 'pfp'))}><i className="bi bi-x-circle-fill"></i></button>
             </div>
 
@@ -103,7 +131,7 @@ function ProfilePage() {
                 <span className="col-4 fw-bold">Username</span>
                 <div className="col">
                     {!editedFields.includes('username') ? 
-                        <span>{user?.username}</span> :
+                        <span>{profile?.username}</span> :
                         <input className="form-control" type="text" name="username" value={editForm.username} onChange={handleChange}/>}
                 </div>
                 <div className="col-3">
@@ -117,13 +145,13 @@ function ProfilePage() {
                 <span className="col-4 fw-bold">Email</span>
                 <div className="col">
                     {!editedFields.includes('email') ?
-                        <span>{user?.email}</span> :
+                        <span>{profile?.email}</span> :
                         <input className="form-control" type="text" name="email" value={editForm.email} onChange={handleChange} />
                     }
                 </div>
                 <div className="col-3">
                     <button type="button" className="btn btn-sm" onClick={() => toggleEdit('email')}>
-                        <i className="!editedFields.includes('email') ? 'bi bi-pencil-fill' : 'bi bi-x-circle-fill'"></i>
+                        <i className={!editedFields.includes('email') ? 'bi bi-pencil-fill' : 'bi bi-x-circle-fill'}></i>
                     </button>
                 </div>
             </div>
@@ -132,18 +160,18 @@ function ProfilePage() {
                 <span className="col-4 fw-bold">Gender</span>
                 <div className="col">
                     {!editedFields.includes('gender') ?
-                        <span>{user?.gender}</span> :
+                        <span>{profile?.gender}</span> :
                         <>
                             <div className="form-check">
-                                <input className="form-check-input" type="radio" name="gender" id="male" value="male" checked={user.gender === 'male'}/>
+                                <input className="form-check-input" type="radio" name="gender" id="male" value="male"/>
                                 <label className="form-check-label me-2" htmlFor="male">Male</label>
                             </div>
                             <div className="form-check">
-                                <input className="form-check-input" type="radio" name="gender" id="female" value="female" checked={user.gender === 'female'}/>
+                                <input className="form-check-input" type="radio" name="gender" id="female" value="female"/>
                                 <label className="form-check-label me-2" htmlFor="female">Female</label>
                             </div>
                             <div className="form-check">
-                                <input className="form-check-input" type="radio" name="gender" id="other" value="other" checked={user.gender === 'other'}/>
+                                <input className="form-check-input" type="radio" name="gender" id="other" value="other"/>
                                 <label className="form-check-label me-2" htmlFor="other">Other</label>
                             </div>
                         </>
@@ -151,7 +179,7 @@ function ProfilePage() {
                 </div>
                 <div className="col-3">
                     <button type="button" className="btn btn-sm" onClick={() => toggleEdit('gender')}>
-                        <i className="!editedFields.includes('gender') ? 'bi bi-pencil-fill' : 'bi bi-x-circle-fill'"></i>
+                        <i className={!editedFields.includes('gender') ? 'bi bi-pencil-fill' : 'bi bi-x-circle-fill'}></i>
                     </button>
                 </div>
             </div>
@@ -160,7 +188,7 @@ function ProfilePage() {
                 <span className="col-4 fw-bold">Birthdate</span>
                 <div className="col">
                     {!editedFields.includes('birthdate') ?
-                        <span>{formatDate(user?.birthdate)}</span> :
+                        <span>{formatDate(profile?.birthdate)}</span> :
                         <input className="form-control" type="date" name="birthdate" value={editForm.birthdate} onChange={handleChange} />
                     }
                 </div>
@@ -175,10 +203,10 @@ function ProfilePage() {
                 <span className="col-4 fw-bold">Country</span>
                 <div className="col">
                     {!editedFields.includes('country') ?
-                        <span>{user?.country}</span> :
+                        <span>{profile?.country}</span> :
                         <select className="form-select" name="country" value={editForm.country} onChange={handleChange}>
                             {countries.map(country => (
-                                <option value={country.name.common}>{country.name.common}</option>
+                                <option key={country.name.common} value={country.name.common}>{country.name.common}</option>
                             ))}
                         </select>}
                     
@@ -193,23 +221,23 @@ function ProfilePage() {
             <div className="row fs-6 mb-2">
                 <p className="col-4 fw-bold">I want to teach</p>
                 <div className="col">
-                    {!editedFields.includes('teach') ?
+                    {!editedFields.includes('lang_teach') ?
                     <>
-                        {user.lang_teach?.map(lang => (<Language key={lang} code={lang} />))} 
+                        {profile.lang_teach?.map(lang => (<Language key={lang} code={lang} />))} 
                     </> : 
                     <>
                         {languages.map(lang => (
                             <LanguageCheckbox key={lang} code={lang} type='teach' 
                                 checked={editForm.lang_teach?.includes(lang)}
                                 disabled={editForm.lang_learn?.includes(lang)} 
-                                onChange={(event) => handleCheckbox(event, 'teach')} 
+                                onChange={(event) => handleCheckbox(event, 'lang_teach')} 
                             />
                         ))}
                     </>}
                 </div>
                 <div className="col-3">
-                    <button type="button" className="btn btn-sm" onClick={() => toggleEdit('teach')}>
-                        <i className={!editedFields.includes('teach') ? 'bi bi-pencil-fill' : 'bi bi-x-circle-fill'}></i>
+                    <button type="button" className="btn btn-sm" onClick={() => toggleEdit('lang_teach')}>
+                        <i className={!editedFields.includes('lang_teach') ? 'bi bi-pencil-fill' : 'bi bi-x-circle-fill'}></i>
                     </button>
                 </div>
             </div>
@@ -217,24 +245,24 @@ function ProfilePage() {
             <div className="row fs-6 mb-4">
                 <p className="col-4 fw-bold">I want to learn</p>
                 <div className="col">
-                    {!editedFields.includes('learn') ?
+                    {!editedFields.includes('lang_learn') ?
                     <>
-                        {user.lang_learn?.map(lang => (<Language key={lang} code={lang} />))} 
+                        {profile.lang_learn?.map(lang => (<Language key={lang} code={lang} />))} 
                     </> : 
                     <>
                         {languages.map(lang => (
                             <LanguageCheckbox key={lang} code={lang} type='learn'
                                 checked={editForm.lang_learn?.includes(lang)}
                                 disabled={editForm.lang_teach?.includes(lang)} 
-                                onChange={(event) => handleCheckbox(event, 'learn')} 
+                                onChange={(event) => handleCheckbox(event, 'lang_learn')} 
                             />
                         ))}
                     </>}
                     
                 </div>
                 <div className="col-3">
-                    <button type="button" className="btn btn-sm" onClick={() => toggleEdit('learn')}>
-                        <i className={!editedFields.includes('learn') ? 'bi bi-pencil-fill' : 'bi bi-x-circle-fill'}></i>
+                    <button type="button" className="btn btn-sm" onClick={() => toggleEdit('lang_learn')}>
+                        <i className={!editedFields.includes('lang_learn') ? 'bi bi-pencil-fill' : 'bi bi-x-circle-fill'}></i>
                     </button>
                 </div>
             </div>
@@ -246,7 +274,7 @@ function ProfilePage() {
                         checked={editForm.professional} onChange={handleChange}/>
                     <label className="form-check-label" htmlFor="professional"><small>I want to offer paid classNamees and educational content.
                     </small></label>
-                    <input type="hidden" name="stripeAccountId" value="user?.stripeAccountId"/>
+                    <input type="hidden" name="stripeAccountId" value={profile?.stripeAccountId}/>
                 </div>
             </div>
             

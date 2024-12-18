@@ -1,12 +1,27 @@
 import LanguageCheckbox from "../components/LanguageCheckbox"
-import { country, profileForm } from "../types"
+import { country, signupForm } from "../types"
 import { languages, getCountries } from "../utils"
 import { useState, useEffect } from "react"
-//import authService from "../services/auth.service" 
+import authService from "../services/auth.service" 
+import { useNavigate } from "react-router-dom"
 
 function SignupPage() {
-    const [signupForm, setSignupForm] = useState({} as profileForm)
+    const [signupForm, setSignupForm] = useState<signupForm>({
+        username: '',
+        email: '',
+        password: '',
+        profilePic: '',
+        birthdate: '',
+        country: '',
+        gender: 'male',
+        lang_teach: [],
+        lang_learn: [],
+        professional: false,
+        private: false
+    })
     const [countries, setCountries] = useState([] as country[])
+    const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>('/images/Profile-PNG-File.png');
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchCountries() {
@@ -25,26 +40,39 @@ function SignupPage() {
         })
     }
 
-    function handleCheckbox(event: React.ChangeEvent, list: string) {
+    function handleCheckbox(event: React.ChangeEvent, field: string) {
         const value = (event.target as HTMLInputElement).value
-        const field = 'lang_' + list
         const isChecked = signupForm[field as 'lang_teach' | 'lang_learn'].includes(value)
         const newList = [...signupForm[field as 'lang_teach' | 'lang_learn']]
-        if (isChecked) {
+        if (!isChecked) {
             newList.push(value)
-            setSignupForm(prev => {return {...prev, [field]: newList}})
         } else {
             const index = newList.indexOf(value);
             newList.splice(index, 1);
         }
+        setSignupForm(prev => {return {...prev, [field]: newList}})
     }
 
-    function handleFileUpload(event: React.ChangeEvent) {
-        console.log(event)
+    function handleFilePreview(event: React.ChangeEvent<HTMLInputElement>) {
+        const reader = new FileReader();
+        reader.onload = function(){
+          setPfpPreview(reader.result)
+        }
+        const file = event.target.files?.[0]
+        if (file) reader.readAsDataURL(file);
     }
 
-    async function handleSubmit() {
-        
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        signupForm.lang_teach.forEach((lang) => formData.append('lang_teach[]', lang));
+        signupForm.lang_learn.forEach((lang) => formData.append('lang_learn[]', lang));
+        try {
+            await authService.signup(formData)
+            navigate("/login");
+        } catch (error) {
+            alert(error)
+        }
     }
 
     return (
@@ -111,9 +139,9 @@ function SignupPage() {
                 <div className="form-group mb-3">
                     <label htmlFor="profile-pic" className="form-label">Profile Picture</label>
                     <div className="mb-3 mx-auto circle-crop">
-                        <img src="preview || '/images/Profile-PNG-File.png'" className="img-fluid" style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
+                        <img src={pfpPreview as string} className="img-fluid" style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
                     </div>
-                    <input className="form-control" type="file" name="profilePic" onChange={(event) => handleFileUpload(event)}/>
+                    <input className="form-control" type="file" name="profilePic" onChange={(event) => handleFilePreview(event)}/>
                 </div>
                 
                 <div className="row mb-3">
@@ -123,7 +151,7 @@ function SignupPage() {
                             <LanguageCheckbox key={lang} code={lang} type='teach' 
                                 checked={signupForm.lang_teach?.includes(lang)}
                                 disabled={signupForm.lang_learn?.includes(lang)} 
-                                onChange={(event) => handleCheckbox(event, 'teach')} 
+                                onChange={(event) => handleCheckbox(event, 'lang_teach')} 
                             />
                         ))}
                     </div>
@@ -134,7 +162,7 @@ function SignupPage() {
                             <LanguageCheckbox key={lang} code={lang} type='learn' 
                                 checked={signupForm.lang_learn?.includes(lang)}
                                 disabled={signupForm.lang_teach?.includes(lang)} 
-                                onChange={(event) => handleCheckbox(event, 'learn')} 
+                                onChange={(event) => handleCheckbox(event, 'lang_learn')} 
                             />
                         ))}
                     </div>

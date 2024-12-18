@@ -18,6 +18,7 @@ export interface User {
     gender: string
     lang_teach: string[]
     lang_learn: string[]
+    stripeAccountId: string
     ratingAvg?: number
     decks: Deck[]
     offers: Offer[]
@@ -94,10 +95,23 @@ export interface country {
     }
 }
 
-export interface profileForm {
+export interface signupForm {
     username: string
     email: string
     password: string
+    profilePic: string
+    birthdate: string
+    country: string
+    gender: string
+    lang_teach: string[]
+    lang_learn: string[]
+    professional: boolean
+    private: boolean
+}
+
+export interface editProfileForm {
+    username: string
+    email: string
     profilePic: string
     birthdate: string
     country: string
