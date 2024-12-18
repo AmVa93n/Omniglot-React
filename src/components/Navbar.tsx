@@ -85,7 +85,7 @@ function Navbar() {
                             </div>
                         </button>
 
-                        <Notifications notifications={notifications} />
+                        <Notifications notifications={notifications} setNotifications={setNotifications} />
                     </div>
                     
                     <div className="dropdown-center dropDownWrapper">

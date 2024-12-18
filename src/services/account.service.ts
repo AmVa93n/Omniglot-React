@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { rescheduleForm } from "../types";
 
 class AccountService {
   api: AxiosInstance
@@ -42,27 +43,27 @@ class AccountService {
   }
 
   async getClass(classId: string) {
-    const response: AxiosResponse = await this.api.get(`/account/class/${classId}`);
+    const response: AxiosResponse = await this.api.get(`/account/classes/${classId}`);
     return response.data;
   }
 
   async cancelClass(classId: string) {
-    const response: AxiosResponse = await this.api.delete(`/account/class/${classId}`);
+    const response: AxiosResponse = await this.api.delete(`/account/classes/${classId}`);
     return response.data;
   }
 
-  async rescheduleClass(classId: string) {
-    const response: AxiosResponse = await this.api.put(`/account/class/${classId}/reschedule`);
+  async rescheduleClass(classId: string, requestBody: rescheduleForm) {
+    const response: AxiosResponse = await this.api.put(`/account/classes/${classId}/reschedule`, requestBody);
     return response.data;
   }
 
   async acceptReschedule(classId: string) {
-    const response: AxiosResponse = await this.api.put(`/account/class/${classId}/reschedule/accept`);
+    const response: AxiosResponse = await this.api.put(`/account/classes/${classId}/reschedule/accept`);
     return response.data;
   }
 
   async declineReschedule(classId: string) {
-    const response: AxiosResponse = await this.api.put(`/account/class/${classId}/reschedule/decline`);
+    const response: AxiosResponse = await this.api.put(`/account/classes/${classId}/reschedule/decline`);
     return response.data;
   }
 

@@ -61,15 +61,17 @@ export interface Class {
     timeslot: string
     teacher: User
     student: User
-    reschedule: {
-        status: string
-        new_date: string
-        new_timeslot: string
-        initiator: User | string
-    }
+    reschedule: rescheduleRequest
     isRated: boolean
     isPast: boolean
     endTime: string
+}
+
+export interface rescheduleRequest {
+    status: string
+    new_date: string
+    new_timeslot: string
+    initiator: User | string
 }
 
 export interface Review {
@@ -92,7 +94,7 @@ export interface country {
     }
 }
 
-export interface form {
+export interface profileForm {
     username: string
     email: string
     password: string
@@ -107,15 +109,9 @@ export interface form {
 }
 
 export interface calendarEvent {
-    title: string,
-    id: string,
-    start: string,
-    end: string,
+    title: string
+    id: string
+    start: string
+    end: string
     display: string
-}
-
-export interface reschedule {
-    isOpen: boolean,
-    date: string | undefined,
-    timeslot: string | undefined
 }

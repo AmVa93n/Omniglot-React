@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer"
 import IsPrivate from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
+import { ClassProvider } from './context/class.context';
 
 function App() {
   return (
@@ -32,13 +33,17 @@ function App() {
 
         <Route path="/account/classes" element={
             <IsPrivate>
-              <ClassesPage />
+              <ClassProvider>
+                <ClassesPage />
+              </ClassProvider>
             </IsPrivate>
           }/>
 
         <Route path="/account/calendar" element={
             <IsPrivate>
-              <CalendarPage />
+              <ClassProvider>
+                <CalendarPage />
+              </ClassProvider>
             </IsPrivate>
           }/>
 

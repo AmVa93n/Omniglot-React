@@ -4,14 +4,14 @@ import { User } from '../types'
 import Language from "../components/Language"
 import { languages, formatDate, getCountries } from "../utils"
 import '../styles/ProfilePage.css'
-import { country, form } from "../types"
+import { country, profileForm } from "../types"
 import LanguageCheckbox from "../components/LanguageCheckbox"
 
 function ProfilePage() {
     const [user, setUser] = useState({} as User)
     const [editedFields, setEditedFields] = useState([] as string[])
     const [countries, setCountries] = useState([] as country[])
-    const [editForm, setEditForm] = useState({} as form)
+    const [editForm, setEditForm] = useState({} as profileForm)
 
     useEffect(() => {
         async function fetchUser() {
@@ -55,15 +55,16 @@ function ProfilePage() {
         })
     }
 
-    function handleCheckbox(list: string, language: string) {
-        const key = 'lang_' + list
-        const isChecked = editForm[key].includes(language)
-        const newList = [...editForm[key]]
+    function handleCheckbox(event: React.ChangeEvent, list: string) {
+        const value = (event.target as HTMLInputElement).value
+        const field = 'lang_' + list
+        const isChecked = editForm[field as 'lang_teach' | 'lang_learn'].includes(value)
+        const newList = [...editForm[field as 'lang_teach' | 'lang_learn']]
         if (isChecked) {
-            newList.push(language)
-            setEditForm(prev => {return {...prev, ['lang_' + list]: newList}})
+            newList.push(value)
+            setEditForm(prev => {return {...prev, [field]: newList}})
         } else {
-            const index = newList.indexOf(language);
+            const index = newList.indexOf(value);
             newList.splice(index, 1);
         }
     }
@@ -201,7 +202,7 @@ function ProfilePage() {
                             <LanguageCheckbox key={lang} code={lang} type='teach' 
                                 checked={editForm.lang_teach?.includes(lang)}
                                 disabled={editForm.lang_learn?.includes(lang)} 
-                                onChange={() => handleCheckbox('teach', lang)} 
+                                onChange={(event) => handleCheckbox(event, 'teach')} 
                             />
                         ))}
                     </>}
@@ -225,7 +226,7 @@ function ProfilePage() {
                             <LanguageCheckbox key={lang} code={lang} type='learn'
                                 checked={editForm.lang_learn?.includes(lang)}
                                 disabled={editForm.lang_teach?.includes(lang)} 
-                                onChange={() => handleCheckbox('learn', lang)} 
+                                onChange={(event) => handleCheckbox(event, 'learn')} 
                             />
                         ))}
                     </>}

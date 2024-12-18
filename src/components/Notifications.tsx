@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import appService from "../services/app.service";
 import { Notification } from '../types';
 
-function Notifications({ notifications }: {notifications: Notification[]}) {
+function Notifications({ notifications, setNotifications }: 
+    {notifications: Notification[], setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>}) {
     const navigate = useNavigate()
 
     function getNotificationMessage(type: string) {
@@ -56,8 +57,7 @@ function Notifications({ notifications }: {notifications: Notification[]}) {
             await appService.deleteNotification(notifId)
             const notifToDelete = notifications.find(n => n._id === notifId)
             if (notifToDelete) {
-                const index = notifications.indexOf(notifToDelete)
-                notifications.splice(index, 1)
+                setNotifications(prev => prev.filter(n => n._id !== notifId))
             }
         } catch (error) {
             console.log(error)
@@ -91,7 +91,7 @@ function Notifications({ notifications }: {notifications: Notification[]}) {
                                 <img src={ notif.source.profilePic || '/images/Profile-PNG-File.png'}/>
                             </div>
                             <span><span className="fw-bold">{notif.source.username}</span>
-                                {getNotificationMessage(notif.type)}
+                                {` ${getNotificationMessage(notif.type)}`}
                             </span>
                         </div>
                         <small style={{width: 'fit-content'}} className="d-block ms-auto">{notif.timeDiff}</small>

@@ -1,28 +1,24 @@
-import { useState, useEffect } from 'react'
-import { Class, reschedule } from '../types'
+import { useState, useEffect, useContext } from 'react'
+import { Class } from '../types'
 import accountService from '../services/account.service'
 import ClassBox from '../components/ClassBox'
 import RescheduleModal from '../components/RescheduleModal'
+import { ClassContext } from '../context/class.context'
+import { flipDayAndYear } from '../utils'
 
 function ClassesPage() {
-    const [classes, setClasses] = useState({} as classes)
-    const [selectedClass, setSelectedClass] = useState({} as Class)
-    const [reschedule, setReschedule] = useState<reschedule>({
-            isOpen: false,
-            date: undefined,
-            timeslot: undefined
-    })
-
-    interface classes {
-        upcomingClasses:  Class[]
-        pastClasses: Class[]
-    }
+    const [upcomingClasses, setUpcomingClasses] = useState([] as Class[])
+    const [pastClasses, setPastClasses] = useState([] as Class[])
+    const { managedClass, setManagedClass } = useContext(ClassContext)
+    const [newDate, setNewDate] = useState('')
+    const [newTimeslot, setNewTimeslot] = useState('')
 
     useEffect(()=> {
         async function fetchClasses() {
             try {
-                const data: classes = await accountService.getClasses()
-                setClasses(data)
+                const {upcomingClasses, pastClasses} = await accountService.getClasses()
+                setUpcomingClasses(upcomingClasses)
+                setPastClasses(pastClasses)
             } catch (error) {
                 console.log(error)
             }
@@ -31,12 +27,34 @@ function ClassesPage() {
         fetchClasses()
     }, [])
 
+    useEffect(()=> {
+        // update the upcoming classes array whenever a class is modified
+        if (managedClass) setUpcomingClasses(prev => prev.map(c => c._id === managedClass._id ? managedClass : c))
+    }, [managedClass])
+
     function handleReschedule(cls: Class) {
-        setSelectedClass(cls)
-        setReschedule({
-            isOpen: true,
-            date: cls?.date,
-            timeslot: cls?.timeslot
+        setManagedClass(cls)
+        setNewDate(flipDayAndYear(new Date(cls?.date)))
+        setNewTimeslot(cls?.timeslot)
+    }
+
+    async function handleCancel(cls: Class) {
+        try {
+            await accountService.cancelClass(cls._id)
+            setUpcomingClasses(prev => prev.filter(c => c._id !== cls._id))
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    async function handleSend(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        if (!managedClass) return
+        const requestBody = {date: newDate, timeslot: newTimeslot}
+        const reschData = await accountService.rescheduleClass(managedClass._id, requestBody)
+        setManagedClass(prev => {
+            if (!prev) return prev; // Narrowing for safety
+            return {...prev, reschedule: reschData}
         })
     }
 
@@ -49,8 +67,8 @@ function ClassesPage() {
             </div>
 
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
-                {classes.upcomingClasses?.map(cls => (
-                    <ClassBox key={cls._id} cls={cls} type='future' onClick={handleReschedule}/>
+                {upcomingClasses?.map(cls => (
+                    <ClassBox key={cls._id} cls={cls} type='future' handleReschedule={handleReschedule} handleCancel={handleCancel}/>
                 ))}
             </div>
 
@@ -60,13 +78,12 @@ function ClassesPage() {
 
 
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
-                {classes.pastClasses?.map(cls => (
-                        <ClassBox key={cls._id} cls={cls} type='past' onClick={handleReschedule}/>
+                {pastClasses?.map(cls => (
+                        <ClassBox key={cls._id} cls={cls} type='past' handleReschedule={handleReschedule} handleCancel={handleCancel}/>
                 ))}
             </div>
 
-            {reschedule.isOpen &&
-            <RescheduleModal classId={selectedClass._id} reschedule={reschedule} setReschedule={setReschedule} />}
+            <RescheduleModal newDate={newDate} newTimeslot={newTimeslot} setNewTimeslot={setNewTimeslot} handleSend={handleSend} />
         </>
     )
 }

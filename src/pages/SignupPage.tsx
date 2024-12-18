@@ -1,11 +1,11 @@
 import LanguageCheckbox from "../components/LanguageCheckbox"
-import { country, form } from "../types"
+import { country, profileForm } from "../types"
 import { languages, getCountries } from "../utils"
 import { useState, useEffect } from "react"
 //import authService from "../services/auth.service" 
 
 function SignupPage() {
-    const [signupForm, setSignupForm] = useState({} as form)
+    const [signupForm, setSignupForm] = useState({} as profileForm)
     const [countries, setCountries] = useState([] as country[])
 
     useEffect(() => {
@@ -25,15 +25,16 @@ function SignupPage() {
         })
     }
 
-    function handleCheckbox(list: string, language: string) {
-        const key = 'lang_' + list
-        const isChecked = signupForm[key].includes(language)
-        const newList = [...signupForm[key]]
+    function handleCheckbox(event: React.ChangeEvent, list: string) {
+        const value = (event.target as HTMLInputElement).value
+        const field = 'lang_' + list
+        const isChecked = signupForm[field as 'lang_teach' | 'lang_learn'].includes(value)
+        const newList = [...signupForm[field as 'lang_teach' | 'lang_learn']]
         if (isChecked) {
-            newList.push(language)
-            setSignupForm(prev => {return {...prev, ['lang_' + list]: newList}})
+            newList.push(value)
+            setSignupForm(prev => {return {...prev, [field]: newList}})
         } else {
-            const index = newList.indexOf(language);
+            const index = newList.indexOf(value);
             newList.splice(index, 1);
         }
     }
@@ -122,7 +123,7 @@ function SignupPage() {
                             <LanguageCheckbox key={lang} code={lang} type='teach' 
                                 checked={signupForm.lang_teach?.includes(lang)}
                                 disabled={signupForm.lang_learn?.includes(lang)} 
-                                onChange={() => handleCheckbox('teach', lang)} 
+                                onChange={(event) => handleCheckbox(event, 'teach')} 
                             />
                         ))}
                     </div>
@@ -133,7 +134,7 @@ function SignupPage() {
                             <LanguageCheckbox key={lang} code={lang} type='learn' 
                                 checked={signupForm.lang_learn?.includes(lang)}
                                 disabled={signupForm.lang_teach?.includes(lang)} 
-                                onChange={() => handleCheckbox('learn', lang)} 
+                                onChange={(event) => handleCheckbox(event, 'learn')} 
                             />
                         ))}
                     </div>

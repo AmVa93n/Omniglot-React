@@ -1,7 +1,7 @@
 import { getLanguageName } from '../utils'
 
 function LanguageCheckbox({ code, type, checked, disabled, onChange }: 
-    {code: string, type: 'teach' | 'learn', checked: boolean, disabled: boolean, onChange: ()=> void}) {
+    {code: string, type: 'teach' | 'learn', checked: boolean, disabled: boolean, onChange: (event: React.ChangeEvent)=> void}) {
 
     return (
         <div key={code} className="form-check">
