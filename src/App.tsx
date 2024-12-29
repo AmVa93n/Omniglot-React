@@ -13,6 +13,7 @@ import Footer from "./components/Footer"
 import IsPrivate from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
 import { ClassProvider } from './context/class.context';
+import OffersPage from './pages/OffersPage';
 
 function App() {
   return (
@@ -44,6 +45,12 @@ function App() {
               <ClassProvider>
                 <CalendarPage />
               </ClassProvider>
+            </IsPrivate>
+          }/>
+
+        <Route path="/account/offers" element={
+            <IsPrivate>
+              <OffersPage />
             </IsPrivate>
           }/>
 

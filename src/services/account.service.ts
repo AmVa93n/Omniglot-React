@@ -70,6 +70,26 @@ class AccountService {
     const response: AxiosResponse = await this.api.get('/account/calendar');
     return response.data;
   }
+
+  async getOffers() {
+    const response: AxiosResponse = await this.api.get('/account/offers');
+    return response.data;
+  }
+
+  async createOffer(requestBody: object) {
+    const response: AxiosResponse = await this.api.post('/account/offer', requestBody);
+    return response.data;
+  }
+
+  async updateOffer(offerId: string) {
+    const response: AxiosResponse = await this.api.put(`/account/offer/${offerId}`);
+    return response.data;
+  }
+
+  async deleteOffer(offerId: string) {
+    const response: AxiosResponse = await this.api.delete(`/account/offer/${offerId}`);
+    return response.data;
+  }
 }
 
 // Create one instance (object) of the service

@@ -5,8 +5,14 @@ import Snippet from './Snippet'
 import { formatDate } from '../utils'
 import PendingRequest from './PendingRequest'
 
-function ClassBox({ cls, type, handleReschedule, handleCancel }: 
-    {cls: Class, type: 'past' | 'future', handleReschedule: (cls: Class)=> void, handleCancel: (cls: Class)=> void}) {
+interface Props {
+    cls: Class
+    type: 'past' | 'future'
+    handleReschedule: (cls: Class) => void
+    handleCancel: (cls: Class) => void
+}
+
+function ClassBox({ cls, type, handleReschedule, handleCancel }: Props) {
 
     return (
         <div className="card offer-card text-left mx-3 mb-4">

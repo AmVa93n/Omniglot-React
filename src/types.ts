@@ -38,6 +38,7 @@ export interface Card {
 }
 
 export interface Offer {
+    _id: string
     name: string
     locationType: string
     classType: string
@@ -46,6 +47,8 @@ export interface Offer {
     price: number
     language: string
     level: string
+    weekdays: string[]
+    timeslots: string[]
 }
 
 export interface Class {
