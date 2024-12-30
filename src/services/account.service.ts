@@ -90,6 +90,26 @@ class AccountService {
     const response: AxiosResponse = await this.api.delete(`/account/offers/${offerId}`);
     return response.data;
   }
+
+  async getDecks() {
+    const response: AxiosResponse = await this.api.get('/account/decks');
+    return response.data;
+  }
+
+  async createDeck(requestBody: object) {
+    const response: AxiosResponse = await this.api.post('/account/decks', requestBody);
+    return response.data;
+  }
+
+  async updateDeck(deckId: string, requestBody: object) {
+    const response: AxiosResponse = await this.api.put(`/account/decks/${deckId}`, requestBody);
+    return response.data;
+  }
+
+  async deleteDeck(deckId: string) {
+    const response: AxiosResponse = await this.api.delete(`/account/decks/${deckId}`);
+    return response.data;
+  }
 }
 
 // Create one instance (object) of the service

@@ -27,14 +27,17 @@ export interface User {
 }
 
 export interface Deck {
+    _id: string
     topic: string
     language: string
     level: string
     cards: Card[]
+    mastered: Card[]
 }
 
 export interface Card {
-
+    front: string
+    back: string
 }
 
 export interface Offer {
@@ -138,6 +141,13 @@ export interface offerForm {
     level: string
     weekdays: string[]
     timeslots: string[]
+}
+
+export interface deckForm {
+    topic: string
+    language: string
+    level: string
+    cards: Card[]
 }
 
 export interface calendarEvent {

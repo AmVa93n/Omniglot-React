@@ -14,6 +14,7 @@ import IsPrivate from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
 import { ClassProvider } from './context/class.context';
 import OffersPage from './pages/OffersPage';
+import DecksPage from './pages/DecksPage';
 
 function App() {
   return (
@@ -51,6 +52,12 @@ function App() {
         <Route path="/account/offers" element={
             <IsPrivate>
               <OffersPage />
+            </IsPrivate>
+          }/>
+
+        <Route path="/account/decks" element={
+            <IsPrivate>
+              <DecksPage />
             </IsPrivate>
           }/>
 
