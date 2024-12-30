@@ -155,6 +155,12 @@ function createDatePicker() {
   });
 }
 
+function getMsgTime(timestamp: string) {
+  const date = new Date(timestamp); // Parse the timestamp into a Date object
+  const index = date.toLocaleTimeString()[0] == "0" ? 4 : 5 // 0 is not 00, so need to slice 1 character earlier
+  return date.toLocaleTimeString().slice(0, index)
+}
+
 export {
   getLanguageName,
   langList,
@@ -167,7 +173,8 @@ export {
   languages,
   getCountries,
   timeslots,
-  createDatePicker
+  createDatePicker,
+  getMsgTime
 }
 
 /*
@@ -175,12 +182,6 @@ function getLanguageCode(langName: string) {
     for (let code in langList) {
       if (langList[code] == langName) return code;
     }
-}
-  
-function getMsgTime(timestamp: string) {
-    const date = new Date(timestamp); // Parse the timestamp into a Date object
-    const index = date.toLocaleTimeString()[0] == "0" ? 4 : 5 // 0 is not 00, so need to slice 1 character earlier
-    return date.toLocaleTimeString().slice(0, index)
 }
   
 function getMsgDate(timestamp: string) {

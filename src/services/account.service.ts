@@ -120,6 +120,11 @@ class AccountService {
     const response: AxiosResponse = await this.api.get('/account/wallet');
     return response.data;
   }
+
+  async getChats() {
+    const response: AxiosResponse = await this.api.get('/account/inbox');
+    return response.data;
+  }
 }
 
 // Create one instance (object) of the service

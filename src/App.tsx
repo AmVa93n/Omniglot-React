@@ -17,6 +17,7 @@ import OffersPage from './pages/OffersPage';
 import DecksPage from './pages/DecksPage';
 import ReviewsPage from './pages/ReviewsPage';
 import WalletPage from './pages/WalletPage';
+import InboxPage from './pages/InboxPage';
 
 function App() {
   return (
@@ -54,6 +55,12 @@ function App() {
         <Route path="/account/offers" element={
             <IsPrivate>
               <OffersPage />
+            </IsPrivate>
+          }/>
+
+        <Route path="/account/inbox" element={
+            <IsPrivate>
+              <InboxPage />
             </IsPrivate>
           }/>
 

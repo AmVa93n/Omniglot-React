@@ -97,6 +97,20 @@ export interface Review {
     rating: number
 }
 
+export interface Chat {
+    _id: string
+    participants: User[]
+    messages: Message[]
+}
+
+export interface Message {
+    _id: string
+    sender: string
+    recepient: string
+    message: string
+    timestamp: string
+}
+
 export interface country {
     name: {
         common: string
