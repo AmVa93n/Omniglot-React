@@ -2,8 +2,13 @@ import { Review } from '../types'
 import Language from './Language'
 import { formatDate } from '../utils'
 import Snippet from './Snippet';
+import { Link } from 'react-router-dom';
 
-function ReviewBox({ review }: {review: Review}) {
+interface Props {
+    review: Review
+}
+
+function ReviewBox({ review }: Props) {
 
     function drawStars(stars: number) {
         return Array.from({ length: stars }, (_, i) => (
@@ -15,14 +20,15 @@ function ReviewBox({ review }: {review: Review}) {
         <div className="card review-card text-left mx-3 mb-4">
             <div className="card-body">
                 <div className="row mb-2">
-                    <a href="/users/{{review.author._id}}" className="link-text col">
-                    <div className="d-flex align-items-center">
-                        <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
-                            <img src={review.author.profilePic || '/images/Profile-PNG-File.png'}/>
+                    <Link to={"/users/" + review.author._id} className="link-text col">
+                        <div className="d-flex align-items-center">
+                            <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
+                                <img src={review.author.profilePic || '/images/Profile-PNG-File.png'}/>
+                            </div>
+                            <span className="fs-5">{review.author.username}</span>
+                            
                         </div>
-                        <span className="fs-5">{review.author.username}</span>
-                        
-                    </div></a>
+                    </Link>
                     <div className="col-auto">
                     <div className="card-text ms-auto rating fs-5" style={{width: 'fit-content', color: '#ffca08'}}>
                         {drawStars(review.rating)}

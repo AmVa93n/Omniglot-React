@@ -83,6 +83,7 @@ export interface rescheduleRequest {
 }
 
 export interface Review {
+    _id: string
     name: string
     locationType: string
     classType: string
@@ -100,6 +101,13 @@ export interface country {
     name: {
         common: string
     }
+}
+
+export interface transaction {
+    date: string
+    amount: number
+    currency: string
+    balance: number
 }
 
 export interface signupForm {

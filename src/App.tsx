@@ -15,6 +15,8 @@ import IsAnon from "./components/auth/IsAnon";
 import { ClassProvider } from './context/class.context';
 import OffersPage from './pages/OffersPage';
 import DecksPage from './pages/DecksPage';
+import ReviewsPage from './pages/ReviewsPage';
+import WalletPage from './pages/WalletPage';
 
 function App() {
   return (
@@ -58,6 +60,18 @@ function App() {
         <Route path="/account/decks" element={
             <IsPrivate>
               <DecksPage />
+            </IsPrivate>
+          }/>
+
+        <Route path="/account/reviews" element={
+            <IsPrivate>
+              <ReviewsPage />
+            </IsPrivate>
+          }/>
+
+        <Route path="/account/wallet" element={
+            <IsPrivate>
+              <WalletPage />
             </IsPrivate>
           }/>
 

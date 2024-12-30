@@ -110,6 +110,16 @@ class AccountService {
     const response: AxiosResponse = await this.api.delete(`/account/decks/${deckId}`);
     return response.data;
   }
+
+  async getReviews() {
+    const response: AxiosResponse = await this.api.get('/account/reviews');
+    return response.data;
+  }
+
+  async getWallet() {
+    const response: AxiosResponse = await this.api.get('/account/wallet');
+    return response.data;
+  }
 }
 
 // Create one instance (object) of the service

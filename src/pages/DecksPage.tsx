@@ -11,7 +11,7 @@ function DecksPage() {
     const [editedDeck, setEditedDeck] = useState<Deck | null>(null)
 
     useEffect(()=> {
-        async function fetchOffers() {
+        async function fetchDecks() {
             try {
                 const decks = await accountService.getDecks()
                 setDecks(decks)
@@ -20,7 +20,7 @@ function DecksPage() {
             }
         }
 
-        fetchOffers()
+        fetchDecks()
     }, [])
 
     async function handleDelete(deckId: string) {
