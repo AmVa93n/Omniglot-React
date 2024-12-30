@@ -41,6 +41,7 @@ export interface Offer {
     _id: string
     name: string
     locationType: string
+    location: string
     classType: string
     maxGroupSize: number
     duration: number
@@ -123,6 +124,20 @@ export interface editProfileForm {
     lang_learn: string[]
     professional: boolean
     private: boolean
+}
+
+export interface offerForm {
+    name: string
+    locationType: string
+    location: string
+    classType: string
+    maxGroupSize: number
+    duration: number
+    price: number
+    language: string
+    level: string
+    weekdays: string[]
+    timeslots: string[]
 }
 
 export interface calendarEvent {

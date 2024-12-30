@@ -6,9 +6,11 @@ interface Props {
     offer: Offer
     isOwn: boolean
     handleDelete: (offerId: string) => void
+    isEdited?: boolean
+    handleEdit?: () => void
 }
 
-function OfferBox({ offer, isOwn, handleDelete }: Props) {
+function OfferBox({ offer, isOwn, handleDelete, isEdited, handleEdit }: Props) {
     return (
         <div className="card offer-card text-left mx-3 mb-4">
             <h5 className="card-header center">{offer.name}</h5>
@@ -17,15 +19,16 @@ function OfferBox({ offer, isOwn, handleDelete }: Props) {
                     <span className="card-text col"> 
                         <Language code={offer.language} />
                     </span>
-                    <span className="card-text col addedIconWrapper">
+                    <span className="card-text col">
                         <Snippet data={offer.level} />
                     </span>
                 </div>
                 
                 <div className="row mb-2">
-                    <span className="card-text col addedIconWrapper">
+                    <span className="card-text col">
                         <Snippet data={offer.locationType} />
                     </span>
+                    {(offer.location && isOwn) && <span> ({offer.location})</span>}
                 </div>
         
                 <div className="row mb-2">
@@ -58,8 +61,10 @@ function OfferBox({ offer, isOwn, handleDelete }: Props) {
 
                 {isOwn && 
                 <div className="d-flex justify-content-center">
-                    <a href="/account/offers/{{this._id}}/edit" className="btn btn-sm btn-secondary mx-1"><i className="bi bi-pencil-square me-2"></i>Edit</a>
-                    <button className="btn btn-sm btn-danger mx-1" onClick={() => handleDelete(offer._id)}>
+                    <button className="btn btn-sm btn-secondary mx-1" onClick={handleEdit} disabled={isEdited}>
+                        <i className="bi bi-pencil-square me-2"></i>Edit
+                    </button>
+                    <button className="btn btn-sm btn-danger mx-1" onClick={() => handleDelete(offer._id)} disabled={isEdited}>
                         <i className="bi bi-trash3-fill me-2"></i>Delete
                     </button>
                 </div>}

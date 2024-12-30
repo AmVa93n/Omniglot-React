@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import accountService from '../services/account.service';
 import OfferBox from '../components/OfferBox';
 import { Offer } from '../types';
+import NewOfferForm from '../components/NewOfferForm';
+import EditOfferForm from '../components/EditOfferForm';
 
 function OffersPage() {
     const [offers, setOffers] = useState<Offer[]>([])
+    const [isCreating, setIsCreating] = useState(false)
+    const [editedOffer, setEditedOffer] = useState<Offer | null>(null)
     
     useEffect(()=> {
         async function fetchOffers() {
@@ -33,13 +37,26 @@ function OffersPage() {
             <h3 className="center my-3">My Offers</h3>
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {offers.map(offer => (
-                    <OfferBox offer={offer} isOwn={true} handleDelete={handleDelete} />
+                    <OfferBox 
+                        key={offer._id} 
+                        offer={offer} 
+                        isOwn={true} 
+                        handleDelete={handleDelete} 
+                        isEdited={editedOffer?._id === offer._id}
+                        handleEdit={() => setEditedOffer(offer)}
+                    />
                 ))}
             </div>
 
             <div className="d-flex justify-content-center mt-3">
-                <a href="/account/offers/new">
-                <button className="btn btn-primary mx-auto"><i className="bi bi-clipboard2-plus-fill me-2"></i>Create Offer</button></a>
+                {editedOffer ? 
+                    <EditOfferForm offer={editedOffer} setEditedOffer={setEditedOffer} setOffers={setOffers} />
+                : isCreating ? 
+                    <NewOfferForm setOffers={setOffers} setIsCreating={setIsCreating} />
+                :
+                    <button className="btn btn-primary mx-auto" onClick={() => setIsCreating(true)}>
+                        <i className="bi bi-clipboard2-plus-fill me-2"></i>Create Offer
+                    </button>}
             </div>
         </>
     );

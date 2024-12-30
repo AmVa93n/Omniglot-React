@@ -77,17 +77,17 @@ class AccountService {
   }
 
   async createOffer(requestBody: object) {
-    const response: AxiosResponse = await this.api.post('/account/offer', requestBody);
+    const response: AxiosResponse = await this.api.post('/account/offers', requestBody);
     return response.data;
   }
 
-  async updateOffer(offerId: string) {
-    const response: AxiosResponse = await this.api.put(`/account/offer/${offerId}`);
+  async updateOffer(offerId: string, requestBody: object) {
+    const response: AxiosResponse = await this.api.put(`/account/offers/${offerId}`, requestBody);
     return response.data;
   }
 
   async deleteOffer(offerId: string) {
-    const response: AxiosResponse = await this.api.delete(`/account/offer/${offerId}`);
+    const response: AxiosResponse = await this.api.delete(`/account/offers/${offerId}`);
     return response.data;
   }
 }
