@@ -60,6 +60,11 @@ class AppService {
     const response: AxiosResponse = await this.api.get(`/api/users/${userId}`);
     return response.data;
   }
+
+  async getOffer(offerId: string) {
+    const response: AxiosResponse = await this.api.get(`/checkout/offers/${offerId}`);
+    return response.data;
+  }
 }
 
 // Create one instance (object) of the service

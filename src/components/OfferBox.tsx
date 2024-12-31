@@ -1,6 +1,7 @@
 import { Offer } from '../types'
 import Language from './Language'
 import Snippet from './Snippet'
+import { Link } from 'react-router-dom'
 
 interface Props {
     offer: Offer
@@ -56,7 +57,7 @@ function OfferBox({ offer, isOwn, handleDelete, isEdited, handleEdit }: Props) {
         
                 {!isOwn && 
                 <div className="d-flex justify-content-center mt-3">
-                    <a href="/offers/{{offer._id}}/book" className="btn btn-warning"><i className="bi bi-calendar2-check-fill me-2"></i>Book</a>
+                    <Link to={`/offers/${offer._id}/book`} className="btn btn-warning"><i className="bi bi-calendar2-check-fill me-2"></i>Book</Link>
                 </div>}
 
                 {isOwn && 

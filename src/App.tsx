@@ -18,6 +18,7 @@ import DecksPage from './pages/DecksPage';
 import ReviewsPage from './pages/ReviewsPage';
 import WalletPage from './pages/WalletPage';
 import InboxPage from './pages/InboxPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   return (
@@ -79,6 +80,12 @@ function App() {
         <Route path="/account/wallet" element={
             <IsPrivate>
               <WalletPage />
+            </IsPrivate>
+          }/>
+
+        <Route path="/offers/:offerId/book" element={
+            <IsPrivate>
+              <CheckoutPage />
             </IsPrivate>
           }/>
 
