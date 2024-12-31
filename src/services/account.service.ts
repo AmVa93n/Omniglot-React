@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { Card } from "../types";
 
 class AccountService {
   api: AxiosInstance
@@ -26,7 +27,7 @@ class AccountService {
     return response.data;
   }
 
-  async updateProfile(requestBody: object) {
+  async updateProfile(requestBody: FormData) {
     const response: AxiosResponse = await this.api.put('/account/profile', requestBody);
     return response.data;
   }
@@ -66,6 +67,11 @@ class AccountService {
     return response.data;
   }
 
+  async createReview(classId: string, requestBody: FormData) {
+    const response: AxiosResponse = await this.api.post(`/account/reviews/${classId}`, requestBody);
+    return response.data;
+  }
+
   async getCalendar() {
     const response: AxiosResponse = await this.api.get('/account/calendar');
     return response.data;
@@ -76,12 +82,12 @@ class AccountService {
     return response.data;
   }
 
-  async createOffer(requestBody: object) {
+  async createOffer(requestBody: FormData) {
     const response: AxiosResponse = await this.api.post('/account/offers', requestBody);
     return response.data;
   }
 
-  async updateOffer(offerId: string, requestBody: object) {
+  async updateOffer(offerId: string, requestBody: FormData) {
     const response: AxiosResponse = await this.api.put(`/account/offers/${offerId}`, requestBody);
     return response.data;
   }
@@ -96,18 +102,28 @@ class AccountService {
     return response.data;
   }
 
-  async createDeck(requestBody: object) {
+  async createDeck(requestBody: FormData) {
     const response: AxiosResponse = await this.api.post('/account/decks', requestBody);
     return response.data;
   }
 
-  async updateDeck(deckId: string, requestBody: object) {
+  async updateDeck(deckId: string, requestBody: FormData) {
     const response: AxiosResponse = await this.api.put(`/account/decks/${deckId}`, requestBody);
     return response.data;
   }
 
   async deleteDeck(deckId: string) {
     const response: AxiosResponse = await this.api.delete(`/account/decks/${deckId}`);
+    return response.data;
+  }
+
+  async updateCards(deckId: string, requestBody: Card[]) {
+    const response: AxiosResponse = await this.api.put(`/account/decks/${deckId}/cards`, requestBody);
+    return response.data;
+  }
+
+  async cloneDeck(deckId: string) {
+    const response: AxiosResponse = await this.api.post(`/account/decks/${deckId}/clone`);
     return response.data;
   }
 

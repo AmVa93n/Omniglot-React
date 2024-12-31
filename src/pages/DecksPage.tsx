@@ -4,11 +4,13 @@ import DeckBox from "../components/DeckBox";
 import accountService from "../services/account.service";
 import NewDeckForm from "../components/NewDeckForm";
 import EditDeckForm from "../components/EditDeckForm";
+import FlashcardGame from "../components/FlashcardGame";
 
 function DecksPage() {
     const [decks, setDecks] = useState<Deck[]>([]);
     const [isCreating, setIsCreating] = useState(false)
     const [editedDeck, setEditedDeck] = useState<Deck | null>(null)
+    const [playedDeck, setPlayedDeck] = useState<Deck | null>(null)
 
     useEffect(()=> {
         async function fetchDecks() {
@@ -42,21 +44,24 @@ function DecksPage() {
                         deck={deck} 
                         isOwn={true} 
                         handleDelete={handleDelete} 
-                        isEdited={editedDeck?._id === deck._id}
                         handleEdit={() => setEditedDeck(deck)}
+                        handlePlay={() => setPlayedDeck(deck)}
+                        disabled={playedDeck !== null || editedDeck !== null}
                     />
                 ))}
             </div>
 
             <div className="d-flex justify-content-center mt-3">
-                {editedDeck ? 
-                        <EditDeckForm deck={editedDeck} setEditedDeck={setEditedDeck} setDecks={setDecks} />
-                    : isCreating ? 
-                        <NewDeckForm setDecks={setDecks} setIsCreating={setIsCreating} />
-                    :
-                        <button className="btn btn-primary mx-auto" onClick={() => setIsCreating(true)}>
-                            <i className="bi bi-folder-plus me-2"></i>Create Deck
-                        </button>}
+                {playedDeck ?
+                    <FlashcardGame deck={playedDeck} setPlayedDeck={setPlayedDeck} setDecks={setDecks} />
+                : editedDeck ? 
+                    <EditDeckForm deck={editedDeck} setEditedDeck={setEditedDeck} setDecks={setDecks} />
+                : isCreating ? 
+                    <NewDeckForm setDecks={setDecks} setIsCreating={setIsCreating} />
+                :
+                    <button className="btn btn-primary mx-auto" onClick={() => setIsCreating(true)}>
+                        <i className="bi bi-folder-plus me-2"></i>Create Deck
+                    </button>}
             </div>
         </>
     );

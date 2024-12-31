@@ -38,6 +38,7 @@ export interface Deck {
 export interface Card {
     front: string
     back: string
+    priority: number
 }
 
 export interface Offer {
@@ -170,6 +171,11 @@ export interface deckForm {
     language: string
     level: string
     cards: Card[]
+}
+
+export interface reviewForm {
+    text: string
+    rating: number
 }
 
 export interface calendarEvent {

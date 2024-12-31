@@ -7,12 +7,13 @@ import PendingRequest from './PendingRequest'
 
 interface Props {
     cls: Class
-    type: 'past' | 'future'
+    type?: 'past' | 'future'
     handleReschedule: (cls: Class) => void
     handleCancel: (cls: Class) => void
+    handleRate: (cls: Class) => void
 }
 
-function ClassBox({ cls, type, handleReschedule, handleCancel }: Props) {
+function ClassBox({ cls, type, handleReschedule, handleCancel, handleRate }: Props) {
 
     return (
         <div className="card offer-card text-left mx-3 mb-4">
@@ -83,9 +84,9 @@ function ClassBox({ cls, type, handleReschedule, handleCancel }: Props) {
                             <i className="bi bi-check-circle-fill me-2"></i>Rated
                         </button>
                         :
-                        <Link to={`/account/classes/${cls._id}/rate`} className="btn btn-warning mx-1">
+                        <button className="btn btn-warning mx-1" onClick={() => handleRate(cls)}>
                             <i className="bi bi-star-fill me-2"></i>Rate
-                        </Link>
+                        </button>
                     )}
                 </div>
             </div>

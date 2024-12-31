@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+import accountService from '../services/account.service'
 import { Deck } from '../types'
 import Language from './Language'
 import Snippet from './Snippet'
@@ -6,11 +8,19 @@ interface Props {
     deck: Deck,
     isOwn: boolean
     handleDelete: (deckId: string) => void
-    isEdited: boolean
     handleEdit: () => void
+    handlePlay: () => void
+    disabled: boolean
 }
 
-function DeckBox({ deck, isOwn, handleDelete, isEdited, handleEdit }: Props) {
+function DeckBox({ deck, isOwn, handleDelete, handleEdit, handlePlay, disabled }: Props) {
+    const navigate = useNavigate()
+
+    async function handleClone() {
+        await accountService.cloneDeck(deck._id)
+        navigate('/account/decks')
+    }
+
     return (
         <div className="card offer-card text-left mx-3 mb-4" style={{width: '270px'}}>
             <h5 className="card-header center">{deck.topic}</h5>
@@ -38,20 +48,20 @@ function DeckBox({ deck, isOwn, handleDelete, isEdited, handleEdit }: Props) {
         
                 {!isOwn &&
                 <div className="d-flex justify-content-center mt-auto">
-                    <button className="btn btn-sm btn-primary mx-1">
+                    <button className="btn btn-sm btn-primary mx-1" onClick={handleClone}>
                         <i className="bi bi-copy me-2"></i>Clone
                     </button>
                 </div>}
 
                 {isOwn &&
                 <div className="d-flex justify-content-center mt-auto">
-                    <button className="btn btn-sm btn-success mx-1" disabled={isEdited}>
+                    <button className="btn btn-sm btn-success mx-1" onClick={handlePlay} disabled={disabled}>
                         <i className="bi bi-play-circle-fill me-2"></i>Play
                     </button>
-                    <button className="btn btn-sm btn-secondary mx-1" onClick={handleEdit} disabled={isEdited}>
+                    <button className="btn btn-sm btn-secondary mx-1" onClick={handleEdit} disabled={disabled}>
                         <i className="bi bi-pencil-square me-2"></i>Edit
                     </button>
-                    <button className="btn btn-sm btn-danger mx-1" onClick={() => handleDelete(deck._id)} disabled={isEdited}>
+                    <button className="btn btn-sm btn-danger mx-1" onClick={() => handleDelete(deck._id)} disabled={disabled}>
                         <i className="bi bi-trash3-fill me-2"></i>Delete
                     </button>
                 </div>}

@@ -5,6 +5,7 @@ import ClassBox from '../components/ClassBox'
 import RescheduleModal from '../components/RescheduleModal'
 import { ClassContext } from '../context/class.context'
 import { flipDayAndYear } from '../utils'
+import ReviewForm from '../components/ReviewForm'
 
 function ClassesPage() {
     const [upcomingClasses, setUpcomingClasses] = useState([] as Class[])
@@ -12,6 +13,7 @@ function ClassesPage() {
     const { managedClass, setManagedClass } = useContext(ClassContext)
     const [newDate, setNewDate] = useState('')
     const [newTimeslot, setNewTimeslot] = useState('')
+    const [ratedClass, setRatedClass] = useState<Class | null>(null)
 
     useEffect(()=> {
         async function fetchClasses() {
@@ -58,6 +60,10 @@ function ClassesPage() {
         })
     }
 
+    function handleRate(cls: Class) {
+        setRatedClass(cls)
+    }
+
     return (
         <>
             <h3 className="center my-3">My Booked Classes</h3>
@@ -68,7 +74,14 @@ function ClassesPage() {
 
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {upcomingClasses?.map(cls => (
-                    <ClassBox key={cls._id} cls={cls} type='future' handleReschedule={handleReschedule} handleCancel={handleCancel}/>
+                    <ClassBox 
+                        key={cls._id} 
+                        cls={cls} 
+                        type='future' 
+                        handleReschedule={handleReschedule} 
+                        handleCancel={handleCancel}
+                        handleRate={handleRate}
+                    />
                 ))}
             </div>
 
@@ -79,11 +92,19 @@ function ClassesPage() {
 
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {pastClasses?.map(cls => (
-                        <ClassBox key={cls._id} cls={cls} type='past' handleReschedule={handleReschedule} handleCancel={handleCancel}/>
+                        <ClassBox 
+                            key={cls._id} 
+                            cls={cls} type='past' 
+                            handleReschedule={handleReschedule} 
+                            handleCancel={handleCancel}
+                            handleRate={handleRate}
+                        />
                 ))}
             </div>
 
             <RescheduleModal newDate={newDate} newTimeslot={newTimeslot} setNewTimeslot={setNewTimeslot} handleSend={handleSend} />
+
+            {ratedClass && <ReviewForm cls={ratedClass} setRatedClass={setRatedClass} setClasses={setPastClasses} />}
         </>
     )
 }
