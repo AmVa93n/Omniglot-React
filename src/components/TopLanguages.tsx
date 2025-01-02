@@ -29,7 +29,7 @@ function TopLanguages() {
 
     return (
         <div id="statistics" className="row g-0 py-3">
-            <h2 className="center px-0">Most popular languages</h2>
+            <h2 className="px-0">Most popular languages</h2>
             
             <div className="col-auto mx-auto">
                 <h4 className="mx-auto" style={{width: 'fit-content'}}>Teaching</h4>

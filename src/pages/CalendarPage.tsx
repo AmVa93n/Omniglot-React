@@ -14,6 +14,7 @@ import { ClassType, ClassLocation, Level } from "../components/Snippet"
 import PendingRequest from "../components/PendingRequest"
 import { ClassContext } from "../context/class.context"
 import UserAvatar from "../components/UserAvatar"
+import '../styles/CalendarPage.css'
 
 function CalendarPage() {
     const [classes, setClasses] = useState([] as Class[])
@@ -195,9 +196,9 @@ function CalendarPage() {
             
                 {managedClass &&
                 <div className="card-body" id="{{managedClass._id}}-manage">
-                    <Link to={"/users/" + managedClass.student._id} className="link-text">
+                    <Link to={"/users/" + managedClass.student._id}>
                         <div className="d-flex align-items-center my-3">
-                            <UserAvatar user={managedClass.student} size={50} />
+                            <UserAvatar src={managedClass.student.profilePic} size={50} />
                             <span className="fs-5">{managedClass.student.username}</span>
                         </div>
                     </Link>
@@ -290,7 +291,7 @@ function CalendarPage() {
             </div>
 
             <div style={{width: '80%'}}>
-                <h3 className="center my-3">My Calendar</h3>
+                <h3 className="my-3">My Calendar</h3>
                 <div id="calendar"></div>
             </div>
         </div>

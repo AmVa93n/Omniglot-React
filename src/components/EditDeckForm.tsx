@@ -63,7 +63,7 @@ function EditDeckForm({ deck, setEditedDeck, setDecks }: Props) {
 
     return (
         <div className="content-box" style={{minWidth: '25%'}}>
-            <h2 className="center mb-3">Edit your deck</h2>
+            <h2 className="mb-3">Edit your deck</h2>
             <form onSubmit={handleSave} method="POST">
 
                 <div className="form-floating mb-3 mx-auto" style={{width: '50%'}}>

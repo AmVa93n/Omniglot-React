@@ -72,7 +72,7 @@ function FlashcardGame({ deck, setPlayedDeck, setDecks }: Props) {
 
     return (
         <div className="content-box" style={{width: '50%'}}>
-            <h2 className="center mb-3">Playing "{deck.topic}"</h2>
+            <h2 className="mb-3">Playing "{deck.topic}"</h2>
             <div className="row mb-5 mx-auto" style={{width: 'fit-content'}}>
                 <span className="card-text col-auto"> 
                     <Language code={deck.language} />

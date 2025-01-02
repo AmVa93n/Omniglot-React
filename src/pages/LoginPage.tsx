@@ -33,7 +33,7 @@ function LoginPage() {
 
     return (
         <div className="content-box">
-            <h2 className="center">Login</h2>
+            <h2>Login</h2>
             <form onSubmit={(event) => handleSubmit(event)} method="POST">
 
                 <div className="form-floating mb-3">
@@ -51,7 +51,7 @@ function LoginPage() {
                 </div>
             </form>
             
-            <p className="center">Don't have an account yet?</p>
+            <p>Don't have an account yet?</p>
             <div className="d-flex justify-content-center">
             <Link to="/signup"><button className="btn btn-dark rounded-pill">Sign Up</button></Link>
             </div>

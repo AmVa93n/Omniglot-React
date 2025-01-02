@@ -22,7 +22,7 @@ function LanguageCheckbox({ code, type, checked, disabled, onChange }:
                     gap: '4px'
                 }}
             >
-                <img src={'/images/' + code + '.svg'} className="lang-flag"/>{getLanguageName(code)}
+                <img src={'/images/' + code + '.svg'} style={{width: '20px'}}/>{getLanguageName(code)}
             </label>
         </div>
     )

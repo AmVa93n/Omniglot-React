@@ -21,7 +21,7 @@ function ReviewsPage() {
 
     return (
         <>
-            <h3 className="center my-3">My Reviews</h3>
+            <h3 className="my-3">My Reviews</h3>
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {reviews.map(review => (
                     <ReviewCard key={review._id} review={review} />

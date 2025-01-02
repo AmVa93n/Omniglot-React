@@ -36,8 +36,8 @@ function PendingRequest({ cls, reschedule }: { cls: Class, reschedule: reschedul
 
     return (
         <div className="p-1 bg-warning">
-            <p className="center m-0">Pending reschedule request</p>
-            <h6 className="center"><span className="date">{formatDate(reschedule.new_date)}</span>, {reschedule.new_timeslot}</h6>
+            <p className="m-0">Pending reschedule request</p>
+            <h6><span className="date">{formatDate(reschedule.new_date)}</span>, {reschedule.new_timeslot}</h6>
             {reschedule.initiator !== user?._id &&
                 <div className="d-flex justify-content-center">
                     <button className="btn btn-sm btn-success mx-1" style={{fontSize: 'smaller'}} onClick={handleAccept}>

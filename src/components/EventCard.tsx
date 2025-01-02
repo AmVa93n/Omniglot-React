@@ -12,7 +12,7 @@ function EventCard({ cls }: {cls: Class}) {
         <div className="card calendar-card text-left mx-3 mb-4" id={cls._id} style={{display: 'none'}}>
             <h5 className="card-header center"><span className="fs-6 date">{formatDate(cls.date)}</span><br/>{cls.timeslot}</h5>
             <div className="card-body">
-                <Link to={"/users/" + cls.student._id} className="link-text">
+                <Link to={"/users/" + cls.student._id}>
                     <div className="d-flex align-items-center mb-2">
                         <UserAvatar src={cls.student.profilePic} size={50} />
                         <span className="fs-5">{cls.student.username}</span>

@@ -78,7 +78,7 @@ function SignupPage() {
 
     return (
         <div className="content-box">
-            <h2 className="center mb-3">Create an account</h2>
+            <h2 className="mb-3">Create an account</h2>
             <form onSubmit={handleSubmit}>
 
                 <div className="form-floating mb-3">

@@ -1,0 +1,65 @@
+.homepage-container {
+    width: 100%;
+    height: fit-content;
+    background-size: cover; /* Adjust as needed */
+    position: relative;
+}
+  
+.homepage-container * {
+    z-index: 2;
+}
+  
+.homepage-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4); /* Semi-transparent overlay */
+    z-index: 1;
+}
+
+/* Speech Bubble Style for Blue */
+.speech-bubble-blue {
+    background-color: rgba(173, 216, 230, 0.5); /* Light blue with some transparency */
+    border-radius: 15px; /* Rounded corners */
+    position: relative; /* Needed for the triangle positioning */
+    padding: 20px; /* Internal padding */
+    margin: 10px 0; /* Margin for spacing */
+}
+
+/* Triangle pointer of the blue speech bubble */
+.speech-bubble-blue::after {
+    content: '';
+    position: absolute;
+    bottom: 10px; /* Adjust vertical position */
+    right: -15px; /* Adjust horizontal position */
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid rgba(173, 216, 230, 0.5); /* Color of the bubble */
+}
+
+.feature-icon-small {
+    width: 3rem;
+    height: 3rem;
+}
+
+.b-example-divider {
+    width: 100%;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+#statistics {
+    background-color: rgba(250, 250, 250, 0.8);
+}
+
+.homepage-container h4 {
+    text-align: left;
+}

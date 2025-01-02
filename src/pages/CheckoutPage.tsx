@@ -26,14 +26,14 @@ function CheckoutPage() {
 
     return (
         <>
-            <h3 className="center my-3">Review offer details</h3>
+            <h3 className="my-3">Review offer details</h3>
             <div className="d-flex content-box mt-0 mb-3" style={{width: '40%', margin: 'auto'}}>
 
                 <div className="me-3" style={{width: '50%'}}>
                     <h5 className="card-header mb-3">{offer?.name}</h5>
                     <div className="card-body">
                         <div className="d-flex align-items-center mb-3">
-                            <UserAvatar user={teacher} size={50} />
+                            <UserAvatar src={teacher.profilePic} size={50} />
                             <span className="fs-5">{teacher?.username}</span>
                         </div>
 

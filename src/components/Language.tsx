@@ -7,8 +7,8 @@ function Language({ code }: {code: string}) {
             alignItems: 'center',
             gap: '4px'
         }}>
-            <img src={`/images/${code}.svg`} className="lang-flag"/>
-            <span className="lang-name">{getLanguageName(code)}</span>
+            <img src={`/images/${code}.svg`} style={{width: '20px'}}/>
+            <span>{getLanguageName(code)}</span>
         </div>
     )
 }

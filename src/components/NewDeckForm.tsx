@@ -67,7 +67,7 @@ function NewDeckForm({ setDecks, setIsCreating }: Props) {
 
     return (
         <div className="content-box" style={{minWidth: '25%'}}>
-            <h2 className="center mb-3">Create a deck</h2>
+            <h2 className="mb-3">Create a deck</h2>
             <form onSubmit={handleSubmit} method="POST">
 
                 <div className="form-floating mb-3 mx-auto" style={{width: '50%'}}>

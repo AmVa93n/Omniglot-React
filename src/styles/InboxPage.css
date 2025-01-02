@@ -9,3 +9,8 @@
 .chatbox:hover {
     background-color: rgb(128, 191, 255);
 }
+
+.timestamp {
+    font-size: 10px;
+    margin: 0 5px;
+}

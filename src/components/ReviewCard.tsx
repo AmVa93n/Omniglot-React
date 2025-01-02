@@ -22,7 +22,7 @@ function ReviewCard({ review }: Props) {
         <div className="card review-card text-left mx-3 mb-4">
             <div className="card-body">
                 <div className="row mb-2">
-                    <Link to={"/users/" + review.author._id} className="link-text col">
+                    <Link to={"/users/" + review.author._id} className="col">
                         <div className="d-flex align-items-center">
                             <UserAvatar src={review.author.profilePic} size={50} />
                             <span className="fs-5">{review.author.username}</span>

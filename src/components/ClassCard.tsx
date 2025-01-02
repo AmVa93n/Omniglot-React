@@ -27,7 +27,7 @@ function ClassCard({ cls, type, handleReschedule, handleCancel, handleRate }: Pr
             }
         
             <div className="card-body">
-                <Link to={"/users/" + cls.teacher._id} className="link-text">
+                <Link to={"/users/" + cls.teacher._id}>
                     <div className="d-flex align-items-center mb-2">
                         <UserAvatar src={cls.teacher.profilePic} size={50} />
                         <span className="fs-5">{cls.teacher.username}</span>

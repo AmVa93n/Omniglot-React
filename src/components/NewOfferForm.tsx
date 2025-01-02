@@ -56,7 +56,7 @@ function NewOfferForm({ setOffers, setIsCreating }: Props) {
 
     return (
         <div className="content-box" style={{minWidth: '25%'}}>
-            <h2 className="center mb-3">Create an offer</h2>
+            <h2 className="mb-3">Create an offer</h2>
             <form onSubmit={handleSubmit} method="POST">
 
                 <div className="form-floating mb-3">

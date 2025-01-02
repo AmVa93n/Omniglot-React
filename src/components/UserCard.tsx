@@ -21,7 +21,7 @@ function UserCard({ user, matchType }: Props) {
 
     return (
         <div className="user-card" key={user._id}>
-                <Link to={'/users/' + user._id} className="link-text">
+                <Link to={'/users/' + user._id}>
                     <div className="d-flex align-items-center mb-3 position-relative">
                         <UserAvatar src={user.profilePic} size={50} />
                         <span className="fs-5">{user.username}</span>

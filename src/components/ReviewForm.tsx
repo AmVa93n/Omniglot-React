@@ -52,7 +52,7 @@ function ReviewForm({ cls, setRatedClass, setClasses }: Props) {
 
     return (
         <div className="content-box" style={{minWidth: '25%'}}>
-            <h2 className="center mb-3">Write a review</h2>
+            <h2 className="mb-3">Write a review</h2>
 
             <ClassCardInReview cls={cls} />
 

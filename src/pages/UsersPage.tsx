@@ -33,7 +33,7 @@ function UsersPage() {
 
     return (
         <>
-            <h4 className="center my-3">{users.length} matches found</h4>
+            <h4 className="my-3">{users.length} matches found</h4>
             <div className="d-flex flex-wrap mx-auto gap-3" style={{width: '92%'}}>
                 {users.map(user => (
                     <UserCard key={user._id} user={user} matchType={matchType || ''} />

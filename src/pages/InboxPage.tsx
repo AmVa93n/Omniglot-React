@@ -5,6 +5,7 @@ import { AuthContext } from "../context/auth.context";
 import { getMsgTime } from "../utils";
 import { Link } from "react-router-dom";
 import "../styles/InboxPage.css";
+import UserAvatar from "../components/UserAvatar";
 
 function InboxPage() {
     const [chats, setChats] = useState<Chat[]>([]);
@@ -58,9 +59,7 @@ function InboxPage() {
                             onClick={() => setActiveChat(chat)}
                         >
                             <div className="d-flex align-items-center position-relative">
-                                <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
-                                    <img src={getOtherParty(chat)?.profilePic || "/images/Profile-PNG-File.png"}/>
-                                </div>
+                                <UserAvatar src={getOtherParty(chat)?.profilePic || ''} size={50} />
                                 <span className="fs-5">{getOtherParty(chat)?.username}</span>
                                 {getOtherParty(chat)?.professional && <span className="badge rounded-pill text-bg-primary position-absolute" style={{top: -8, right: -8}}>Professional</span>}
                             </div>

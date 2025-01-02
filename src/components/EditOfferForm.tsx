@@ -45,7 +45,7 @@ function EditOfferForm({ offer, setEditedOffer, setOffers }: Props) {
 
     return (
         <div className="content-box" style={{minWidth: '25%'}}>
-            <h2 className="center mb-3">Edit your offer</h2>
+            <h2 className="mb-3">Edit your offer</h2>
             <form onSubmit={handleSave} method="POST">
 
                 <div className="form-floating mb-3">

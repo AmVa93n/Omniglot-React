@@ -6,6 +6,7 @@ import RescheduleModal from '../components/RescheduleModal'
 import { ClassContext } from '../context/class.context'
 import { flipDayAndYear } from '../utils'
 import ReviewForm from '../components/ReviewForm'
+import '../styles/ClassesPage.css'
 
 function ClassesPage() {
     const [upcomingClasses, setUpcomingClasses] = useState([] as Class[])
@@ -66,7 +67,7 @@ function ClassesPage() {
 
     return (
         <>
-            <h3 className="center my-3">My Booked Classes</h3>
+            <h3 className="my-3">My Booked Classes</h3>
 
             <div className="hr-with-text">
                 <span>Upcoming</span>

@@ -22,9 +22,9 @@ function WalletPage() {
 
     return (
         <>
-            <h3 className="center my-3">My Wallet</h3>
+            <h3 className="my-3">My Wallet</h3>
 
-            <h6 className="center">Stripe account ID: <span className="fw-normal bg-light rounded px-1">{accountId}</span></h6>
+            <h6>Stripe account ID: <span className="fw-normal bg-light rounded px-1">{accountId}</span></h6>
             <div className="content-box" style={{width: '60%'}}>
                 <table className="table table-hover table-bordered mb-0 center">
                     <thead className="table-light">

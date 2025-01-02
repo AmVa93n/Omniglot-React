@@ -1,6 +1,7 @@
 import Hero from "../components/Hero"
 import Features from "../components/Features"
 import TopLanguages from "../components/TopLanguages"
+import "../styles/HomePage.css"
 
 function HomePage() {
     return (

@@ -36,7 +36,7 @@ function DecksPage() {
 
     return (
         <>
-            <h3 className="center my-3">My Decks</h3>
+            <h3 className="my-3">My Decks</h3>
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {decks.map(deck => (
                     <DeckCard 
