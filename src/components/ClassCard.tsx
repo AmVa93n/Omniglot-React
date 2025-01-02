@@ -4,6 +4,7 @@ import Language from './Language'
 import Snippet from './Snippet'
 import { formatDate } from '../utils'
 import PendingRequest from './PendingRequest'
+import '../styles/ClassCard.css'
 
 interface Props {
     cls: Class
@@ -13,10 +14,10 @@ interface Props {
     handleRate: (cls: Class) => void
 }
 
-function ClassBox({ cls, type, handleReschedule, handleCancel, handleRate }: Props) {
+function ClassCard({ cls, type, handleReschedule, handleCancel, handleRate }: Props) {
 
     return (
-        <div className="card offer-card text-left mx-3 mb-4">
+        <div className="card class-card text-left mx-3 mb-4">
             <h5 className="card-header center"><span className="fs-6 date">{formatDate(cls.date)}</span><br/>{cls.timeslot}</h5>
 
             {type === 'future' && cls.reschedule?.status === 'pending' &&
@@ -94,4 +95,4 @@ function ClassBox({ cls, type, handleReschedule, handleCancel, handleRate }: Pro
     )
 }
 
-export default ClassBox
+export default ClassCard

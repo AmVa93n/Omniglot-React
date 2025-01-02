@@ -3,12 +3,13 @@ import Language from './Language'
 import { formatDate } from '../utils'
 import Snippet from './Snippet';
 import { Link } from 'react-router-dom';
+import '../styles/ReviewCard.css'
 
 interface Props {
     review: Review
 }
 
-function ReviewBox({ review }: Props) {
+function ReviewCard({ review }: Props) {
 
     function drawStars(stars: number) {
         return Array.from({ length: stars }, (_, i) => (
@@ -66,4 +67,4 @@ function ReviewBox({ review }: Props) {
 }
 
 
-export default ReviewBox
+export default ReviewCard

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import accountService from '../services/account.service';
-import OfferBox from '../components/OfferBox';
+import OfferCard from '../components/OfferCard';
 import { Offer } from '../types';
 import NewOfferForm from '../components/NewOfferForm';
 import EditOfferForm from '../components/EditOfferForm';
@@ -37,13 +37,13 @@ function OffersPage() {
             <h3 className="center my-3">My Offers</h3>
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {offers.map(offer => (
-                    <OfferBox 
+                    <OfferCard 
                         key={offer._id} 
                         offer={offer} 
                         isOwn={true} 
-                        handleDelete={handleDelete} 
-                        isEdited={editedOffer?._id === offer._id}
+                        handleDelete={() => handleDelete(offer._id)} 
                         handleEdit={() => setEditedOffer(offer)}
+                        disabled={editedOffer?._id === offer._id}
                     />
                 ))}
             </div>

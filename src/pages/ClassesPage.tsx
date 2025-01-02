@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { Class } from '../types'
 import accountService from '../services/account.service'
-import ClassBox from '../components/ClassBox'
+import ClassCard from '../components/ClassCard'
 import RescheduleModal from '../components/RescheduleModal'
 import { ClassContext } from '../context/class.context'
 import { flipDayAndYear } from '../utils'
@@ -74,7 +74,7 @@ function ClassesPage() {
 
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {upcomingClasses?.map(cls => (
-                    <ClassBox 
+                    <ClassCard 
                         key={cls._id} 
                         cls={cls} 
                         type='future' 
@@ -92,7 +92,7 @@ function ClassesPage() {
 
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {pastClasses?.map(cls => (
-                        <ClassBox 
+                        <ClassCard 
                             key={cls._id} 
                             cls={cls} type='past' 
                             handleReschedule={handleReschedule} 

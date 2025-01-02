@@ -3,17 +3,18 @@ import accountService from '../services/account.service'
 import { Deck } from '../types'
 import Language from './Language'
 import Snippet from './Snippet'
+import '../styles/DeckCard.css'
 
 interface Props {
     deck: Deck,
-    isOwn: boolean
-    handleDelete: (deckId: string) => void
-    handleEdit: () => void
-    handlePlay: () => void
-    disabled: boolean
+    isOwn?: boolean
+    handleDelete?: () => void
+    handleEdit?: () => void
+    handlePlay?: () => void
+    disabled?: boolean
 }
 
-function DeckBox({ deck, isOwn, handleDelete, handleEdit, handlePlay, disabled }: Props) {
+function DeckCard({ deck, isOwn, handleDelete, handleEdit, handlePlay, disabled }: Props) {
     const navigate = useNavigate()
 
     async function handleClone() {
@@ -61,7 +62,7 @@ function DeckBox({ deck, isOwn, handleDelete, handleEdit, handlePlay, disabled }
                     <button className="btn btn-sm btn-secondary mx-1" onClick={handleEdit} disabled={disabled}>
                         <i className="bi bi-pencil-square me-2"></i>Edit
                     </button>
-                    <button className="btn btn-sm btn-danger mx-1" onClick={() => handleDelete(deck._id)} disabled={disabled}>
+                    <button className="btn btn-sm btn-danger mx-1" onClick={handleDelete} disabled={disabled}>
                         <i className="bi bi-trash3-fill me-2"></i>Delete
                     </button>
                 </div>}
@@ -71,4 +72,4 @@ function DeckBox({ deck, isOwn, handleDelete, handleEdit, handlePlay, disabled }
 }
 
 
-export default DeckBox
+export default DeckCard

@@ -2,16 +2,17 @@ import { Offer } from '../types'
 import Language from './Language'
 import Snippet from './Snippet'
 import { Link } from 'react-router-dom'
+import '../styles/OfferCard.css'
 
 interface Props {
     offer: Offer
-    isOwn: boolean
-    handleDelete: (offerId: string) => void
-    isEdited?: boolean
+    isOwn?: boolean
     handleEdit?: () => void
+    handleDelete?: () => void
+    disabled?: boolean
 }
 
-function OfferBox({ offer, isOwn, handleDelete, isEdited, handleEdit }: Props) {
+function OfferCard({ offer, isOwn, handleDelete, handleEdit, disabled }: Props) {
     return (
         <div className="card offer-card text-left mx-3 mb-4">
             <h5 className="card-header center">{offer.name}</h5>
@@ -62,10 +63,10 @@ function OfferBox({ offer, isOwn, handleDelete, isEdited, handleEdit }: Props) {
 
                 {isOwn && 
                 <div className="d-flex justify-content-center">
-                    <button className="btn btn-sm btn-secondary mx-1" onClick={handleEdit} disabled={isEdited}>
+                    <button className="btn btn-sm btn-secondary mx-1" onClick={handleEdit} disabled={disabled}>
                         <i className="bi bi-pencil-square me-2"></i>Edit
                     </button>
-                    <button className="btn btn-sm btn-danger mx-1" onClick={() => handleDelete(offer._id)} disabled={isEdited}>
+                    <button className="btn btn-sm btn-danger mx-1" onClick={handleDelete} disabled={disabled}>
                         <i className="bi bi-trash3-fill me-2"></i>Delete
                     </button>
                 </div>}
@@ -75,4 +76,4 @@ function OfferBox({ offer, isOwn, handleDelete, isEdited, handleEdit }: Props) {
 }
 
 
-export default OfferBox
+export default OfferCard

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { getLanguageName } from '../utils';
 import { useEffect, useState } from 'react';
 import appService from '../services/app.service';
+import Language from './Language';
 
 function TopLanguages() {
     const [stats, setStats] = useState({
@@ -37,10 +37,7 @@ function TopLanguages() {
                     {stats.teach.map(lang => (
                         <Link key={lang.name} to={'/users/teachers/' + lang.name} className="text-decoration-none">
                             <li className="list-group-item d-flex justify-content-between align-items-center">
-                                <div className="langWrapper">
-                                    <img src={'/images/' + lang.name + '.svg'} className="lang-flag"/>
-                                    <span className="lang-name">{getLanguageName(lang.name)}</span>
-                                </div>
+                                <Language code={lang.name} />
                                 <span className="badge bg-primary rounded-pill ms-5">{lang.amount} Users</span>
                             </li>
                         </Link>
@@ -54,10 +51,7 @@ function TopLanguages() {
                     {stats.learn.map(lang => (
                         <Link key={lang.name} to={'/users/learners/' + lang.name} className="text-decoration-none">
                             <li className="list-group-item d-flex justify-content-between align-items-center">
-                                <div className="langWrapper">
-                                    <img src={'/images/' + lang.name + '.svg'} className="lang-flag"/>
-                                    <span className="lang-name">{getLanguageName(lang.name)}</span>
-                                </div>
+                                <Language code={lang.name} />
                                 <span className="badge bg-primary rounded-pill ms-5">{lang.amount} Users</span>
                             </li>
                         </Link>

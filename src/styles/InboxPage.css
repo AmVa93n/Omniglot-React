@@ -1,0 +1,11 @@
+.chatbox {
+    padding: 8px 16px;
+}
+  
+.chatbox-active {
+    background-color: rgb(74, 164, 255);
+}
+  
+.chatbox:hover {
+    background-color: rgb(128, 191, 255);
+}

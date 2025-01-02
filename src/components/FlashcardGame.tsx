@@ -3,6 +3,7 @@ import { useState } from 'react';
 import accountService from '../services/account.service';
 import Language from './Language';
 import Snippet from './Snippet';
+import '../styles/FlashcardGame.css';
 
 interface Props {
     deck: Deck;

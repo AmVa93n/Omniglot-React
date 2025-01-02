@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Deck } from "../types";
-import DeckBox from "../components/DeckBox";
+import DeckCard from "../components/DeckCard";
 import accountService from "../services/account.service";
 import NewDeckForm from "../components/NewDeckForm";
 import EditDeckForm from "../components/EditDeckForm";
@@ -39,11 +39,11 @@ function DecksPage() {
             <h3 className="center my-3">My Decks</h3>
             <div className="d-flex justify-content-center flex-wrap px-auto" style={{width: '100%'}}>
                 {decks.map(deck => (
-                    <DeckBox 
+                    <DeckCard 
                         key={deck._id} 
                         deck={deck} 
                         isOwn={true} 
-                        handleDelete={handleDelete} 
+                        handleDelete={() => handleDelete(deck._id)} 
                         handleEdit={() => setEditedDeck(deck)}
                         handlePlay={() => setPlayedDeck(deck)}
                         disabled={playedDeck !== null || editedDeck !== null}

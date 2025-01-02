@@ -2,6 +2,7 @@ import { Class, reviewForm } from "../types";
 import { useState } from "react";
 import ClassCardInReview from "./ClassCardInReview";
 import accountService from "../services/account.service";
+import '../styles/ReviewForm.css';
 
 interface Props {
     cls: Class;

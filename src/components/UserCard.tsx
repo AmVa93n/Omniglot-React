@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User } from '../types';
 import { getUserAge } from '../utils';
 import Language from './Language';
 import "../styles/UserCard.css"
+import accountService from '../services/account.service';
 
 interface Props {
     user: User;
@@ -10,6 +11,13 @@ interface Props {
 }
 
 function UserCard({ user, matchType }: Props) {
+    const navigate = useNavigate();
+
+    async function handleMessage() {
+        await accountService.createChat({ targetUserId: user._id });
+        navigate('/account/inbox');
+    }
+
     return (
         <div className="user-card" key={user._id}>
                 <Link to={'/users/' + user._id} className="link-text">
@@ -61,10 +69,9 @@ function UserCard({ user, matchType }: Props) {
 
                 <div className="row mt-auto">
                     <div className="col d-flex justify-content-center align-items-end">
-                        <form action="/account/inbox" method="POST">
-                            <input style={{display: 'none'}} name="targetUserId"/>
-                            <button type="submit" className="btn btn-primary mx-1"><i className="bi bi-envelope-fill me-1"></i>Message</button>
-                        </form>
+                        <button className="btn btn-primary mx-1" onClick={handleMessage}>
+                            <i className="bi bi-envelope-fill me-1"></i>Message
+                        </button>
                     </div>
                 </div>
                 

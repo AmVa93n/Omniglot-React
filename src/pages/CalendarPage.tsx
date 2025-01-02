@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react"
 import { Class, calendarEvent } from '../types'
 import accountService from "../services/account.service"
-import EventBox from "../components/EventBox"
+import EventCard from "../components/EventCard"
 import { timeslots, flipDayAndYear, createDatePicker, formatDate } from '../utils'
 import { Link } from "react-router-dom"
 import { Calendar } from '@fullcalendar/core';
@@ -299,7 +299,7 @@ function CalendarPage() {
         </div>
 
         {classes.map(cls => (
-            <EventBox cls={cls} key={cls._id} />
+            <EventCard cls={cls} key={cls._id} />
         ))}
         </>
     )

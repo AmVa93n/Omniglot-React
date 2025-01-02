@@ -3,6 +3,8 @@ import accountService from "../services/account.service";
 import { Chat } from "../types";
 import { AuthContext } from "../context/auth.context";
 import { getMsgTime } from "../utils";
+import { Link } from "react-router-dom";
+import "../styles/InboxPage.css";
 
 function InboxPage() {
     const [chats, setChats] = useState<Chat[]>([]);
@@ -23,8 +25,21 @@ function InboxPage() {
         fetchChats()
     }, [])
 
-    function getOtherParty(chat: Chat) {
-        return chat.participants.find(party => party._id != user?._id);
+    function getOtherParty(chat: Chat | null) {
+        return chat?.participants.find(party => party._id != user?._id);
+    }
+
+    async function handleDelete() {
+        if (!activeChat) return
+        try {
+            await accountService.deleteMessages(activeChat?._id)
+            setChats(chats.filter(chat => chat._id !== activeChat?._id))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function handleSend() {
     }
 
     return (
@@ -36,7 +51,12 @@ function InboxPage() {
                 </div>
                 <div className="row-auto" id="conversation-list" style={{height: '550px', overflowY: 'auto'}}>
                     {chats.map(chat => (
-                        <div className="chatbox" id={chat._id} onClick={() => setActiveChat(chat)}>
+                        <div 
+                            key={chat._id}
+                            className={`chatbox ${activeChat?._id === chat._id ? 'chatbox-active' : ''}`} 
+                            id={chat._id}
+                            onClick={() => setActiveChat(chat)}
+                        >
                             <div className="d-flex align-items-center position-relative">
                                 <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
                                     <img src={getOtherParty(chat)?.profilePic || "/images/Profile-PNG-File.png"}/>
@@ -53,8 +73,10 @@ function InboxPage() {
                 <div className="p-3 d-flex" style={{flex: '0 0 auto', borderBottom: '1px solid rgb(199, 199, 199)'}}>
                     <span id="conversation-with" className="fs-3" >{activeChat ? `Chat with ${getOtherParty(activeChat)?.username}` : 'You have no chats'}</span>
                     <div className="ms-auto">
-                        <a id="profile" href="" className="btn btn-primary disabled me-1" style={{height: 'fit-content'}}><i className="bi bi-person-circle me-2"></i>Profile</a>
-                        <a id="delete" href="" className="btn btn-danger disabled" style={{height: 'fit-content'}}><i className="bi bi-trash3-fill me-2"></i>Delete</a>
+                        <Link id="profile" to={`/users/${getOtherParty(activeChat)?._id}`} className="btn btn-primary me-1" style={{height: 'fit-content'}}><i className="bi bi-person-circle me-2"></i>Profile</Link>
+                        <button id="delete" className="btn btn-danger" style={{height: 'fit-content'}} onClick={handleDelete} disabled={!activeChat}>
+                            <i className="bi bi-trash3-fill me-2"></i>Delete
+                        </button>
                     </div>
                 </div>
                 
@@ -80,10 +102,12 @@ function InboxPage() {
                 </div>
 
                 <div className="p-3" style={{flex: '0 0 auto',  borderTop: '1px solid rgb(199, 199, 199)'}}>
-                    <form id="form" action="" className="d-flex align-items-center">
+                    <div className="d-flex align-items-center">
                         <input id="input" autoComplete="off" placeholder="Message" className="form-control rounded-pill me-2" />
-                        <button className="btn btn-primary d-flex align-items-center"><i className="bi bi-send-fill me-2"></i>Send</button>
-                    </form>
+                        <button className="btn btn-primary d-flex align-items-center" onClick={handleSend}>
+                            <i className="bi bi-send-fill me-2"></i>Send
+                        </button>
+                    </div>
                 </div>
             </div>
 

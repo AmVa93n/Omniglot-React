@@ -141,6 +141,16 @@ class AccountService {
     const response: AxiosResponse = await this.api.get('/account/inbox');
     return response.data;
   }
+
+  async createChat(requestBody: object) {
+    const response: AxiosResponse = await this.api.post('/account/inbox', requestBody);
+    return response.data;
+  }
+
+  async deleteMessages(chatId: string) {
+    const response: AxiosResponse = await this.api.delete(`/account/inbox/${chatId}`);
+    return response.data;
+  }
 }
 
 // Create one instance (object) of the service

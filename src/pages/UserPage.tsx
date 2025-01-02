@@ -4,14 +4,17 @@ import { useParams } from "react-router-dom";
 import appService from "../services/app.service";
 import { getUserAge } from '../utils'
 import Language from "../components/Language";
-import DeckBox from "../components/DeckBox";
-import OfferBox from "../components/OfferBox";
-import ReviewBox from "../components/ReviewBox";
+import DeckCard from "../components/DeckCard";
+import OfferCard from "../components/OfferCard";
+import ReviewCard from "../components/ReviewCard";
 import '../styles/UserPage.css'
+import accountService from "../services/account.service";
+import { useNavigate } from "react-router-dom";
 
 function UserPage() {
     const [viewedUser, setViewedUser] = useState({} as User)
     const { userId } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchUser() {
@@ -25,6 +28,11 @@ function UserPage() {
 
         fetchUser()
     }, [userId])
+
+    async function handleMessage() {
+        await accountService.createChat({ targetUserId: viewedUser._id });
+        navigate('/account/inbox');
+    }
 
     return (
         <div className="d-flex justify-content-center" style={{width: '100%'}}>
@@ -85,12 +93,9 @@ function UserPage() {
                     </div>
                 
                     <div className="d-flex justify-content-center mt-4">
-                        <form action="/account/inbox" method="POST">
-                            <input style={{display: 'none'}} value="{{viewedUser._id}}" name="targetUserId"/>
-                            <button type="submit" className="btn btn-primary mx-1">
-                                <i className="bi bi-envelope-fill me-1"></i>Message {viewedUser.username}
-                            </button>
-                        </form>
+                        <button className="btn btn-primary mx-1" onClick={handleMessage}>
+                            <i className="bi bi-envelope-fill me-1"></i>Message {viewedUser.username}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -119,21 +124,21 @@ function UserPage() {
                     <div className="tab-pane fade show active" id="home-tab-pane" tabIndex={0}>
                         <div className="d-flex justify-content-center flex-wrap px-auto mt-3">
                             {viewedUser.decks?.map(deck => (
-                                <DeckBox deck={deck} />
+                                <DeckCard deck={deck} />
                             ))}
                         </div>
                     </div>
                     <div className="tab-pane fade" id="profile-tab-pane" tabIndex={0}>
                         <div className="d-flex justify-content-center flex-wrap px-auto mt-3">
                             {viewedUser.offers?.map(offer => (
-                                <OfferBox offer={offer} />
+                                <OfferCard offer={offer} />
                             ))}
                         </div>
                     </div>
                     <div className="tab-pane fade" id="contact-tab-pane" tabIndex={0}>
                         <div className="d-flex justify-content-center flex-wrap px-auto mt-3" style={{maxHeight: '55%', overflowY:'auto'}}>
                             {viewedUser.reviews?.map(review => (
-                                <ReviewBox review={review} />
+                                <ReviewCard review={review} />
                             ))}
                         </div>
                     </div>
