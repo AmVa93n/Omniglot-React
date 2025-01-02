@@ -35,34 +35,6 @@ function getUserAge(birthdate: string) {
   return age;
 }
 
-function stylizeText(plainText: string) {
-  switch(plainText) {
-    case "private": return 'Private'
-    case "group": return 'Group'
-    case "beginner": return 'Beginner'
-    case "intermediate": return 'Intermediate'
-    case "advanced": return 'Advanced'
-    case "online": return 'Online'
-    case "at-student": return `At the student's home`
-    case "at-teacher": return `At the teacher's home`
-    default: return ''
-  }
-}
-
-function getIcon(plainText: string) {
-  switch(plainText) {
-    case "private": return 'bi-person-fill'
-    case "group": return 'bi-people-fill'
-    case "beginner": return 'bi-mortarboard-fill'
-    case "intermediate": return 'bi-mortarboard-fill'
-    case "advanced": return 'bi-mortarboard-fill'
-    case "online": return 'bi-wifi'
-    case "at-student": return `bi-house-fill`
-    case "at-teacher": return `bi-house-fill`
-    default: return ''
-  }
-}
-
 const months = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -86,14 +58,6 @@ function formatDate(dateString: string) {
   };
 
   return `${day}${ordinalSuffix(day)} ${month} ${year}`;
-}
-
-function drawStars(stars: number) {
-  let string = ``
-  for (let i= 1; i < stars+1; i++) {
-    string += `&#9733;`
-  }
-  return string
 }
 
 // convert 'yyyy/mm/dd' dates to 'dd/mm/yyyy' format
@@ -165,10 +129,7 @@ export {
   getLanguageName,
   langList,
   getUserAge,
-  stylizeText,
-  getIcon,
   formatDate,
-  drawStars,
   flipDayAndYear,
   languages,
   getCountries,

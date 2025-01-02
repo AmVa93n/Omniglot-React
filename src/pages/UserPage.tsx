@@ -10,6 +10,7 @@ import ReviewCard from "../components/ReviewCard";
 import '../styles/UserPage.css'
 import accountService from "../services/account.service";
 import { useNavigate } from "react-router-dom";
+import UserAvatar from "../components/UserAvatar";
 
 function UserPage() {
     const [viewedUser, setViewedUser] = useState({} as User)
@@ -40,8 +41,8 @@ function UserPage() {
             <div style={{width: '40%'}}>
                 <div className="content-box mx-auto mt-3 mb-5" style={{position: 'relative', width: '80%'}}>
                     <h2 className="mb-3 center">{viewedUser.username}</h2>
-                    <div className="mb-4 mx-auto circle-crop">
-                        <img id="profile-pic-preview" src={viewedUser.profilePic || '/images/Profile-PNG-File.png'} style={{minWidth: '200px'}}/>
+                    <div className="mb-4 mx-auto d-flex justify-content-center">
+                        <UserAvatar src={viewedUser.profilePic} size={200} />
                     </div>
                 
                         {viewedUser.professional &&

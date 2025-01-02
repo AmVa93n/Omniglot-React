@@ -1,10 +1,11 @@
 import { Class } from '../types'
 import { Link } from 'react-router-dom'
 import Language from './Language'
-import Snippet from './Snippet'
+import { ClassType, Level, ClassLocation } from './Snippet'
 import { formatDate } from '../utils'
 import PendingRequest from './PendingRequest'
 import '../styles/ClassCard.css'
+import UserAvatar from './UserAvatar'
 
 interface Props {
     cls: Class
@@ -28,9 +29,7 @@ function ClassCard({ cls, type, handleReschedule, handleCancel, handleRate }: Pr
             <div className="card-body">
                 <Link to={"/users/" + cls.teacher._id} className="link-text">
                     <div className="d-flex align-items-center mb-2">
-                        <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
-                            <img src={cls.teacher.profilePic || '/images/Profile-PNG-File.png'}/>
-                        </div>
+                        <UserAvatar src={cls.teacher.profilePic} size={50} />
                         <span className="fs-5">{cls.teacher.username}</span>
                     </div>
                 </Link>
@@ -40,21 +39,19 @@ function ClassCard({ cls, type, handleReschedule, handleCancel, handleRate }: Pr
                         <Language code={cls.language} />
                     </span>
                     <span className="card-text col">
-                        <Snippet data={cls.level} />
+                        <Level level={cls.level} />
                     </span>
                 </div>
 
                 <div className="row mb-2">
                     <span className="card-text col">
-                        <Snippet data={cls.locationType} />
+                        <ClassLocation type={cls.locationType} location={cls.location} />
                     </span>
-                    {cls.location && <span>({cls.location})</span>}
                 </div>
 
                 <div className="row mb-2">
                     <span className="card-text col">
-                        <Snippet data={cls.classType} />
-                        {cls.maxGroupSize && <span> (max. {cls.maxGroupSize} students)</span>}
+                        <ClassType type={cls.classType} maxGroupSize={cls.maxGroupSize} />
                     </span>
                 </div>
 

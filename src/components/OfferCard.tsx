@@ -1,6 +1,6 @@
 import { Offer } from '../types'
 import Language from './Language'
-import Snippet from './Snippet'
+import { ClassType, ClassLocation, Level } from './Snippet'
 import { Link } from 'react-router-dom'
 import '../styles/OfferCard.css'
 
@@ -22,21 +22,19 @@ function OfferCard({ offer, isOwn, handleDelete, handleEdit, disabled }: Props) 
                         <Language code={offer.language} />
                     </span>
                     <span className="card-text col">
-                        <Snippet data={offer.level} />
+                        <Level level={offer.level} />
                     </span>
                 </div>
                 
                 <div className="row mb-2">
                     <span className="card-text col">
-                        <Snippet data={offer.locationType} />
+                        <ClassLocation type={offer.locationType} location={isOwn ? offer.location : ''} />
                     </span>
-                    {(offer.location && isOwn) && <span> ({offer.location})</span>}
                 </div>
         
                 <div className="row mb-2">
                     <span className="card-text col">
-                        <Snippet data={offer.classType} />
-                        {offer.maxGroupSize && <span> (max. {offer.maxGroupSize} students)</span>}
+                        <ClassType type={offer.classType} maxGroupSize={offer.maxGroupSize} />
                     </span>
                 </div>
 

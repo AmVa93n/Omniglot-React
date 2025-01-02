@@ -46,7 +46,7 @@ function EditDeckForm({ deck, setEditedDeck, setDecks }: Props) {
 
     function addCard() {
         setDeckForm(prev => {
-            return {...prev, cards: [...prev.cards, {front: '', back: ''}]}
+            return {...prev, cards: [...prev.cards, {front: '', back: '', priority: 0}]}
         }
     )}
 

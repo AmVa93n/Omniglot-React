@@ -10,9 +10,10 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import Language from "../components/Language"
-import Snippet from "../components/Snippet"
+import { ClassType, ClassLocation, Level } from "../components/Snippet"
 import PendingRequest from "../components/PendingRequest"
 import { ClassContext } from "../context/class.context"
+import UserAvatar from "../components/UserAvatar"
 
 function CalendarPage() {
     const [classes, setClasses] = useState([] as Class[])
@@ -196,9 +197,7 @@ function CalendarPage() {
                 <div className="card-body" id="{{managedClass._id}}-manage">
                     <Link to={"/users/" + managedClass.student._id} className="link-text">
                         <div className="d-flex align-items-center my-3">
-                            <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
-                                <img src={managedClass.student.profilePic || "/images/Profile-PNG-File.png"}/>
-                            </div>
+                            <UserAvatar user={managedClass.student} size={50} />
                             <span className="fs-5">{managedClass.student.username}</span>
                         </div>
                     </Link>
@@ -211,21 +210,19 @@ function CalendarPage() {
 
                     <div className="row mb-3">
                         <span className="card-text col">
-                            <Snippet data={managedClass.level} />
+                            <Level level={managedClass.level} />
                         </span>
                     </div>
 
                     <div className="row mb-3">
                         <span className="card-text col">
-                            <Snippet data={managedClass.locationType} />
+                            <ClassLocation type={managedClass.locationType} location={managedClass.location} />
                         </span>
-                        {managedClass.location && <span>({managedClass.location})</span>}
                     </div>
 
                     <div className="row mb-3">
                         <span className="card-text col">
-                            <Snippet data={managedClass.classType} />
-                            {managedClass.maxGroupSize && <span> (max. {managedClass.maxGroupSize} students)</span>}
+                            <ClassType type={managedClass.classType} maxGroupSize={managedClass.maxGroupSize} />
                         </span>
                     </div>
 

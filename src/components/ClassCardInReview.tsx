@@ -1,7 +1,8 @@
 import { Class } from '../types'
 import Language from './Language'
-import Snippet from './Snippet'
+import { ClassType, Level, ClassLocation } from './Snippet'
 import { formatDate } from '../utils'
+import UserAvatar from './UserAvatar'
 
 interface Props {
     cls: Class
@@ -16,9 +17,7 @@ function ClassCardInReview({ cls }: Props) {
             <div className="card-body">
                 
                 <div className="d-flex align-items-center mb-2">
-                    <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
-                        <img src={cls.teacher.profilePic || '/images/Profile-PNG-File.png'}/>
-                    </div>
+                    <UserAvatar src={cls.teacher.profilePic} size={50} />
                     <span className="fs-5">{cls.teacher.username}</span>
                 </div>
 
@@ -27,21 +26,19 @@ function ClassCardInReview({ cls }: Props) {
                         <Language code={cls.language} />
                     </span>
                     <span className="card-text col">
-                        <Snippet data={cls.level} />
+                        <Level level={cls.level} />
                     </span>
                 </div>
 
                 <div className="row mb-2">
                     <span className="card-text col">
-                        <Snippet data={cls.locationType} />
+                        <ClassLocation type={cls.locationType} location={cls.location} />
                     </span>
-                    {cls.location && <span>({cls.location})</span>}
                 </div>
 
                 <div className="row mb-2">
                     <span className="card-text col">
-                        <Snippet data={cls.classType} />
-                        {cls.maxGroupSize && <span> (max. {cls.maxGroupSize} students)</span>}
+                        <ClassType type={cls.classType} maxGroupSize={cls.maxGroupSize}/>
                     </span>
                 </div>
 

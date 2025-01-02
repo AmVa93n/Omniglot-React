@@ -1,9 +1,10 @@
 import { Review } from '../types'
 import Language from './Language'
 import { formatDate } from '../utils'
-import Snippet from './Snippet';
+import { ClassType, ClassLocation, Level } from './Snippet';
 import { Link } from 'react-router-dom';
 import '../styles/ReviewCard.css'
+import UserAvatar from './UserAvatar';
 
 interface Props {
     review: Review
@@ -23,9 +24,7 @@ function ReviewCard({ review }: Props) {
                 <div className="row mb-2">
                     <Link to={"/users/" + review.author._id} className="link-text col">
                         <div className="d-flex align-items-center">
-                            <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
-                                <img src={review.author.profilePic || '/images/Profile-PNG-File.png'}/>
-                            </div>
+                            <UserAvatar src={review.author.profilePic} size={50} />
                             <span className="fs-5">{review.author.username}</span>
                             
                         </div>
@@ -48,23 +47,21 @@ function ReviewCard({ review }: Props) {
                         <Language code={review.language} />
                     </span>
                     <span className="card-text col">
-                        <Snippet data={review.level} />
+                        <Level level={review.level} />
                     </span>
                 </div>
                 
                 <div className="row">
                     <span className="card-text col">
-                        <Snippet data={review.locationType} />
+                        <ClassLocation type={review.locationType} />
                     </span>
                     <span className="card-text col">
-                        <Snippet data={review.classType} />
-                        {review.maxGroupSize && <span> (max. {review.maxGroupSize} students)</span>}
+                        <ClassType type={review.classType} maxGroupSize={review.maxGroupSize} />
                     </span>
                 </div>
             </div>
         </div>
     )
 }
-
 
 export default ReviewCard

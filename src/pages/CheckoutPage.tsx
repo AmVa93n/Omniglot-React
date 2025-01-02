@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Offer, User } from "../types";
 import Language from "../components/Language";
-import Snippet from "../components/Snippet";
+import { ClassType, ClassLocation, Level } from "../components/Snippet";
+import UserAvatar from "../components/UserAvatar";
 
 function CheckoutPage() {
     const { offerId } = useParams();
-    const [offer, setOffer] = useState<Offer | null>(null);
-    const [teacher, setTeacher] = useState<User | null>(null);
+    const [offer, setOffer] = useState<Offer>({} as Offer);
+    const [teacher, setTeacher] = useState<User>({} as User);
 
     useEffect(() => {
         async function fetchOffer() {
@@ -32,34 +33,31 @@ function CheckoutPage() {
                     <h5 className="card-header mb-3">{offer?.name}</h5>
                     <div className="card-body">
                         <div className="d-flex align-items-center mb-3">
-                            <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
-                                <img src={teacher?.profilePic || "/images/Profile-PNG-File.png"}/>
-                            </div>
+                            <UserAvatar user={teacher} size={50} />
                             <span className="fs-5">{teacher?.username}</span>
                         </div>
 
                         <div className="row mb-2">
                             <span className="card-text col"> 
-                                <Language code={offer?.language || ''} />
+                                <Language code={offer?.language} />
                             </span>
                         </div>
 
                         <div className="row mb-2">
                             <span className="card-text col">
-                                <Snippet data={offer?.level || ''} />
+                                <Level level={offer?.level} />
                             </span>
                         </div>
 
                         <div className="row mb-2">
                             <span className="card-text col stylize">
-                                <Snippet data={offer?.locationType || ''} />
+                                <ClassLocation type={offer?.locationType} />
                             </span>
                         </div>
 
                         <div className="row mb-2">
                             <span className="card-text col">
-                                <Snippet data={offer?.classType || ''} />
-                                {offer?.maxGroupSize && <span> (max. {offer?.maxGroupSize} students)</span>}
+                                <ClassType type={offer?.classType} maxGroupSize={offer?.maxGroupSize}/>
                             </span>
                         </div>
 

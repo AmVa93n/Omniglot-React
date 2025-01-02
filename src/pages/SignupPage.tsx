@@ -4,6 +4,7 @@ import { languages, getCountries } from "../utils"
 import { useState, useEffect } from "react"
 import authService from "../services/auth.service" 
 import { useNavigate } from "react-router-dom"
+import UserAvatar from "../components/UserAvatar"
 
 function SignupPage() {
     const [signupForm, setSignupForm] = useState<signupForm>({
@@ -138,8 +139,8 @@ function SignupPage() {
 
                 <div className="form-group mb-3">
                     <label htmlFor="profile-pic" className="form-label">Profile Picture</label>
-                    <div className="mb-3 mx-auto circle-crop">
-                        <img src={pfpPreview as string} className="img-fluid" style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
+                    <div className="mb-3 mx-auto d-flex just">
+                        <UserAvatar src={pfpPreview as string} size={200}/>
                     </div>
                     <input className="form-control" type="file" name="profilePic" onChange={(event) => handleFilePreview(event)}/>
                 </div>

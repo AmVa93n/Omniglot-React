@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { AuthContext } from '../context/auth.context'
 import Notifications from './Notifications'
 import { Notification } from '../types';
+import UserAvatar from './UserAvatar'
 
 function Navbar() {
     const [notifications, setNotifications] = useState([] as Notification[])
@@ -91,8 +92,8 @@ function Navbar() {
                     
                     <div className="dropdown-center dropDownWrapper">
                         <button className="dropdown-toggle no-arrow" data-bs-toggle="dropdown">
-                            <div className="nav-item avatar">
-                                <img src={user?.profilePic || '/images/Profile-PNG-File.png'}/>
+                            <div className="nav-item">
+                                <UserAvatar src={user.profilePic} size={50}/>
                             </div>
                         </button>
 
@@ -123,8 +124,8 @@ function Navbar() {
                     </> :
                 
                     <Link to="/login">
-                        <div className="nav-item avatar">
-                            <img src="/images/Profile-PNG-File.png"/>    
+                        <div className="nav-item">
+                            <UserAvatar src={''} size={50}/>
                         </div>
                     </Link>
                     }

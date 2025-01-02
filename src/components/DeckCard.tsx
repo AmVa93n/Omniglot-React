@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import accountService from '../services/account.service'
 import { Deck } from '../types'
 import Language from './Language'
-import Snippet from './Snippet'
+import { Level } from './Snippet'
 import '../styles/DeckCard.css'
 
 interface Props {
@@ -32,7 +32,7 @@ function DeckCard({ deck, isOwn, handleDelete, handleEdit, handlePlay, disabled 
                         <Language code={deck.language} />
                     </span>
                     <span className="card-text col addedIconWrapper">
-                        <Snippet data={deck.level} />
+                        <Level level={deck.level} />
                     </span>
                 </div>
         

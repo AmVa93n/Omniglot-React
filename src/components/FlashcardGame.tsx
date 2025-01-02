@@ -2,7 +2,7 @@ import { Deck, Card } from '../types';
 import { useState } from 'react';
 import accountService from '../services/account.service';
 import Language from './Language';
-import Snippet from './Snippet';
+import { Level } from './Snippet';
 import '../styles/FlashcardGame.css';
 
 interface Props {
@@ -78,7 +78,7 @@ function FlashcardGame({ deck, setPlayedDeck, setDecks }: Props) {
                     <Language code={deck.language} />
                 </span>
                 <span className="card-text col-auto">
-                    <Snippet data={deck.level} />
+                    <Level level={deck.level} />
                 </span>
                 <span className="card-text col-auto"><i className="bi bi-aspect-ratio-fill me-2"></i>{deck.cards.length} Cards</span>
                 <span className="card-text col-auto"><i className="bi bi-trophy-fill me-2"></i>{deck.mastered.length} Mastered</span>

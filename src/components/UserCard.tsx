@@ -4,6 +4,7 @@ import { getUserAge } from '../utils';
 import Language from './Language';
 import "../styles/UserCard.css"
 import accountService from '../services/account.service';
+import UserAvatar from './UserAvatar';
 
 interface Props {
     user: User;
@@ -22,10 +23,9 @@ function UserCard({ user, matchType }: Props) {
         <div className="user-card" key={user._id}>
                 <Link to={'/users/' + user._id} className="link-text">
                     <div className="d-flex align-items-center mb-3 position-relative">
-                        <div className="circle-crop me-2" style={{width: '50px', height: '50px', display: 'inline-flex'}}>
-                            <img src={user.profilePic || '/images/Profile-PNG-File.png'}/>
-                        </div>
+                        <UserAvatar src={user.profilePic} size={50} />
                         <span className="fs-5">{user.username}</span>
+                        
                         <span className="userAgeCountry">
                             <span className="age">{getUserAge(user.birthdate)}</span>, {user.country}
                         </span>
