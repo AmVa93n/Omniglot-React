@@ -1,10 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { User } from '../types';
 import { getUserAge } from '../utils';
 import Language from './Language';
 import "../styles/UserCard.css"
-import accountService from '../services/account.service';
 import UserAvatar from './UserAvatar';
+import { useContext } from 'react';
+import { SocketContext } from '../context/socket.context';
 
 interface Props {
     user: User;
@@ -12,11 +13,12 @@ interface Props {
 }
 
 function UserCard({ user, matchType }: Props) {
-    const navigate = useNavigate();
+    const { handleMessage } = useContext(SocketContext)
 
-    async function handleMessage() {
-        await accountService.createChat({ targetUserId: user._id });
-        navigate('/account/inbox');
+    function drawStars(stars: number) {
+        return Array.from({ length: stars }, (_, i) => (
+          <span key={i}>&#9733;</span> // Unicode for star
+        ));
     }
 
     return (
@@ -59,9 +61,9 @@ function UserCard({ user, matchType }: Props) {
                 <div className="row mb-2 align-items-center">
                     <span className="fw-bold col-auto" style={{width: '125px'}}>Rating</span>
                     <div className="col">
-                        {user.reviews &&
-                        <div className="mx-auto" style={{width: 'fit-content'}}>{user.ratingAvg} 
-                            <span style={{color: '#ffca08'}}>&#9733;</span>
+                        {user.reviewsNr > 0 &&
+                        <div className="mx-auto" style={{width: 'fit-content', color: '#ffca08'}}> 
+                            {drawStars(user.ratingAvg || 0)}
                         </div>}
                         <div className="mx-auto small" style={{width: 'fit-content'}}>({user.reviewsNr} Reviews)</div>
                     </div>
@@ -69,7 +71,7 @@ function UserCard({ user, matchType }: Props) {
 
                 <div className="row mt-auto">
                     <div className="col d-flex justify-content-center align-items-end">
-                        <button className="btn btn-primary mx-1" onClick={handleMessage}>
+                        <button className="btn btn-primary mx-1" onClick={() => handleMessage(user)}>
                             <i className="bi bi-envelope-fill me-1"></i>Message
                         </button>
                     </div>

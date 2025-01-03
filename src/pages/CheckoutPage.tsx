@@ -1,7 +1,7 @@
 import appService from "../services/app.service";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Offer, User } from "../types";
+import { Offer } from "../types";
 import Language from "../components/Language";
 import { ClassType, ClassLocation, Level } from "../components/Snippet";
 import UserAvatar from "../components/UserAvatar";
@@ -9,14 +9,12 @@ import UserAvatar from "../components/UserAvatar";
 function CheckoutPage() {
     const { offerId } = useParams();
     const [offer, setOffer] = useState<Offer>({} as Offer);
-    const [teacher, setTeacher] = useState<User>({} as User);
 
     useEffect(() => {
         async function fetchOffer() {
             if (!offerId) return;
-            const { offer, teacher } = await appService.getOffer(offerId);
+            const { offer } = await appService.getOffer(offerId);
             setOffer(offer);
-            setTeacher(teacher);
         }
         fetchOffer();
     }, [offerId]);
@@ -33,8 +31,8 @@ function CheckoutPage() {
                     <h5 className="card-header mb-3">{offer?.name}</h5>
                     <div className="card-body">
                         <div className="d-flex align-items-center mb-3">
-                            <UserAvatar src={teacher.profilePic} size={50} />
-                            <span className="fs-5">{teacher?.username}</span>
+                            <UserAvatar src={offer.creator.profilePic} size={50} />
+                            <span className="fs-5">{offer.creator.username}</span>
                         </div>
 
                         <div className="row mb-2">

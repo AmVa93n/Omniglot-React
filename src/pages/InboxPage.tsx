@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import accountService from "../services/account.service";
 import { Chat } from "../types";
 import { AuthContext } from "../context/auth.context";
@@ -6,25 +6,11 @@ import { getMsgTime } from "../utils";
 import { Link } from "react-router-dom";
 import "../styles/InboxPage.css";
 import UserAvatar from "../components/UserAvatar";
+import { SocketContext } from "../context/socket.context";
 
 function InboxPage() {
-    const [chats, setChats] = useState<Chat[]>([]);
-    const [activeChat, setActiveChat] = useState<Chat | null>(null);
+    const { chats, setChats, activeChat, setActiveChat } = useContext(SocketContext);
     const { user } = useContext(AuthContext)
-
-    useEffect(()=> {
-        async function fetchChats() {
-            try {
-                const chats = await accountService.getChats()
-                setChats(chats)
-                setActiveChat(chats[0])
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-        fetchChats()
-    }, [])
 
     function getOtherParty(chat: Chat | null) {
         return chat?.participants.find(party => party._id != user?._id);
@@ -51,7 +37,7 @@ function InboxPage() {
 
                 </div>
                 <div className="row-auto" id="conversation-list" style={{height: '550px', overflowY: 'auto'}}>
-                    {chats.map(chat => (
+                    {chats?.map(chat => (
                         <div 
                             key={chat._id}
                             className={`chatbox ${activeChat?._id === chat._id ? 'chatbox-active' : ''}`} 
@@ -80,7 +66,7 @@ function InboxPage() {
                 </div>
                 
                 <div className="p-3 d-flex flex-column" id="message-list" style={{flex: '1 1 auto', overflowY: 'auto', backgroundColor: 'white'}}>
-                    {activeChat?.messages.map(msg => (
+                    {activeChat?.messages?.map(msg => (
                         <div 
                             key={msg._id}
                             className={`d-flex align-items-center ${msg.sender === user?._id && 'flex-row-reverse'}`} 

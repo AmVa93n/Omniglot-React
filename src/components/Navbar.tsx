@@ -1,29 +1,14 @@
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import '../styles/Navbar.css'
-import appService from "../services/app.service"
 import { Link } from "react-router-dom"
 import { AuthContext } from '../context/auth.context'
 import Notifications from './Notifications'
-import { Notification } from '../types';
 import UserAvatar from './UserAvatar'
+import { SocketContext } from '../context/socket.context'
 
 function Navbar() {
-    const [notifications, setNotifications] = useState([] as Notification[])
+    const { notifications } = useContext(SocketContext)
     const { user, logOutUser } = useContext(AuthContext)
-
-    useEffect(()=> {
-        if (!user) return
-        async function fetchNotifications() {
-            try {
-                const data: Notification[] = await appService.getNotifications()
-                setNotifications(data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-        fetchNotifications()
-    }, [user])
 
     function getUnread() {
         return notifications.filter(n => !n.read).length
@@ -87,7 +72,7 @@ function Navbar() {
                             </div>
                         </button>
 
-                        <Notifications notifications={notifications} setNotifications={setNotifications} />
+                        <Notifications />
                     </div>
                     
                     <div className="dropdown-center dropDownWrapper">

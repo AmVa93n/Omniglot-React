@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import appService from "../services/app.service";
-import { Notification } from '../types';
+import { useContext } from "react";
+import { SocketContext } from "../context/socket.context";
+import UserAvatar from "./UserAvatar";
 
-function Notifications({ notifications, setNotifications }: 
-    {notifications: Notification[], setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>}) {
+function Notifications() {
+    const { notifications, setNotifications } = useContext(SocketContext)
     const navigate = useNavigate()
 
     function getNotificationMessage(type: string) {
@@ -43,8 +45,7 @@ function Notifications({ notifications, setNotifications }:
         }
         try {
             await appService.readNotification(notifId)
-            const notifToUpdate = notifications.find(n => n._id === notifId)
-            if (notifToUpdate) notifToUpdate.read = true
+            setNotifications(prev => prev.map(n => n._id === notifId ? {...n, read: true} : n))
             navigate(`${redirectUrl}`);
         } catch (error) {
             console.log(error)
@@ -64,19 +65,6 @@ function Notifications({ notifications, setNotifications }:
         }
     }
 
-    /*
-    function createNotif(notifData: any) {
-        notifications.unshift(notifData)
-        updateNotifBorder()
-    }
-
-    function updateNotifBorder() {
-        //[...notifList.children].forEach(el => {
-        //    if (el != notifList.lastElementChild) el.style.borderBottom = "solid 0.8px rgb(222, 226, 230)"
-        //})
-    }
-    */
-
     return (
         <ul className="dropdown-menu dropdown-menu-end" style={{maxHeight: '400px', overflowY: 'auto'}} id="notifList">
             {notifications.map(notif => (
@@ -84,13 +72,12 @@ function Notifications({ notifications, setNotifications }:
                     <div 
                         className="dropdown-item gap-2 py-2 position-relative" 
                         onClick={() => readNotif(notif._id, notif.type)} 
-                        style={{backgroundColor: !notif.read ? 'rgb(227, 242, 253)' : '', cursor: 'pointer'}}
+                        style={{backgroundColor: !notif.read ? 'rgb(227, 242, 253)' : '', cursor: 'pointer', borderBottom: 'solid 0.8px rgb(222, 226, 230)'}}
                     >
                         <div className="d-flex align-items-center mb-1">
-                            <div className="circle-crop nav-item me-1" style={{width: '25px', height: '25px', display: 'inline-flex'}}>
-                                <img src={ notif.source.profilePic || '/images/Profile-PNG-File.png'}/>
-                            </div>
-                            <span><span className="fw-bold">{notif.source.username}</span>
+                            <UserAvatar src={notif.source.profilePic} size={25} />
+                            <span>
+                                <span className="fw-bold">{notif.source.username}</span>
                                 {` ${getNotificationMessage(notif.type)}`}
                             </span>
                         </div>

@@ -43,6 +43,7 @@ export interface Card {
 
 export interface Offer {
     _id: string
+    creator: User
     name: string
     locationType: string
     location: string
@@ -110,6 +111,7 @@ export interface Message {
     recepient: string
     message: string
     timestamp: string
+    chat: string
 }
 
 export interface country {

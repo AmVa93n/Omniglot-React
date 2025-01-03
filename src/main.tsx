@@ -10,12 +10,15 @@ import 'bootstrap-datepicker'; // Datepicker JS
 import App from './App.tsx'
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from './context/auth.context'
+import { SocketProvider } from './context/socket.context'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <SocketProvider>
+          <App />
+        </SocketProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

@@ -8,14 +8,14 @@ import DeckCard from "../components/DeckCard";
 import OfferCard from "../components/OfferCard";
 import ReviewCard from "../components/ReviewCard";
 import '../styles/UserPage.css'
-import accountService from "../services/account.service";
-import { useNavigate } from "react-router-dom";
 import UserAvatar from "../components/UserAvatar";
+import { useContext } from "react";
+import { SocketContext } from "../context/socket.context";
 
 function UserPage() {
     const [viewedUser, setViewedUser] = useState({} as User)
     const { userId } = useParams()
-    const navigate = useNavigate()
+    const { handleMessage } = useContext(SocketContext)
 
     useEffect(() => {
         async function fetchUser() {
@@ -29,11 +29,6 @@ function UserPage() {
 
         fetchUser()
     }, [userId])
-
-    async function handleMessage() {
-        await accountService.createChat({ targetUserId: viewedUser._id });
-        navigate('/account/inbox');
-    }
 
     return (
         <div className="d-flex justify-content-center" style={{width: '100%'}}>
@@ -94,7 +89,7 @@ function UserPage() {
                     </div>
                 
                     <div className="d-flex justify-content-center mt-4">
-                        <button className="btn btn-primary mx-1" onClick={handleMessage}>
+                        <button className="btn btn-primary mx-1" onClick={() => handleMessage(viewedUser)}>
                             <i className="bi bi-envelope-fill me-1"></i>Message {viewedUser.username}
                         </button>
                     </div>
