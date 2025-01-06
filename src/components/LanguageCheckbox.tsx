@@ -1,7 +1,15 @@
-import { getLanguageName } from '../utils'
+import useLanguages from "../hooks/useLanguages"
 
-function LanguageCheckbox({ code, type, checked, disabled, onChange }: 
-    {code: string, type: 'teach' | 'learn', checked: boolean, disabled: boolean, onChange: (event: React.ChangeEvent)=> void}) {
+interface Props {
+    code: string
+    type: 'teach' | 'learn'
+    checked: boolean
+    disabled: boolean
+    onChange: (event: React.ChangeEvent) => void
+}
+
+function LanguageCheckbox({ code, type, checked, disabled, onChange }: Props) {
+    const { getLanguageName } = useLanguages()
 
     return (
         <div key={code} className="form-check">

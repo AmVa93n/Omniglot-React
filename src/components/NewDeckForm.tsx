@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { deckForm, Deck } from '../types';
-import { getLanguageName } from '../utils';
 import accountService from '../services/account.service';
+import useLanguages from '../hooks/useLanguages';
 
 interface Props {
     setDecks: React.Dispatch<React.SetStateAction<Deck[]>>
@@ -16,6 +16,7 @@ function NewDeckForm({ setDecks, setIsCreating }: Props) {
         level: '',
         cards: Array(10).fill({front: '', back: ''})
     })
+    const { getLanguageName } = useLanguages()
 
     useEffect(() => {
         async function fetchUser() {

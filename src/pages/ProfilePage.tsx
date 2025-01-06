@@ -1,16 +1,18 @@
 import { useState, useEffect, useRef } from "react"
 import accountService from "../services/account.service" 
-import { editProfileForm, User, country } from '../types'
+import { editProfileForm, User } from '../types'
 import Language from "../components/Language"
-import { languages, formatDate, getCountries } from "../utils"
 import '../styles/ProfilePage.css'
 import LanguageCheckbox from "../components/LanguageCheckbox"
 import UserAvatar from "../components/UserAvatar"
+import useFormat from "../hooks/useFormat"
+import useLanguages from "../hooks/useLanguages"
+import useCountries from "../hooks/useCountries"
 
 function ProfilePage() {
     const [profile, setProfile] = useState({} as User)
     const [editedFields, setEditedFields] = useState([] as string[])
-    const [countries, setCountries] = useState([] as country[])
+    
     const [editForm, setEditForm] = useState<editProfileForm>({
         username: '',
         email: '',
@@ -25,6 +27,9 @@ function ProfilePage() {
     })
     const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>('');
     const fileInputRef = useRef(null);
+    const { formatDate } = useFormat()
+    const { languagesList } = useLanguages()
+    const countries = useCountries()
 
     useEffect(() => {
         async function fetchUser() {
@@ -39,13 +44,7 @@ function ProfilePage() {
             }
         }
 
-        async function fetchCountries() {
-            const countries = await getCountries()
-            if (countries) setCountries(countries)
-        }
-
         fetchUser()
-        fetchCountries()
     }, [])
 
     function toggleEdit(field: string) {
@@ -227,7 +226,7 @@ function ProfilePage() {
                         {profile.lang_teach?.map(lang => (<Language key={lang} code={lang} />))} 
                     </> : 
                     <>
-                        {languages.map(lang => (
+                        {languagesList.map(lang => (
                             <LanguageCheckbox key={lang} code={lang} type='teach' 
                                 checked={editForm.lang_teach?.includes(lang)}
                                 disabled={editForm.lang_learn?.includes(lang)} 
@@ -251,7 +250,7 @@ function ProfilePage() {
                         {profile.lang_learn?.map(lang => (<Language key={lang} code={lang} />))} 
                     </> : 
                     <>
-                        {languages.map(lang => (
+                        {languagesList.map(lang => (
                             <LanguageCheckbox key={lang} code={lang} type='learn'
                                 checked={editForm.lang_learn?.includes(lang)}
                                 disabled={editForm.lang_teach?.includes(lang)} 

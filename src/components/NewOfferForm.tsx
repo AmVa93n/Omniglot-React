@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { offerForm, Offer } from '../types';
-import { timeslots, getLanguageName } from '../utils';
 import accountService from '../services/account.service';
+import useLanguages from '../hooks/useLanguages';
+import useDatePicker from '../hooks/useDatePicker';
 
 interface Props {
     setOffers: React.Dispatch<React.SetStateAction<Offer[]>>
@@ -23,6 +24,8 @@ function NewOfferForm({ setOffers, setIsCreating }: Props) {
         duration: 60,
         price: 10
     })
+    const { getLanguageName } = useLanguages()
+    const { timeslots } = useDatePicker()
 
     useEffect(() => {
         async function fetchUser() {

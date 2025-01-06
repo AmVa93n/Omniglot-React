@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useRef } from "react"
 import { Class, calendarEvent } from '../types'
 import accountService from "../services/account.service"
 import EventCard from "../components/EventCard"
-import { timeslots, flipDayAndYear, createDatePicker, formatDate } from '../utils'
 import { Link } from "react-router-dom"
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -15,6 +14,8 @@ import PendingRequest from "../components/PendingRequest"
 import { ClassContext } from "../context/class.context"
 import UserAvatar from "../components/UserAvatar"
 import '../styles/CalendarPage.css'
+import useFormat from "../hooks/useFormat"
+import useDatePicker from "../hooks/useDatePicker"
 
 function CalendarPage() {
     const [classes, setClasses] = useState([] as Class[])
@@ -23,6 +24,8 @@ function CalendarPage() {
     const prevMCRef = useRef<Class | null>(null);
     const [newDate, setNewDate] = useState('')
     const [newTimeslot, setNewTimeslot] = useState('')
+    const { flipDayAndYear, formatDate } = useFormat()
+    const { timeslots, createDatePicker } = useDatePicker()
 
     useEffect(()=> {
         async function fetchCalendar() {

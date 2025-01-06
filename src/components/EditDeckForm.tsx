@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { deckForm, Deck } from '../types';
-import { getLanguageName } from '../utils';
 import accountService from '../services/account.service';
+import useLanguages from '../hooks/useLanguages';
 
 interface Props {
     deck: Deck
@@ -12,6 +12,7 @@ interface Props {
 function EditDeckForm({ deck, setEditedDeck, setDecks }: Props) {
     const [languages, setLanguages] = useState<string[]>([])
     const [deckForm, setDeckForm] = useState<deckForm>(deck)
+    const { getLanguageName } = useLanguages()
 
     useEffect(() => {
         async function fetchUser() {

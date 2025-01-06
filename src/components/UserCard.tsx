@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { User } from '../types';
-import { getUserAge } from '../utils';
 import Language from './Language';
 import "../styles/UserCard.css"
 import UserAvatar from './UserAvatar';
-import { useContext } from 'react';
-import { SocketContext } from '../context/socket.context';
+import useChat from '../hooks/useChat';
+import useFormat from '../hooks/useFormat';
 
 interface Props {
     user: User;
@@ -13,13 +12,8 @@ interface Props {
 }
 
 function UserCard({ user, matchType }: Props) {
-    const { handleMessage } = useContext(SocketContext)
-
-    function drawStars(stars: number) {
-        return Array.from({ length: stars }, (_, i) => (
-          <span key={i}>&#9733;</span> // Unicode for star
-        ));
-    }
+    const { handleMessage } = useChat();
+    const { getUserAge, drawStars } = useFormat();
 
     return (
         <div className="user-card" key={user._id}>

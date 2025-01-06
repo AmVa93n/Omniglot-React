@@ -1,7 +1,8 @@
 import LanguageCheckbox from "../components/LanguageCheckbox"
-import { country, signupForm } from "../types"
-import { languages, getCountries } from "../utils"
-import { useState, useEffect } from "react"
+import { signupForm } from "../types"
+import useCountries from "../hooks/useCountries"
+import useLanguages from "../hooks/useLanguages"
+import { useState } from "react"
 import authService from "../services/auth.service" 
 import { useNavigate } from "react-router-dom"
 import UserAvatar from "../components/UserAvatar"
@@ -20,18 +21,10 @@ function SignupPage() {
         professional: false,
         private: false
     })
-    const [countries, setCountries] = useState([] as country[])
     const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>('/images/Profile-PNG-File.png');
     const navigate = useNavigate()
-
-    useEffect(() => {
-        async function fetchCountries() {
-            const countries = await getCountries()
-            if (countries) setCountries(countries)
-        }
-
-        fetchCountries()
-    }, [])
+    const { languagesList } = useLanguages()
+    const countries = useCountries()
 
     function handleChange(event: React.ChangeEvent) {
         const field = (event.target as HTMLInputElement).name
@@ -148,7 +141,7 @@ function SignupPage() {
                 <div className="row mb-3">
                     <div className="col-6" id="lang_teach">
                         <p>I want to teach</p>
-                        {languages.map(lang => (
+                        {languagesList.map(lang => (
                             <LanguageCheckbox key={lang} code={lang} type='teach' 
                                 checked={signupForm.lang_teach?.includes(lang)}
                                 disabled={signupForm.lang_learn?.includes(lang)} 
@@ -159,7 +152,7 @@ function SignupPage() {
 
                     <div className="col-6" id="lang_learn">
                         <p>I want to learn</p>
-                        {languages.map(lang => (
+                        {languagesList.map(lang => (
                             <LanguageCheckbox key={lang} code={lang} type='learn' 
                                 checked={signupForm.lang_learn?.includes(lang)}
                                 disabled={signupForm.lang_teach?.includes(lang)} 

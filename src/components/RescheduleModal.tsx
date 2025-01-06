@@ -1,5 +1,5 @@
-import { timeslots, createDatePicker } from "../utils"
 import { useEffect } from "react";
+import useDatePicker from "../hooks/useDatePicker";
 
 interface Props {
     newDate: string
@@ -9,6 +9,7 @@ interface Props {
 }
 
 function RescheduleModal({ newDate, newTimeslot, setNewTimeslot, handleSend }: Props) {
+    const { timeslots, createDatePicker } = useDatePicker()
 
     useEffect(()=> {
         createDatePicker()

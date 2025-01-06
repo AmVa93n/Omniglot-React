@@ -1,6 +1,8 @@
-import { getLanguageName } from '../utils'
+import useLanguages from "../hooks/useLanguages"
 
 function Language({ code }: {code: string}) {
+    const { getLanguageName } = useLanguages()
+
     return (
         <div style={{
             display: 'flex',

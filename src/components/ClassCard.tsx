@@ -2,10 +2,10 @@ import { Class } from '../types'
 import { Link } from 'react-router-dom'
 import Language from './Language'
 import { ClassType, Level, ClassLocation } from './Snippet'
-import { formatDate } from '../utils'
 import PendingRequest from './PendingRequest'
 import '../styles/ClassCard.css'
 import UserAvatar from './UserAvatar'
+import useFormat from '../hooks/useFormat'
 
 interface Props {
     cls: Class
@@ -16,6 +16,7 @@ interface Props {
 }
 
 function ClassCard({ cls, type, handleReschedule, handleCancel, handleRate }: Props) {
+    const { formatDate } = useFormat()
 
     return (
         <div className="card class-card text-left mx-3 mb-4">

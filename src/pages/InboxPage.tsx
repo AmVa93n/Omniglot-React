@@ -1,16 +1,16 @@
-import { useContext } from "react";
 import accountService from "../services/account.service";
 import { Chat } from "../types";
-import { AuthContext } from "../context/auth.context";
-import { getMsgTime } from "../utils";
 import { Link } from "react-router-dom";
 import "../styles/InboxPage.css";
 import UserAvatar from "../components/UserAvatar";
-import { SocketContext } from "../context/socket.context";
+import useChat from "../hooks/useChat";
+import useAuth from "../hooks/useAuth";
+import useFormat from "../hooks/useFormat";
 
 function InboxPage() {
-    const { chats, setChats, activeChat, setActiveChat } = useContext(SocketContext);
-    const { user } = useContext(AuthContext)
+    const { chats, setChats, activeChat, setActiveChat } = useChat()
+    const { user } = useAuth()
+    const { getMsgTime } = useFormat()
 
     function getOtherParty(chat: Chat | null) {
         return chat?.participants.find(party => party._id != user?._id);

@@ -2,20 +2,20 @@ import { useState, useEffect } from "react"
 import { User } from '../types'
 import { useParams } from "react-router-dom";
 import appService from "../services/app.service";
-import { getUserAge } from '../utils'
 import Language from "../components/Language";
 import DeckCard from "../components/DeckCard";
 import OfferCard from "../components/OfferCard";
 import ReviewCard from "../components/ReviewCard";
 import '../styles/UserPage.css'
 import UserAvatar from "../components/UserAvatar";
-import { useContext } from "react";
-import { SocketContext } from "../context/socket.context";
+import useChat from "../hooks/useChat";
+import useFormat from "../hooks/useFormat";
 
 function UserPage() {
     const [viewedUser, setViewedUser] = useState({} as User)
     const { userId } = useParams()
-    const { handleMessage } = useContext(SocketContext)
+    const { handleMessage } = useChat()
+    const { getUserAge } = useFormat()
 
     useEffect(() => {
         async function fetchUser() {

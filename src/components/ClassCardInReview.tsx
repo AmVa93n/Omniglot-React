@@ -1,14 +1,15 @@
 import { Class } from '../types'
 import Language from './Language'
 import { ClassType, Level, ClassLocation } from './Snippet'
-import { formatDate } from '../utils'
 import UserAvatar from './UserAvatar'
+import useFormat from '../hooks/useFormat'
 
 interface Props {
     cls: Class
 }
 
 function ClassCardInReview({ cls }: Props) {
+    const { formatDate } = useFormat()
 
     return (
         <div className="card text-left mx-3 mb-4">

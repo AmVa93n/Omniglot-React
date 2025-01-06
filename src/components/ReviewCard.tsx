@@ -1,22 +1,17 @@
 import { Review } from '../types'
 import Language from './Language'
-import { formatDate } from '../utils'
 import { ClassType, ClassLocation, Level } from './Snippet';
 import { Link } from 'react-router-dom';
 import '../styles/ReviewCard.css'
 import UserAvatar from './UserAvatar';
+import useFormat from '../hooks/useFormat';
 
 interface Props {
     review: Review
 }
 
 function ReviewCard({ review }: Props) {
-
-    function drawStars(stars: number) {
-        return Array.from({ length: stars }, (_, i) => (
-          <span key={i}>&#9733;</span> // Unicode for star
-        ));
-    }
+    const { formatDate, drawStars } = useFormat();
 
     return (
         <div className="card review-card text-left mx-3 mb-4">

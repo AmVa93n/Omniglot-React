@@ -1,4 +1,4 @@
-import { Deck, Card } from '../types';
+import { Deck, Flashcard } from '../types';
 import { useState } from 'react';
 import accountService from '../services/account.service';
 import Language from './Language';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 function FlashcardGame({ deck, setPlayedDeck, setDecks }: Props) {
-    const [cards, setCards] = useState<Card[]>(deck.cards.filter(card => card.priority > -10))
+    const [cards, setCards] = useState<Flashcard[]>(deck.cards.filter(card => card.priority > -10))
     const [currentCardIndex, setCurrentCardIndex] = useState(0)
     const [sessionStats, setSessionStats] = useState({correct: 0, guess: 0, wrong: 0, skip: 0})
     const [isFlipped, setIsFlipped] = useState(false)

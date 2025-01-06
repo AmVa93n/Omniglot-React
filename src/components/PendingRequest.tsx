@@ -1,13 +1,19 @@
 import { useContext } from "react"
 import { rescheduleRequest, Class } from "../types"
-import { AuthContext } from "../context/auth.context"
 import accountService from '../services/account.service'
-import { formatDate } from "../utils"
 import { ClassContext } from "../context/class.context"
+import useFormat from "../hooks/useFormat"
+import useAuth from "../hooks/useAuth"
 
-function PendingRequest({ cls, reschedule }: { cls: Class, reschedule: rescheduleRequest}) {
-    const { user } = useContext(AuthContext)
+interface Props {
+    cls: Class
+    reschedule: rescheduleRequest
+}
+
+function PendingRequest({ cls, reschedule }: Props) {
+    const { user } = useAuth()
     const { setManagedClass } = useContext(ClassContext)
+    const { formatDate } = useFormat()
 
     async function handleAccept() {
         try {

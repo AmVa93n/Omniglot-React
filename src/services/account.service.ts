@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { Card } from "../types";
+import { Flashcard } from "../types";
 
 class AccountService {
   api: AxiosInstance
@@ -117,7 +117,7 @@ class AccountService {
     return response.data;
   }
 
-  async updateCards(deckId: string, requestBody: Card[]) {
+  async updateCards(deckId: string, requestBody: Flashcard[]) {
     const response: AxiosResponse = await this.api.put(`/account/decks/${deckId}/cards`, requestBody);
     return response.data;
   }

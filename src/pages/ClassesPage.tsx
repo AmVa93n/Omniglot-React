@@ -4,9 +4,9 @@ import accountService from '../services/account.service'
 import ClassCard from '../components/ClassCard'
 import RescheduleModal from '../components/RescheduleModal'
 import { ClassContext } from '../context/class.context'
-import { flipDayAndYear } from '../utils'
 import ReviewForm from '../components/ReviewForm'
 import '../styles/ClassesPage.css'
+import useFormat from '../hooks/useFormat'
 
 function ClassesPage() {
     const [upcomingClasses, setUpcomingClasses] = useState([] as Class[])
@@ -15,6 +15,7 @@ function ClassesPage() {
     const [newDate, setNewDate] = useState('')
     const [newTimeslot, setNewTimeslot] = useState('')
     const [ratedClass, setRatedClass] = useState<Class | null>(null)
+    const { flipDayAndYear } = useFormat()
 
     useEffect(()=> {
         async function fetchClasses() {

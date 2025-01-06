@@ -2,11 +2,12 @@ import { Class } from '../types'
 import { Link } from 'react-router-dom'
 import Language from './Language'
 import { ClassType, ClassLocation, Level } from './Snippet'
-import { formatDate } from '../utils'
 import '../styles/EventCard.css'
 import UserAvatar from './UserAvatar'
+import useFormat from '../hooks/useFormat'
 
 function EventCard({ cls }: {cls: Class}) {
+    const { formatDate } = useFormat()
 
     return (
         <div className="card calendar-card text-left mx-3 mb-4" id={cls._id} style={{display: 'none'}}>
