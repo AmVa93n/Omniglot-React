@@ -1,25 +1,34 @@
-.navButtonsRow {
+.navbar {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 6px 0px;
     display: flex;
-    align-items: end;
-}
-
-.navButton {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
-    padding: 0;
+    padding: 5px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.iconWrapper {
+.navbar-buttons-container {
     display: flex;
     align-items: center;
-    width: fit-content;
-    height: 28px;
-    position: relative;
+    gap: 5px;
 }
 
-.dropDownWrapper {
+.navbar-button {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 5px;
+}
+
+.navbar-button:hover {
+    background-image: linear-gradient(90deg, orange, yellow);
+    border-radius: 50px;
+}
+
+.dropdown-container {
     display: flex;
     align-items: center;
     height: fit-content;
@@ -29,43 +38,42 @@
     display: none;
 }
 
-#results-container {
+.notifications-button {
     position: relative;
-    width: 100%;
-    margin-top: 0;
+    width: 50px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
-  
-#results {
+
+.unread {
     position: absolute;
-    top: 77%;
-    width: 17%;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    max-height: 250px;
-    overflow-y: auto; 
-    margin: 0; 
-    padding: 0;
-    list-style: none;
+    top: 5px;
+    right: 15px;
+    transform: translate(50%, -50%);
+    background-color: red;
+    color: white;
+    border-radius: 100px;
+    padding: 0 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
 }
-  
-#results li {
+
+.searchbar-container {
     display: flex;
     align-items: center;
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    background-color: white;
+    justify-content: center;
+    width: 30%;
+    height: 100%;
+    position: relative;
 }
-  
-#results li:last-child {
-    border-bottom: none;
+
+.searchbar-container input {
+    border-radius: 50px;
 }
-  
-#results img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    border-radius: 50%;
+
+.searchbar-container i {
+    position: absolute;
+    top: 25%;
+    right: 15px;
 }
