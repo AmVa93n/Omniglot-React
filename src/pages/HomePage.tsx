@@ -1,19 +1,12 @@
-import Hero from "../components/Hero"
-import Features from "../components/Features"
-import TopLanguages from "../components/TopLanguages"
-import "../styles/HomePage.css"
+import Hero from "../components/Hero/Hero"
+import Features from "../components/Features/Features"
+import TopLanguages from "../components/TopLanguages/TopLanguages"
 
 function HomePage() {
     return (
         <>
             <Hero />
-                
-            <div className="b-example-divider"></div>
-
-            <Features />
-                
-            <div className="b-example-divider"></div>
-                
+            <Features />                
             <TopLanguages />
         </>
     )

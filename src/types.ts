@@ -187,3 +187,8 @@ export interface calendarEvent {
     end: string
     display: string
 }
+
+export interface statListItem {
+    code: string;
+    amount: number;
+}

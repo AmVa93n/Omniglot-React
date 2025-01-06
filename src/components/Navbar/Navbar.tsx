@@ -1,14 +1,13 @@
-import { useContext } from 'react'
-import '../styles/Navbar.css'
+import './Navbar.css'
 import { Link } from "react-router-dom"
-import { AuthContext } from '../context/auth.context'
-import Notifications from './Notifications'
-import UserAvatar from './UserAvatar'
-import { SocketContext } from '../context/socket.context'
+import Notifications from '../Notifications'
+import UserAvatar from '../UserAvatar'
+import useAuth from '../../hooks/useAuth'
+import useChat from '../../hooks/useChat'
 
 function Navbar() {
-    const { notifications } = useContext(SocketContext)
-    const { user, logOutUser } = useContext(AuthContext)
+    const { notifications } = useChat()
+    const { user, logOutUser } = useAuth()
 
     function getUnread() {
         return notifications.filter(n => !n.read).length

@@ -8,8 +8,8 @@ import ClassesPage from "./pages/ClassesPage";
 import CalendarPage from "./pages/CalendarPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer"
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer"
 import IsPrivate from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
 import { ClassProvider } from './context/class.context';
