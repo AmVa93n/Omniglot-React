@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom"
-import authService from "../services/auth.service";
+import authService from "../../services/auth.service";
 import { useContext } from "react";
-import { AuthContext } from "../context/auth.context";
+import { AuthContext } from "../../context/auth.context";
+import './LoginPage.css'
 
 function LoginPage() {
     const navigate = useNavigate()
@@ -32,31 +33,34 @@ function LoginPage() {
       };
 
     return (
-        <div className="content-box">
+      <div className="login-page">
+        <div className="login-container">
+        
             <h2>Login</h2>
             <form onSubmit={(event) => handleSubmit(event)} method="POST">
 
-                <div className="form-floating mb-3">
-                <input type="text" name="email" id="email" placeholder="Your email address" className="form-control" autoComplete="email"/>
-                <label htmlFor="email">Email</label>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input type="text" name="email" id="email" placeholder="Your email address" autoComplete="email"/>
                 </div>
 
-                <div className="form-floating mb-3">
-                <input type="password" name="password" id="password" placeholder="Your password" className="form-control" autoComplete="current-password"/>
-                <label htmlFor="password">Password</label>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <input type="password" name="password" id="password" placeholder="Your password" autoComplete="current-password"/>
                 </div>
 
-                <div className="d-flex justify-content-center">
-                <button type="submit" className="btn btn-success mb-3 rounded-pill">Login</button>
+                <div className="login-button-container">
+                  <button type="submit" className="login-button">Login</button>
                 </div>
             </form>
             
-            <p>Don't have an account yet?</p>
-            <div className="d-flex justify-content-center">
-            <Link to="/signup"><button className="btn btn-dark rounded-pill">Sign Up</button></Link>
+            <div className="signup-container">
+              <p>Don't have an account yet?</p>
+              <Link to="/signup"><button className="signup-button">Sign Up</button></Link>
             </div>
         
         </div>
+      </div>
     )
 }
 

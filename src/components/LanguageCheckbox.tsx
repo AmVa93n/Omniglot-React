@@ -12,17 +12,8 @@ function LanguageCheckbox({ code, type, checked, disabled, onChange }: Props) {
     const { getLanguageName } = useLanguages()
 
     return (
-        <div key={code} className="form-check">
-            <input 
-                className="form-check-input" 
-                type="checkbox" 
-                value={code}
-                id={type + '-' + code}
-                checked={checked}
-                disabled={disabled} 
-                onChange={onChange}/>
-            <label 
-                className="form-check-label" 
+        <div className="checkbox">
+            <label
                 htmlFor={type + '-' + code}
                 style={{
                     display: 'flex',
@@ -30,6 +21,14 @@ function LanguageCheckbox({ code, type, checked, disabled, onChange }: Props) {
                     gap: '4px'
                 }}
             >
+                <input  
+                    type="checkbox" 
+                    value={code}
+                    id={type + '-' + code}
+                    checked={checked}
+                    disabled={disabled} 
+                    onChange={onChange}
+                />
                 <img src={'/images/' + code + '.svg'} style={{width: '20px'}}/>{getLanguageName(code)}
             </label>
         </div>

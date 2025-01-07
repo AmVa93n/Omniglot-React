@@ -1,0 +1,94 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 104px);
+}
+
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.login-page h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.login-page .form-group {
+    margin-bottom: 15px;
+}
+
+.login-page label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.login-page input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-button-container {
+    text-align: center;
+}
+
+.login-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.signup-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-page .signup-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-page .signup-button:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 600px) {
+    .login-container {
+        padding: 15px;
+        max-width: 95%;
+    }
+
+    .login-page h2 {
+        font-size: 24px;
+    }
+
+    .login-button {
+        font-size: 14px;
+    }
+}

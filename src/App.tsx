@@ -6,8 +6,8 @@ import UserPage from "./pages/UserPage";
 import ProfilePage from "./pages/ProfilePage";
 import ClassesPage from "./pages/ClassesPage";
 import CalendarPage from "./pages/CalendarPage";
-import SignupPage from "./pages/SignupPage";
-import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage/SignupPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer"
 import IsPrivate from "./components/auth/IsPrivate";

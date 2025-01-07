@@ -25,6 +25,12 @@ function UserMenu({ isOpen, onClose }: Props) {
         { title: 'Reviews', icon: 'bi bi-star-fill', link: '/account/reviews' },
     ]
 
+    function handleLogout() {
+        logOutUser()
+        onClose()
+        navigate('/login')
+    }
+
     return (
         <ul id="user-menu" style={{display: isOpen ? 'block' : 'none'}}>
             {menuItems.map(item => (
@@ -45,7 +51,7 @@ function UserMenu({ isOpen, onClose }: Props) {
 
             <hr className="user-menu-divider"/>
 
-            <li className="user-menu-item" onClick={() => {logOutUser(); onClose()}} style={{color: 'red'}}>
+            <li className="user-menu-item" onClick={handleLogout} style={{color: 'red'}}>
                 <i className="bi bi-box-arrow-in-right"></i>Logout
             </li>
         </ul>
