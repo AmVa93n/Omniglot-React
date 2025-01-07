@@ -1,17 +1,30 @@
 import './Navbar.css'
 import { Link } from "react-router-dom"
-import Notifications from '../Notifications'
+import { useState } from 'react'
+import Notifications from '../Notifications/Notifications'
 import UserAvatar from '../UserAvatar'
 import useAuth from '../../hooks/useAuth'
 import useChat from '../../hooks/useChat'
-import UserMenu from '../UserMenu'
+import UserMenu from '../UserMenu/UserMenu'
 
 function Navbar() {
     const { notifications } = useChat()
     const { user } = useAuth()
+    const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
 
     function getUnread() {
         return notifications.filter(n => !n.read).length
+    }
+
+    function toggleNotifications() {
+        setIsNotificationsOpen(!isNotificationsOpen)
+        setIsUserMenuOpen(false)
+    }
+
+    function toggleUserMenu() {
+        setIsUserMenuOpen(!isUserMenuOpen)
+        setIsNotificationsOpen(false)
     }
 
     return (
@@ -21,7 +34,7 @@ function Navbar() {
             </Link>
 
             <div className="searchbar-container">
-                <input id="search" className="form-control" type="search" placeholder="Search" aria-label="Search"/>
+                <input className="form-control" type="search" placeholder="Search a user..." aria-label="Search"/>
                 <i className="bi bi-search"></i>
             </div>
 
@@ -43,31 +56,23 @@ function Navbar() {
                     </button>
                 </Link>
                 
-                <div className="dropdown-center dropdown-container">
-                    <button className="dropdown-toggle no-arrow notifications-button" data-bs-toggle="dropdown">
-                        <i className="bi bi-bell-fill fs-4"></i>
-                        <span className="unread" style={{display: getUnread() > 0 ? 'block' : 'none'}}>
-                            {getUnread()}
-                        </span>
-                    </button>
-
-                    <Notifications />
-                </div>
+                <button className="notifications-button" onClick={toggleNotifications}>
+                    <i className="bi bi-bell-fill fs-4"></i>
+                    <span className="unread-badge" style={{display: getUnread() > 0 ? 'block' : 'none'}}>
+                        {getUnread()}
+                    </span>
+                </button>
+                <Notifications isOpen={isNotificationsOpen} onClose={() => setIsNotificationsOpen(false)} />
                 
-                <div className="dropdown-center dropdown-container">
-                    <button className="dropdown-toggle no-arrow" data-bs-toggle="dropdown">
-                        <UserAvatar src={user.profilePic} size={50}/>
-                    </button>
-
-                    <UserMenu />
-                </div>
+                <button onClick={toggleUserMenu}>
+                    <UserAvatar src={user.profilePic} size={50}/>
+                </button>
+                <UserMenu isOpen={isUserMenuOpen} onClose={() => setIsUserMenuOpen(false)} />
 
                 </> :
             
                 <Link to="/login">
-                    <div className="nav-item">
-                        <UserAvatar src={''} size={50}/>
-                    </div>
+                    <UserAvatar src={''} size={50}/>
                 </Link>
                 }
             </div>

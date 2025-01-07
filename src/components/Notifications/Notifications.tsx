@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import appService from "../services/app.service";
+import appService from "../../services/app.service";
 import { useContext } from "react";
-import { SocketContext } from "../context/socket.context";
-import UserAvatar from "./UserAvatar";
+import { SocketContext } from "../../context/socket.context";
+import UserAvatar from "../UserAvatar";
+import './Notifications.css'
 
-function Notifications() {
+interface Props {
+    isOpen: boolean
+    onClose: () => void
+}
+
+function Notifications({ isOpen, onClose }: Props) {
     const { notifications, setNotifications } = useContext(SocketContext)
     const navigate = useNavigate()
 
@@ -27,7 +33,7 @@ function Notifications() {
         return messages[type] || '';
     }
 
-    async function readNotif(notifId: string, type: string) {
+    async function markAsRead(notifId: string, type: string) {
         let redirectUrl
         switch(type) {
             case 'message': redirectUrl = '/account/inbox' ;break
@@ -47,12 +53,13 @@ function Notifications() {
             await appService.readNotification(notifId)
             setNotifications(prev => prev.map(n => n._id === notifId ? {...n, read: true} : n))
             navigate(`${redirectUrl}`);
+            onClose()
         } catch (error) {
             console.log(error)
         }
     }
 
-    async function deleteNotif(notifId: string, event: React.MouseEvent) {
+    async function deleteNotification(notifId: string, event: React.MouseEvent) {
         event.stopPropagation();
         try {
             await appService.deleteNotification(notifId)
@@ -66,23 +73,25 @@ function Notifications() {
     }
 
     return (
-        <ul className="dropdown-menu dropdown-menu-end" style={{maxHeight: '400px', overflowY: 'auto'}} id="notifList">
+        <ul id="notification-list" style={{display: isOpen ? 'block' : 'none'}}>
             {notifications.map(notif => (
-                <li className="notif" key={notif._id}>
+                <li key={notif._id}>
                     <div 
-                        className="dropdown-item gap-2 py-2 position-relative" 
-                        onClick={() => readNotif(notif._id, notif.type)} 
-                        style={{backgroundColor: !notif.read ? 'rgb(227, 242, 253)' : '', cursor: 'pointer', borderBottom: 'solid 0.8px rgb(222, 226, 230)'}}
+                        className={`notification ${!notif.read ? 'unread' : ''}`}
+                        onClick={() => markAsRead(notif._id, notif.type)}
                     >
-                        <div className="d-flex align-items-center mb-1">
-                            <UserAvatar src={notif.source.profilePic} size={25} />
-                            <span>
-                                <span className="fw-bold">{notif.source.username}</span>
-                                {` ${getNotificationMessage(notif.type)}`}
-                            </span>
+                        <div className="notification-content">
+                            <div className="notification-text">
+                                <UserAvatar src={notif.source.profilePic} size={25} />
+                                <span>
+                                    <b>{notif.source.username}</b>
+                                    {` ${getNotificationMessage(notif.type)}`}
+                                </span>
+                            </div>
+                            <small className="notification-timestamp">{notif.timeDiff}</small>
                         </div>
-                        <small style={{width: 'fit-content'}} className="d-block ms-auto">{notif.timeDiff}</small>
-                        <button className="btn position-absolute top-0 end-0 p-0" onClick={(event) => deleteNotif(notif._id, event)}>
+                        
+                        <button className="notification-delete" onClick={(event) => deleteNotification(notif._id, event)}>
                             <i className="bi bi-x"></i>
                         </button>
                     </div>

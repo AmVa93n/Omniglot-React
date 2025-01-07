@@ -46,7 +46,7 @@
     align-items: center;
 }
 
-.unread {
+.unread-badge {
     position: absolute;
     top: 5px;
     right: 15px;

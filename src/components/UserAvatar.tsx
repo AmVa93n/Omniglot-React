@@ -9,6 +9,7 @@ function UserAvatar({ src, size }: Props) {
             style={{
                 width: size + 'px', 
                 height: size + 'px', 
+                minWidth: size + 'px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 display: 'flex',

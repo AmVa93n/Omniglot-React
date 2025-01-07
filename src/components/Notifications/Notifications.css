@@ -1,0 +1,60 @@
+#notification-list {
+    max-height: 400px;
+    width: 360px;
+    overflow-y: auto;
+    position: absolute;
+    top: 65px;
+    right: 5px;
+    border: 1px solid #d0d7de;
+    border-radius: 5px;
+    padding: 0;
+    background-color: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.notification {
+    position: relative;
+    cursor: pointer;
+    border-bottom: solid 1px #e1e4e8;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.notification.unread {
+    background-color: #e7f3ff;
+}
+
+.notification:hover, .unread:hover  {
+    background-color: #f0f8ff;
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.notification-timestamp {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.notification-delete {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.notification-delete:hover {
+    color: #dc3545;
+}
