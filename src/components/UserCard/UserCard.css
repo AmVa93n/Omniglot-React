@@ -1,0 +1,102 @@
+.user-card {
+    background-color: rgba(250, 250, 250, 0.9);
+    border-radius: 15px;
+    width: 320px;
+    height: fit-content;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.user-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.user-info-container .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 15px;
+}
+
+.user-card .prof-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+.user-info-container .age-country {
+    font-size: 14px;
+    color: #555;
+}
+
+.user-info-container .username {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-card .card-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.user-card .card-text {
+    font-size: 14px;
+    font-weight: bold;
+    width: 20%;
+    min-width: 20%;
+}
+
+.user-card .languages {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+    flex-grow: 1;
+    max-width: 80%;
+    overflow-x: hidden;
+}
+
+.user-card .stars {
+    color: #ffca08;
+}
+
+.user-card button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 7.5px;
+    display: flex;
+    gap: 5px;
+    width: fit-content;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.user-card button:hover {
+    background-color: #0056b3;
+}

@@ -4,7 +4,7 @@ import './LanguageChip.css'
 
 interface Props {
     code: string
-    onDelete: () => void
+    onDelete?: () => void
 }
 
 function Language({ code, onDelete }: Props) {
@@ -13,10 +13,11 @@ function Language({ code, onDelete }: Props) {
     return (
         <div className="language-chip-container">
             <Avatar src={`/flags/${code}.svg`} size={20}/>
-            <span>{getLanguageName(code)}</span>
+            <span className="language-chip-name">{getLanguageName(code)}</span>
+            {onDelete && 
             <button className="language-chip-delete" onClick={onDelete}>
                 <i className="bi bi-x"></i>
-            </button>
+            </button>}
         </div>
     )
 }

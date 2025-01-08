@@ -7,6 +7,10 @@
     padding: 4px;
 }
 
+.language-chip-name {
+    margin-right: 4px;
+}
+
 .language-chip-delete {
     display: flex;
     align-items: center;
@@ -16,7 +20,6 @@
     border-radius: 50%;
     width: 15px;
     height: 15px;
-    margin-left: 4px;
 }
 
 .language-chip-delete:hover {
