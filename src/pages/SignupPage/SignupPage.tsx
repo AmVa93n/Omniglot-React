@@ -1,4 +1,3 @@
-import LanguageCheckbox from "../../components/LanguageCheckbox"
 import { signupForm } from "../../types"
 import useCountries from "../../hooks/useCountries"
 import useLanguages from "../../hooks/useLanguages"
@@ -6,6 +5,8 @@ import { useState } from "react"
 import authService from "../../services/auth.service" 
 import { useNavigate } from "react-router-dom"
 import './SignupPage.css'
+import LanguageSelectModal from "../../components/LanguageSelectModal/LanguageSelectModal"
+import Language from "../../components/Language"
 
 function SignupPage() {
     const [signupForm, setSignupForm] = useState<signupForm>({
@@ -22,9 +23,12 @@ function SignupPage() {
         private: false
     })
     const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>('/images/Profile-PNG-File.png');
+    const [isModalOpen, setIsModalOpen] = useState(true)
+    const [modalField, setModalField] = useState<'lang_teach' | 'lang_learn'>('lang_teach')
     const navigate = useNavigate()
     const { languagesList } = useLanguages()
     const countries = useCountries()
+    const availableLanguages = languagesList.filter(lang => !signupForm.lang_teach.includes(lang) && !signupForm.lang_learn.includes(lang))
 
     function handleChange(event: React.ChangeEvent) {
         const { name, value } = event.target as HTMLInputElement
@@ -33,17 +37,16 @@ function SignupPage() {
         })
     }
 
-    function handleCheckbox(event: React.ChangeEvent, field: string) {
-        const value = (event.target as HTMLInputElement).value
-        const isChecked = signupForm[field as 'lang_teach' | 'lang_learn'].includes(value)
-        const newList = [...signupForm[field as 'lang_teach' | 'lang_learn']]
-        if (!isChecked) {
-            newList.push(value)
-        } else {
-            const index = newList.indexOf(value);
-            newList.splice(index, 1);
-        }
-        setSignupForm(prev => {return {...prev, [field]: newList}})
+    function handleAddLanguage(field: 'lang_teach' | 'lang_learn') {
+        setModalField(field)
+        setIsModalOpen(true)
+    }
+
+    function handleModalConfirm(selectedLanguages: string[], field: 'lang_teach' | 'lang_learn') {
+        setSignupForm(prev => {
+            return {...prev, [field]: [...prev[field], ...selectedLanguages]}
+        })
+        setIsModalOpen(false)
     }
 
     function handleSwitch(event: React.ChangeEvent) {
@@ -146,32 +149,39 @@ function SignupPage() {
                         </div>
                     </div>
                     
-                    
                     <div className="signup-form-section">
                         <h6>Languages</h6>
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <div className="form-group">
-                                <label>I want to teach</label>
-                                {languagesList.map(lang => (
-                                    <LanguageCheckbox key={lang} code={lang} type='teach' 
-                                        checked={signupForm.lang_teach?.includes(lang)}
-                                        disabled={signupForm.lang_learn?.includes(lang)} 
-                                        onChange={(event) => handleCheckbox(event, 'lang_teach')} 
-                                    />
+                        <div className="form-group">
+                            <label>I want to teach</label>
+                            <div className="languages">
+                                {signupForm.lang_teach.map(lang => (
+                                    <Language key={lang} code={lang} />
                                 ))}
                             </div>
-
-                            <div className="form-group">
-                                <label>I want to learn</label>
-                                {languagesList.map(lang => (
-                                    <LanguageCheckbox key={lang} code={lang} type='learn' 
-                                        checked={signupForm.lang_learn?.includes(lang)}
-                                        disabled={signupForm.lang_teach?.includes(lang)} 
-                                        onChange={(event) => handleCheckbox(event, 'lang_learn')} 
-                                    />
-                                ))}
-                            </div>
+                            <button className="add-button" type="button" onClick={() => handleAddLanguage('lang_teach')} disabled={availableLanguages.length === 0}>
+                                <i className="bi bi-plus"></i>Add
+                            </button>
                         </div>
+
+                        <div className="form-group">
+                            <label>I want to learn</label>
+                            <div className="languages">
+                                {signupForm.lang_learn.map(lang => (
+                                    <Language key={lang} code={lang} />
+                                ))}
+                            </div>
+                            <button className="add-button" type="button" onClick={() => handleAddLanguage('lang_learn')} disabled={availableLanguages.length === 0}>
+                                <i className="bi bi-plus"></i>Add
+                            </button>
+                        </div>
+
+                        {isModalOpen && 
+                            <LanguageSelectModal 
+                                languages={availableLanguages} 
+                                field={modalField}
+                                onConfirm={handleModalConfirm}
+                                onCancel={() => setIsModalOpen(false)}
+                            />}
                     </div>
 
                     <div className="signup-form-section">

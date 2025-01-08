@@ -3,7 +3,6 @@ import accountService from "../services/account.service"
 import { editProfileForm, User } from '../types'
 import Language from "../components/Language"
 import '../styles/ProfilePage.css'
-import LanguageCheckbox from "../components/LanguageCheckbox"
 import UserAvatar from "../components/UserAvatar"
 import useFormat from "../hooks/useFormat"
 import useLanguages from "../hooks/useLanguages"

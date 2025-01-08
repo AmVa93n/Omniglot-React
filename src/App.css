@@ -24,6 +24,12 @@ button {
   background-color: transparent;
 }
 
+button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
 .content-box {
   background-color: rgba(250, 250, 250, 0.8);
   border-radius: 20px;

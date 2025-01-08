@@ -15,14 +15,14 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
 .signup-form-section {
     min-width: 500px;
     padding: 20px;
-    background-color: white;
+    background-color: rgb(255, 255, 255, 0.8);
     border-radius: 10px;
 }
 
@@ -59,6 +59,13 @@
     width: auto;
 }
 
+.form-group .languages {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 450px;
+}
+
 .profile-preview {
     display: block;
     margin-top: 10px;
@@ -85,6 +92,29 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.signup-page .add-button {
+    width: 50px;
+    height: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-page .add-button:hover {
+    background-color: #0056b3;
+}
+
+.signup-page .add-button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
 }
 
 .signup-page .signup-button {
