@@ -35,8 +35,10 @@ function LoginPage() {
     return (
       <div className="login-page">
         <div className="login-container">
-        
-            <h2>Login</h2>
+            <div className="login-header">
+              <img src="/images/logo-no-text.png" alt="logo" className="logo" width={28}/>
+              <h2>Login</h2>
+            </div>
             <form onSubmit={(event) => handleSubmit(event)} method="POST">
 
                 <div className="form-group">

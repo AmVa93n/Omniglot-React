@@ -6,11 +6,10 @@ import Avatar from "../Avatar";
 import './Notifications.css'
 
 interface Props {
-    isOpen: boolean
     onClose: () => void
 }
 
-function Notifications({ isOpen, onClose }: Props) {
+function Notifications({ onClose }: Props) {
     const { notifications, setNotifications } = useContext(SocketContext)
     const navigate = useNavigate()
 
@@ -73,7 +72,7 @@ function Notifications({ isOpen, onClose }: Props) {
     }
 
     return (
-        <ul id="notification-list" style={{display: isOpen ? 'block' : 'none'}}>
+        <ul id="notification-list">
             {notifications.map(notif => (
                 <li key={notif._id}>
                     <div 

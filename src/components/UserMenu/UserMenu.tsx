@@ -3,11 +3,10 @@ import useAuth from '../../hooks/useAuth';
 import './UserMenu.css';
 
 interface Props {
-    isOpen: boolean
     onClose: () => void
 }
 
-function UserMenu({ isOpen, onClose }: Props) {
+function UserMenu({ onClose }: Props) {
     const { user, logOutUser } = useAuth()
     const navigate = useNavigate()
 
@@ -32,7 +31,7 @@ function UserMenu({ isOpen, onClose }: Props) {
     }
 
     return (
-        <ul id="user-menu" style={{display: isOpen ? 'block' : 'none'}}>
+        <ul id="user-menu">
             {menuItems.map(item => (
                 <li key={item.title} className='user-menu-item' onClick={() => {navigate(item.link); onClose()}}>
                     <i className={item.icon}></i>{item.title}

@@ -24,7 +24,7 @@ function SignupPage() {
         private: false
     })
     const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>('/images/Profile-PNG-File.png');
-    const [isModalOpen, setIsModalOpen] = useState(true)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalField, setModalField] = useState<'lang_teach' | 'lang_learn'>('lang_teach')
     const navigate = useNavigate()
     const { languagesList } = useLanguages()
@@ -95,10 +95,10 @@ function SignupPage() {
     return (
         <div className="signup-page">
             <form onSubmit={handleSubmit}>
-                <h2>Create an account</h2>
+                <h1>Create an account</h1>
                 <div className="signup-form-body">
                     <div className="signup-form-section">
-                        <h6>Account Information</h6>
+                        <h3>Account Information</h3>
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
                             <input type="text" name="username" required placeholder="Your username" value={signupForm.username} onChange={handleChange}/>
@@ -125,7 +125,7 @@ function SignupPage() {
                     </div>
 
                     <div className="signup-form-section">
-                        <h6>Personal Information</h6>
+                        <h3>Personal Information</h3>
                         <div className="form-group">
                             <label>Gender</label>
                             <div className="gender-options">
@@ -157,7 +157,7 @@ function SignupPage() {
                     </div>
                     
                     <div className="signup-form-section">
-                        <h6>Languages</h6>
+                        <h3>Languages</h3>
                         <div className="form-group">
                             <label>I want to teach</label>
                             <div className="languages">
@@ -192,7 +192,7 @@ function SignupPage() {
                     </div>
 
                     <div className="signup-form-section">
-                        <h6>Profile Type</h6>
+                        <h3>Profile Type</h3>
                         <div className="form-group checkbox">
                             <label>
                                 <input type="checkbox" name="professional" checked={signupForm.professional} disabled={signupForm.private} onChange={handleSwitch}/>Professional Profile

@@ -1,12 +1,13 @@
 #user-menu {
     position: absolute;
-    top: 65px;
+    top: 50px;
     right: 5px;
     padding: 0;
     border: 1px solid #d0d7de;
     border-radius: 6px;
     background-color: white;
     overflow-y: auto;
+    overflow-x: hidden;
     width: 200px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
@@ -19,6 +20,10 @@
     align-items: center;
     width: 100%;
     color: #24292e;
+}
+
+.user-menu-item .bi {
+    font-size: 18px;
 }
 
 .user-menu-item:hover {

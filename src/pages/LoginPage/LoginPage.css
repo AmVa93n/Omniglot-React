@@ -15,10 +15,18 @@
     box-sizing: border-box;
 }
 
-.login-page h2 {
+.login-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
+    gap: 5px;
+}
+
+.login-header h2 {
     text-align: center;
     color: #333;
+    font-size: 28px;
 }
 
 .login-page .form-group {

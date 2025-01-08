@@ -32,6 +32,7 @@
 .hero-text-container h1 {
     font-size: 3rem;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .hero-text-container p {

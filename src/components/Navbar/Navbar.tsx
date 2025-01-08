@@ -29,12 +29,14 @@ function Navbar() {
 
     return (
         <nav className="navbar">
-            <Link className="logo" to="/">
-                <img src="/images/logo.png" width="200px"/>
+            <Link to="/">
+                <div className="logo">
+                    <img src="/images/logo.png" width={'100%'}/>
+                </div>
             </Link>
 
             <div className="searchbar-container">
-                <input className="form-control" type="search" placeholder="Search a user..." aria-label="Search"/>
+                <input type="search" placeholder="Search a user..." />
                 <i className="bi bi-search"></i>
             </div>
 
@@ -44,30 +46,30 @@ function Navbar() {
                 <>
                 <Link to="/users/match/partners">
                     <button className="navbar-button">
-                        <i className="bi bi-chat-text-fill fs-4"></i>
+                        <i className="bi bi-chat-text-fill"></i>
                         <span>Partners</span>
                     </button>
                 </Link>
 
                 <Link to="/users/match/teachers">
                     <button className="navbar-button">
-                        <i className="bi bi-mortarboard-fill fs-4"></i>
+                        <i className="bi bi-mortarboard-fill"></i>
                         <span>Teachers</span>
                     </button>
                 </Link>
                 
                 <button className="notifications-button" onClick={toggleNotifications}>
-                    <i className="bi bi-bell-fill fs-4"></i>
+                    <i className="bi bi-bell-fill"></i>
                     <span className="unread-badge" style={{display: getUnread() > 0 ? 'block' : 'none'}}>
                         {getUnread()}
                     </span>
                 </button>
-                <Notifications isOpen={isNotificationsOpen} onClose={() => setIsNotificationsOpen(false)} />
+                {isNotificationsOpen && <Notifications onClose={() => setIsNotificationsOpen(false)} />}
                 
                 <button onClick={toggleUserMenu}>
                     <Avatar src={user.profilePic} size={50}/>
                 </button>
-                <UserMenu isOpen={isUserMenuOpen} onClose={() => setIsUserMenuOpen(false)} />
+                {isUserMenuOpen && <UserMenu onClose={() => setIsUserMenuOpen(false)} />}
 
                 </> :
             
