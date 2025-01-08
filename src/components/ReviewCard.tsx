@@ -3,7 +3,7 @@ import Language from './Language'
 import { ClassType, ClassLocation, Level } from './Snippet';
 import { Link } from 'react-router-dom';
 import '../styles/ReviewCard.css'
-import UserAvatar from './UserAvatar';
+import Avatar from './Avatar';
 import useFormat from '../hooks/useFormat';
 
 interface Props {
@@ -19,7 +19,7 @@ function ReviewCard({ review }: Props) {
                 <div className="row mb-2">
                     <Link to={"/users/" + review.author._id} className="col">
                         <div className="d-flex align-items-center">
-                            <UserAvatar src={review.author.profilePic} size={50} />
+                            <Avatar src={review.author.profilePic} size={50} />
                             <span className="fs-5">{review.author.username}</span>
                             
                         </div>

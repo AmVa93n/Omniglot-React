@@ -3,13 +3,14 @@ interface Props {
     size: number
 }
 
-function UserAvatar({ src, size }: Props) {
+function Avatar({ src, size }: Props) {
     return (
         <div 
             style={{
                 width: size + 'px', 
                 height: size + 'px', 
                 minWidth: size + 'px',
+                minHeight: size + 'px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 display: 'flex',
@@ -29,4 +30,4 @@ function UserAvatar({ src, size }: Props) {
     );
 }
 
-export default UserAvatar;
+export default Avatar;

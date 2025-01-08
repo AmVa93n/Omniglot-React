@@ -4,7 +4,7 @@ import Language from './Language'
 import { ClassType, Level, ClassLocation } from './Snippet'
 import PendingRequest from './PendingRequest'
 import '../styles/ClassCard.css'
-import UserAvatar from './UserAvatar'
+import Avatar from './Avatar'
 import useFormat from '../hooks/useFormat'
 
 interface Props {
@@ -30,7 +30,7 @@ function ClassCard({ cls, type, handleReschedule, handleCancel, handleRate }: Pr
             <div className="card-body">
                 <Link to={"/users/" + cls.teacher._id}>
                     <div className="d-flex align-items-center mb-2">
-                        <UserAvatar src={cls.teacher.profilePic} size={50} />
+                        <Avatar src={cls.teacher.profilePic} size={50} />
                         <span className="fs-5">{cls.teacher.username}</span>
                     </div>
                 </Link>

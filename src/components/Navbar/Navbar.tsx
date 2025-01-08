@@ -2,7 +2,7 @@ import './Navbar.css'
 import { Link } from "react-router-dom"
 import { useState } from 'react'
 import Notifications from '../Notifications/Notifications'
-import UserAvatar from '../UserAvatar'
+import Avatar from '../Avatar'
 import useAuth from '../../hooks/useAuth'
 import useChat from '../../hooks/useChat'
 import UserMenu from '../UserMenu/UserMenu'
@@ -65,14 +65,14 @@ function Navbar() {
                 <Notifications isOpen={isNotificationsOpen} onClose={() => setIsNotificationsOpen(false)} />
                 
                 <button onClick={toggleUserMenu}>
-                    <UserAvatar src={user.profilePic} size={50}/>
+                    <Avatar src={user.profilePic} size={50}/>
                 </button>
                 <UserMenu isOpen={isUserMenuOpen} onClose={() => setIsUserMenuOpen(false)} />
 
                 </> :
             
                 <Link to="/login">
-                    <UserAvatar src={''} size={50}/>
+                    <Avatar src={''} size={50}/>
                 </Link>
                 }
             </div>

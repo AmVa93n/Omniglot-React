@@ -12,7 +12,7 @@ import Language from "../components/Language"
 import { ClassType, ClassLocation, Level } from "../components/Snippet"
 import PendingRequest from "../components/PendingRequest"
 import { ClassContext } from "../context/class.context"
-import UserAvatar from "../components/UserAvatar"
+import Avatar from "../components/Avatar"
 import '../styles/CalendarPage.css'
 import useFormat from "../hooks/useFormat"
 import useDatePicker from "../hooks/useDatePicker"
@@ -201,7 +201,7 @@ function CalendarPage() {
                 <div className="card-body" id="{{managedClass._id}}-manage">
                     <Link to={"/users/" + managedClass.student._id}>
                         <div className="d-flex align-items-center my-3">
-                            <UserAvatar src={managedClass.student.profilePic} size={50} />
+                            <Avatar src={managedClass.student.profilePic} size={50} />
                             <span className="fs-5">{managedClass.student.username}</span>
                         </div>
                     </Link>

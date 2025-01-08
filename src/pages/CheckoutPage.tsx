@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Offer } from "../types";
 import Language from "../components/Language";
 import { ClassType, ClassLocation, Level } from "../components/Snippet";
-import UserAvatar from "../components/UserAvatar";
+import Avatar from "../components/Avatar";
 
 function CheckoutPage() {
     const { offerId } = useParams();
@@ -31,7 +31,7 @@ function CheckoutPage() {
                     <h5 className="card-header mb-3">{offer?.name}</h5>
                     <div className="card-body">
                         <div className="d-flex align-items-center mb-3">
-                            <UserAvatar src={offer.creator.profilePic} size={50} />
+                            <Avatar src={offer.creator.profilePic} size={50} />
                             <span className="fs-5">{offer.creator.username}</span>
                         </div>
 

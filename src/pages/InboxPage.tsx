@@ -2,7 +2,7 @@ import accountService from "../services/account.service";
 import { Chat } from "../types";
 import { Link } from "react-router-dom";
 import "../styles/InboxPage.css";
-import UserAvatar from "../components/UserAvatar";
+import Avatar from "../components/Avatar";
 import useChat from "../hooks/useChat";
 import useAuth from "../hooks/useAuth";
 import useFormat from "../hooks/useFormat";
@@ -45,7 +45,7 @@ function InboxPage() {
                             onClick={() => setActiveChat(chat)}
                         >
                             <div className="d-flex align-items-center position-relative">
-                                <UserAvatar src={getOtherParty(chat)?.profilePic || ''} size={50} />
+                                <Avatar src={getOtherParty(chat)?.profilePic || ''} size={50} />
                                 <span className="fs-5">{getOtherParty(chat)?.username}</span>
                                 {getOtherParty(chat)?.professional && <span className="badge rounded-pill text-bg-primary position-absolute" style={{top: -8, right: -8}}>Professional</span>}
                             </div>

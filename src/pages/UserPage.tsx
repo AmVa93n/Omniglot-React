@@ -7,7 +7,7 @@ import DeckCard from "../components/DeckCard";
 import OfferCard from "../components/OfferCard";
 import ReviewCard from "../components/ReviewCard";
 import '../styles/UserPage.css'
-import UserAvatar from "../components/UserAvatar";
+import Avatar from "../components/Avatar";
 import useChat from "../hooks/useChat";
 import useFormat from "../hooks/useFormat";
 
@@ -37,7 +37,7 @@ function UserPage() {
                 <div className="content-box mx-auto mt-3 mb-5" style={{position: 'relative', width: '80%'}}>
                     <h2 className="mb-3 center">{viewedUser.username}</h2>
                     <div className="mb-4 mx-auto d-flex justify-content-center">
-                        <UserAvatar src={viewedUser.profilePic} size={200} />
+                        <Avatar src={viewedUser.profilePic} size={200} />
                     </div>
                 
                         {viewedUser.professional &&

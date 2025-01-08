@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Language from './Language'
 import { ClassType, ClassLocation, Level } from './Snippet'
 import '../styles/EventCard.css'
-import UserAvatar from './UserAvatar'
+import Avatar from './Avatar'
 import useFormat from '../hooks/useFormat'
 
 function EventCard({ cls }: {cls: Class}) {
@@ -15,7 +15,7 @@ function EventCard({ cls }: {cls: Class}) {
             <div className="card-body">
                 <Link to={"/users/" + cls.student._id}>
                     <div className="d-flex align-items-center mb-2">
-                        <UserAvatar src={cls.student.profilePic} size={50} />
+                        <Avatar src={cls.student.profilePic} size={50} />
                         <span className="fs-5">{cls.student.username}</span>
                     </div>
                 </Link>

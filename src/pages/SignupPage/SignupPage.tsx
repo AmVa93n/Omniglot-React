@@ -6,7 +6,8 @@ import authService from "../../services/auth.service"
 import { useNavigate } from "react-router-dom"
 import './SignupPage.css'
 import LanguageSelectModal from "../../components/LanguageSelectModal/LanguageSelectModal"
-import Language from "../../components/Language"
+import LanguageChip from "../../components/LanguageChip/LanguageChip"
+import Avatar from "../../components/Avatar"
 
 function SignupPage() {
     const [signupForm, setSignupForm] = useState<signupForm>({
@@ -40,6 +41,12 @@ function SignupPage() {
     function handleAddLanguage(field: 'lang_teach' | 'lang_learn') {
         setModalField(field)
         setIsModalOpen(true)
+    }
+
+    function handleDeleteLanguage(code: string, field: 'lang_teach' | 'lang_learn') {
+        setSignupForm(prev => {
+            return {...prev, [field]: prev[field].filter(lang => lang !== code)}
+        })
     }
 
     function handleModalConfirm(selectedLanguages: string[], field: 'lang_teach' | 'lang_learn') {
@@ -113,8 +120,8 @@ function SignupPage() {
                         <div className="form-group">
                             <label htmlFor="profile-pic">Profile Picture</label>
                             <input type="file" name="profilePic" onChange={(event) => handleFilePreview(event)}/>
-                            <img src={pfpPreview as string} alt="Profile Preview" className="profile-preview" />
                         </div>
+                        <Avatar src={pfpPreview as string} size={100} />
                     </div>
 
                     <div className="signup-form-section">
@@ -155,7 +162,7 @@ function SignupPage() {
                             <label>I want to teach</label>
                             <div className="languages">
                                 {signupForm.lang_teach.map(lang => (
-                                    <Language key={lang} code={lang} />
+                                    <LanguageChip key={lang} code={lang} onDelete={() => handleDeleteLanguage(lang, 'lang_teach')} />
                                 ))}
                             </div>
                             <button className="add-button" type="button" onClick={() => handleAddLanguage('lang_teach')} disabled={availableLanguages.length === 0}>
@@ -167,7 +174,7 @@ function SignupPage() {
                             <label>I want to learn</label>
                             <div className="languages">
                                 {signupForm.lang_learn.map(lang => (
-                                    <Language key={lang} code={lang} />
+                                    <LanguageChip key={lang} code={lang} onDelete={() => handleDeleteLanguage(lang, 'lang_learn')} />
                                 ))}
                             </div>
                             <button className="add-button" type="button" onClick={() => handleAddLanguage('lang_learn')} disabled={availableLanguages.length === 0}>

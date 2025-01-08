@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { User } from '../types';
 import Language from './Language';
 import "../styles/UserCard.css"
-import UserAvatar from './UserAvatar';
+import Avatar from './Avatar';
 import useChat from '../hooks/useChat';
 import useFormat from '../hooks/useFormat';
 
@@ -19,7 +19,7 @@ function UserCard({ user, matchType }: Props) {
         <div className="user-card" key={user._id}>
                 <Link to={'/users/' + user._id}>
                     <div className="d-flex align-items-center mb-3 position-relative">
-                        <UserAvatar src={user.profilePic} size={50} />
+                        <Avatar src={user.profilePic} size={50} />
                         <span className="fs-5">{user.username}</span>
                         
                         <span className="userAgeCountry">

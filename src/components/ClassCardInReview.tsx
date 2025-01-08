@@ -1,7 +1,7 @@
 import { Class } from '../types'
 import Language from './Language'
 import { ClassType, Level, ClassLocation } from './Snippet'
-import UserAvatar from './UserAvatar'
+import Avatar from './Avatar'
 import useFormat from '../hooks/useFormat'
 
 interface Props {
@@ -18,7 +18,7 @@ function ClassCardInReview({ cls }: Props) {
             <div className="card-body">
                 
                 <div className="d-flex align-items-center mb-2">
-                    <UserAvatar src={cls.teacher.profilePic} size={50} />
+                    <Avatar src={cls.teacher.profilePic} size={50} />
                     <span className="fs-5">{cls.teacher.username}</span>
                 </div>
 

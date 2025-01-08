@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import appService from "../../services/app.service";
 import { useContext } from "react";
 import { SocketContext } from "../../context/socket.context";
-import UserAvatar from "../UserAvatar";
+import Avatar from "../Avatar";
 import './Notifications.css'
 
 interface Props {
@@ -82,7 +82,7 @@ function Notifications({ isOpen, onClose }: Props) {
                     >
                         <div className="notification-content">
                             <div className="notification-text">
-                                <UserAvatar src={notif.source.profilePic} size={25} />
+                                <Avatar src={notif.source.profilePic} size={25} />
                                 <span>
                                     <b>{notif.source.username}</b>
                                     {` ${getNotificationMessage(notif.type)}`}

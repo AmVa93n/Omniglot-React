@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './LanguageSelectModal.css';
 import useLanguages from '../../hooks/useLanguages';
-import UserAvatar from '../UserAvatar';
+import Avatar from '../Avatar';
 
 interface Props {
     languages: string[];
@@ -35,7 +35,7 @@ function LanguageSelectModal({ languages, field, onConfirm, onCancel }: Props) {
                                 className={`modal-list-item ${selectedLanguagues.includes(lang) ? 'selected' : ''}`}
                                 onClick={() => handleCheckboxChange(lang)}
                             >
-                                <UserAvatar src={'/flags/' + lang + '.svg'} size={25} />
+                                <Avatar src={'/flags/' + lang + '.svg'} size={25} />
                                 
                                 <span className='lang-name'>{getLanguageName(lang)}</span>
                                 <input  

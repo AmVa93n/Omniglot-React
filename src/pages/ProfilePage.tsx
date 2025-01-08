@@ -3,7 +3,7 @@ import accountService from "../services/account.service"
 import { editProfileForm, User } from '../types'
 import Language from "../components/Language"
 import '../styles/ProfilePage.css'
-import UserAvatar from "../components/UserAvatar"
+import Avatar from "../components/Avatar"
 import useFormat from "../hooks/useFormat"
 import useLanguages from "../hooks/useLanguages"
 import useCountries from "../hooks/useCountries"
@@ -114,7 +114,7 @@ function ProfilePage() {
             <form onSubmit={handleSave} method="POST" encType="multipart/form-data">
                 <div className="position-relative">
                     <div className="mb-3 mx-auto d-flex justify-content-center">
-                        <UserAvatar src={pfpPreview as string} size={200} />
+                        <Avatar src={pfpPreview as string} size={200} />
                     </div>
                     <button type="button" id="edit-pfp-btn" className="btn btn-secondary btn-sm circle-btn editPfpBtn" onClick={() => toggleEdit('profilePic')}>
                         <i className="bi bi-pencil-square"></i>
