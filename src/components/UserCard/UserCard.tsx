@@ -29,7 +29,9 @@ function UserCard({ user }: Props) {
                 </div>
             </Link>
 
-            {user.professional && <span className="prof-badge">Professional</span>}
+            {user.professional && <span className="prof-badge">
+                <i className="bi bi-award-fill me-1"></i>Professional
+            </span>}
 
             <div className="card-row">
                 <div className='card-text'>

@@ -40,7 +40,10 @@
     border-radius: 50px;
     font-size: 12px;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 3px 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .user-info-container .age-country {
@@ -90,11 +93,10 @@
     border-radius: 5px;
     padding: 5px 7.5px;
     display: flex;
+    align-items: center;
     gap: 5px;
     width: fit-content;
     align-self: center;
-    border: none;
-    cursor: pointer;
     transition: background-color 0.2s;
 }
 
