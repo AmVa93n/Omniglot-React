@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import appService from "../../services/app.service";
 import LanguageChip from "../../components/LanguageChip/LanguageChip";
 import DeckCard from "../../components/DeckCard";
-import OfferCard from "../../components/OfferCard";
+import OfferCard from "../../components/OfferCard/OfferCard";
 import ReviewCard from "../../components/ReviewCard";
 import './UserPage.css'
 import Avatar from "../../components/Avatar";
@@ -97,7 +97,9 @@ function UserPage() {
                     </button>
                     {activeTab === 'decks' && (
                         viewedUser.decks?.length === 0 ? <p>{viewedUser.username} has no decks yet.</p> : 
-                        viewedUser.decks?.map(deck => <DeckCard deck={deck} />)
+                        <div className="cards-container">
+                            {viewedUser.decks?.map(deck => <DeckCard deck={deck} />)}
+                        </div>
                     )}
                 </div>
 
@@ -107,7 +109,9 @@ function UserPage() {
                     </button>
                     {activeTab === 'offers' && (
                         viewedUser.offers?.length === 0 ? <p>{viewedUser.username} has no offers yet.</p> : 
-                        viewedUser.offers?.map(offer => <OfferCard offer={offer} />)
+                        <div className="cards-container">
+                            {viewedUser.offers?.map(offer => <OfferCard offer={offer} />)}
+                        </div>
                     )}
                 </div>
 
@@ -117,7 +121,9 @@ function UserPage() {
                     </button>
                     {activeTab === 'reviews' && (
                         viewedUser.reviews?.length === 0 ? <p>{viewedUser.username} has no reviews yet.</p> : 
-                        viewedUser.reviews?.map(review => <ReviewCard review={review} />)
+                        <div className="cards-container">
+                            {viewedUser.reviews?.map(review => <ReviewCard review={review} />)}
+                        </div>
                     )}
                 </div>
             </div>

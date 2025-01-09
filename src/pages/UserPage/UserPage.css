@@ -77,6 +77,13 @@
     overflow-y: auto;
 }
 
+.user-page .user-content .cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .user-page .user-content-tab {
     background-color: transparent;
     color: black;

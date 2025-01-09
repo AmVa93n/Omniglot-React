@@ -1,0 +1,39 @@
+.info-chip-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 50px;
+    padding: 4px;
+}
+
+.info-chip-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.info-chip-text {
+    margin-right: 4px;
+}
+
+.info-chip-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.54);
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+}
+
+.info-chip-delete:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import accountService from '../services/account.service';
-import OfferCard from '../components/OfferCard';
+import OfferCard from '../components/OfferCard/OfferCard';
 import { Offer } from '../types';
 import NewOfferForm from '../components/NewOfferForm';
 import EditOfferForm from '../components/EditOfferForm';
