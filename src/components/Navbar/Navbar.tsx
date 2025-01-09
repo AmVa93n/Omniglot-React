@@ -44,14 +44,14 @@ function Navbar() {
 
                 {user ?
                 <>
-                <Link to="/users/match/partners">
+                <Link to={{pathname: "/users"}}>
                     <button className="navbar-button">
                         <i className="bi bi-chat-text-fill"></i>
                         <span>Partners</span>
                     </button>
                 </Link>
 
-                <Link to="/users/match/teachers">
+                <Link to={{pathname: "/users", search: "?professional=true"}}>
                     <button className="navbar-button">
                         <i className="bi bi-mortarboard-fill"></i>
                         <span>Teachers</span>

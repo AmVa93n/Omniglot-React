@@ -41,18 +41,9 @@ class AppService {
     return response.data;
   }
 
-  async getMatches(matchType: string) {
-    const response: AxiosResponse = await this.api.get(`/api/match/${matchType}`);
-    return response.data;
-  }
-
-  async getLearners(langId: string) {
-    const response: AxiosResponse = await this.api.get(`/api/learners/${langId}`);
-    return response.data;
-  }
-
-  async getTeachers(langId: string) {
-    const response: AxiosResponse = await this.api.get(`/api/teachers/${langId}`);
+  async getUsers(params: { [key: string]: string }) {
+    const queryParams = new URLSearchParams(params).toString();
+    const response: AxiosResponse = await this.api.get(`/api/users/?${queryParams}`);
     return response.data;
   }
 

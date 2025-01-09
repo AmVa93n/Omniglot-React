@@ -166,7 +166,7 @@ function SignupPage() {
                                 ))}
                             </div>
                             <button className="add-button" type="button" onClick={() => handleAddLanguage('lang_teach')} disabled={availableLanguages.length === 0}>
-                                <i className="bi bi-plus"></i>Add
+                                <i className="bi bi-plus-circle-fill"></i>Add Languages
                             </button>
                         </div>
 
@@ -178,7 +178,7 @@ function SignupPage() {
                                 ))}
                             </div>
                             <button className="add-button" type="button" onClick={() => handleAddLanguage('lang_learn')} disabled={availableLanguages.length === 0}>
-                                <i className="bi bi-plus"></i>Add
+                                <i className="bi bi-plus-circle-fill"></i>Add Languages
                             </button>
                         </div>
 

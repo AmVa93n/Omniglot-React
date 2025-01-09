@@ -27,8 +27,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />}/>
-        <Route path="/users/match/:matchType" element={<UsersPage />}/>
-        <Route path="/users/:userType/:langId" element={<UsersPage />}/>
+        <Route path="/users" element={<UsersPage />}/>
         <Route path="/users/:userId" element={<UserPage />}/>
 
         <Route path="/account/profile" element={

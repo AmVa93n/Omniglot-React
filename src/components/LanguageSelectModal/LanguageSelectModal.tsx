@@ -5,8 +5,8 @@ import Avatar from '../Avatar';
 
 interface Props {
     languages: string[];
-    field: 'lang_teach' | 'lang_learn';
-    onConfirm: (selectedLanguages: string[], field: 'lang_teach' | 'lang_learn') => void;
+    field: string;
+    onConfirm: (selectedLanguages: string[], field: string) => void;
     onCancel: () => void;
 }
 

@@ -25,12 +25,17 @@ button {
   border: none;
   background-color: transparent;
   cursor: pointer;
+  padding: 0;
 }
 
 button:disabled {
   background-color: #ccc;
   color: #666;
   cursor: not-allowed;
+}
+
+.bi {
+  line-height: 0;
 }
 
 .content-box {

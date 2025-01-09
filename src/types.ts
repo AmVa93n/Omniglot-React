@@ -192,3 +192,13 @@ export interface statListItem {
     code: string;
     amount: number;
 }
+
+export interface searchFilters {
+    username: string, 
+    minAge: string,
+    maxAge: string,
+    country: string, 
+    gender: string, 
+    learning: string[],
+    teaching: string[],
+}

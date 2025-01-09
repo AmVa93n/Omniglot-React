@@ -37,7 +37,7 @@ function TopLanguages() {
                     <h4>Teaching</h4>
                     <ul className="language-list">
                         {stats.teach.map((lang, index) => (
-                            <Link key={lang.code} to={'/users/teachers/' + lang.code} >
+                            <Link key={lang.code} to={{pathname: '/users', search: '?teach=' + lang.code}}>
                                 <li className={`language-list-item ${getClassNameForRank(index)}`}>
                                     <div className="language-rank">{index + 1}</div>
                                     <div className="language-name">
@@ -59,7 +59,7 @@ function TopLanguages() {
                     <h4>Learning</h4>
                     <ul className="language-list">
                         {stats.learn.map((lang, index) => (
-                            <Link key={lang.code} to={'/users/learners/' + lang.code}>
+                            <Link key={lang.code} to={{pathname: '/users' , search: '?learn=' + lang.code}}>
                                 <li className={`language-list-item ${getClassNameForRank(index)}`}>
                                     <div className="language-rank">{index + 1}</div>
                                     <div className="language-name">

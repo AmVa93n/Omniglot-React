@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { User } from '../../types';
 import LanguageChip from '../LanguageChip/LanguageChip';
 import "./UserCard.css"
@@ -8,12 +8,14 @@ import useFormat from '../../hooks/useFormat';
 
 interface Props {
     user: User;
-    matchType: string;
 }
 
-function UserCard({ user, matchType }: Props) {
+function UserCard({ user }: Props) {
     const { handleMessage } = useChat();
     const { getUserAge, drawStars } = useFormat();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const onlyProf = queryParams.get('professional') === 'true';
 
     return (
         <div className="user-card" key={user._id}>
@@ -31,7 +33,7 @@ function UserCard({ user, matchType }: Props) {
 
             <div className="card-row">
                 <div className='card-text'>
-                    { matchType === "teachers" ? 'Teaching' : 'Can teach'}
+                    Teaching
                 </div>
                 <div className="languages"> 
                     {user.lang_teach.map(lang => (
@@ -40,10 +42,10 @@ function UserCard({ user, matchType }: Props) {
                 </div>
             </div>
             
-            {matchType !== 'teachers' &&
+            {!onlyProf &&
             <div className="card-row">
                 <div className='card-text'>
-                    Wants to learn
+                    Learning
                 </div>
                 <div className="languages"> 
                     {user.lang_learn.map(lang => (
@@ -52,7 +54,7 @@ function UserCard({ user, matchType }: Props) {
                 </div>
             </div>}
 
-            {matchType === 'teachers' &&
+            {onlyProf &&
             <div className="card-row">
                 <div className="card-text">
                     Rating

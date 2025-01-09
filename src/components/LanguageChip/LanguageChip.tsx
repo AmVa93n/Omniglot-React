@@ -7,7 +7,7 @@ interface Props {
     onDelete?: () => void
 }
 
-function Language({ code, onDelete }: Props) {
+function LanguageChip({ code, onDelete }: Props) {
     const { getLanguageName } = useLanguages()
 
     return (
@@ -22,4 +22,4 @@ function Language({ code, onDelete }: Props) {
     )
 }
 
-export default Language
+export default LanguageChip
