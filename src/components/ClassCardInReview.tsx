@@ -1,6 +1,4 @@
 import { Class } from '../types'
-import Language from './Language'
-import { ClassType, Level, ClassLocation } from './Snippet'
 import Avatar from './Avatar'
 import useFormat from '../hooks/useFormat'
 

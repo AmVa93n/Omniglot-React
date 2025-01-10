@@ -2,21 +2,17 @@ import { useState, useEffect } from "react"
 import { User } from '../../types'
 import { useParams } from "react-router-dom";
 import appService from "../../services/app.service";
-import LanguageChip from "../../components/LanguageChip/LanguageChip";
 import DeckCard from "../../components/DeckCard/DeckCard";
 import OfferCard from "../../components/OfferCard/OfferCard";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import './UserPage.css'
-import Avatar from "../../components/Avatar";
-import useChat from "../../hooks/useChat";
-import useFormat from "../../hooks/useFormat";
+import UserInfo from "../../components/UserInfo/UserInfo";
 
 function UserPage() {
     const [viewedUser, setViewedUser] = useState({} as User)
     const [activeTab, setActiveTab] = useState('decks')
     const { userId } = useParams()
-    const { handleMessage } = useChat()
-    const { getUserAge } = useFormat()
+    
 
     useEffect(() => {
         async function fetchUser() {
@@ -33,62 +29,7 @@ function UserPage() {
 
     return (
         <div className="user-page">
-            <div className="user-info-container">
-                <div className="user-main">
-                    <Avatar src={viewedUser.profilePic} size={200} />
-                    <h2 className="mb-3 center">{viewedUser.username}</h2>
-                </div>
-            
-                {viewedUser.professional &&
-                <span className="prof-badge">
-                    <i className="bi bi-award-fill"></i>Professional
-                </span>}
-                
-                <div className="user-info">
-                    <div className="user-info-row">
-                        <span className="user-info-field">Gender</span>
-                        <div className="col" id="gender">
-                            <span>{viewedUser.gender}</span>
-                        </div>
-                    </div>
-                
-                    <div className="user-info-row">
-                        <span className="user-info-field">Age</span>
-                        <div className="col" id="birthdate">
-                            <span className="age">{getUserAge(viewedUser.birthdate)}</span>
-                        </div>
-                    </div>
-                
-                    <div className="user-info-row">
-                        <span className="user-info-field">Country</span>
-                        <div className="col" id="country">
-                            <span>{viewedUser.country}</span>
-                        </div>
-                    </div>
-                
-                    <div className="user-info-row">
-                        <span className="user-info-field">Teaching</span>
-                        <div className="languages">
-                            {viewedUser.lang_teach?.map(lang => (
-                                <LanguageChip key={lang} code={lang} />
-                            ))}
-                        </div>
-                    </div>
-                
-                    <div className="user-info-row">
-                        <span className="user-info-field">Learning</span>
-                        <div className="languages">
-                            {viewedUser.lang_learn?.map(lang => (
-                                <LanguageChip key={lang} code={lang} />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-                
-                <button className="message-button" onClick={() => handleMessage(viewedUser)}>
-                    <i className="bi bi-envelope-fill"></i>Message {viewedUser.username}
-                </button>
-            </div>
+            <UserInfo user={viewedUser} />
             
             <div className="user-content-container">
                 <div className={"user-content" + (activeTab === 'decks' ? ' active' : '')}>

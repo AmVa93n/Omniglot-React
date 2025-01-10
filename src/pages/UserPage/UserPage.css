@@ -3,55 +3,6 @@
     height: calc(100vh - 104px);
 }
 
-.user-page .user-info-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    padding: 22px;
-    width: 30%;
-    height: 100%;
-    position: relative;
-    background-image: linear-gradient(135deg, rgb(255, 255, 255, 0.9), rgba(230, 230, 230, 0.9));
-    box-sizing: border-box;
-    border-right: 1px solid #e0e0e0;
-}
-
-.user-page .user-main {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.user-page .user-info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-}
-
-.user-page .user-info-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 80%;
-}
-
-.user-page .user-info-field {
-    font-size: 14px;
-    font-weight: bold;
-    width: 20%;
-    min-width: 20%;
-}
-
-.user-page .languages {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
 .user-page .user-content-container {
     display: flex;
     width: 70%;
@@ -103,21 +54,6 @@
 
 .user-page .user-content-tab:hover {
     background-color: rgba(255, 255, 255, 0.7);
-}
-
-.user-page .prof-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 3px 6px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
 }
 
 .user-page .message-button {

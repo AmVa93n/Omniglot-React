@@ -144,7 +144,6 @@ export interface signupForm {
 export interface editProfileForm {
     username: string
     email: string
-    profilePic: string
     birthdate: string
     country: string
     gender: string

@@ -1,8 +1,6 @@
 import { Deck, Flashcard } from '../types';
 import { useState } from 'react';
 import accountService from '../services/account.service';
-import Language from './Language';
-import { Level } from './Snippet';
 import '../styles/FlashcardGame.css';
 
 interface Props {

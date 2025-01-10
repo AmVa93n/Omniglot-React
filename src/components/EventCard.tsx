@@ -1,7 +1,5 @@
 import { Class } from '../types'
 import { Link } from 'react-router-dom'
-import Language from './Language'
-import { ClassType, ClassLocation, Level } from './Snippet'
 import '../styles/EventCard.css'
 import Avatar from './Avatar'
 import useFormat from '../hooks/useFormat'

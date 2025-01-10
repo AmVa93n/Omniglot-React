@@ -1,7 +1,5 @@
 import { Class } from '../types'
 import { Link } from 'react-router-dom'
-import Language from './Language'
-import { ClassType, Level, ClassLocation } from './Snippet'
 import PendingRequest from './PendingRequest'
 import '../styles/ClassCard.css'
 import Avatar from './Avatar'

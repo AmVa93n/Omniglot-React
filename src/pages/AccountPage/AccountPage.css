@@ -1,0 +1,4 @@
+.account-page {
+    display: flex;
+    height: calc(100vh - 104px);
+}

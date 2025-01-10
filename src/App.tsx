@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import UsersPage from "./pages/UsersPage/UsersPage";
 import UserPage from "./pages/UserPage/UserPage";
-import ProfilePage from "./pages/ProfilePage";
 import ClassesPage from "./pages/ClassesPage";
 import CalendarPage from "./pages/CalendarPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
@@ -19,6 +18,7 @@ import ReviewsPage from './pages/ReviewsPage';
 import WalletPage from './pages/WalletPage';
 import InboxPage from './pages/InboxPage/InboxPage';
 import CheckoutPage from './pages/CheckoutPage';
+import AccountPage from './pages/AccountPage/AccountPage';
 
 function App() {
   return (
@@ -30,9 +30,9 @@ function App() {
         <Route path="/users" element={<UsersPage />}/>
         <Route path="/users/:userId" element={<UserPage />}/>
 
-        <Route path="/account/profile" element={
+        <Route path="/account" element={
             <IsPrivate>
-              <ProfilePage />
+              <AccountPage />
             </IsPrivate>
           }/>
 

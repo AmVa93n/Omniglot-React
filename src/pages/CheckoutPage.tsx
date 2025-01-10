@@ -2,8 +2,6 @@ import appService from "../services/app.service";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Offer } from "../types";
-import Language from "../components/Language";
-import { ClassType, ClassLocation, Level } from "../components/Snippet";
 import Avatar from "../components/Avatar";
 
 function CheckoutPage() {

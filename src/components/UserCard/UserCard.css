@@ -17,14 +17,14 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.user-info-container {
+.user-card-header {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.user-info-container .user-info {
+.user-card-header .user-info {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -46,12 +46,12 @@
     gap: 5px;
 }
 
-.user-info-container .age-country {
+.user-card-header .age-country {
     font-size: 14px;
     color: #555;
 }
 
-.user-info-container .username {
+.user-card-header .username {
     font-size: 22px;
     font-weight: bold;
     color: #333;

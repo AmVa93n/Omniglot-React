@@ -20,7 +20,7 @@ function UserCard({ user }: Props) {
     return (
         <div className="user-card" key={user._id}>
             <Link to={'/users/' + user._id}>
-                <div className="user-info-container">
+                <div className="user-card-header">
                     <Avatar src={user.profilePic} size={50} />
                     <div className="user-info">
                         <span className='username'>{user.username}</span>

@@ -8,8 +8,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
-import Language from "../components/Language"
-import { ClassType, ClassLocation, Level } from "../components/Snippet"
 import PendingRequest from "../components/PendingRequest"
 import { ClassContext } from "../context/class.context"
 import Avatar from "../components/Avatar"

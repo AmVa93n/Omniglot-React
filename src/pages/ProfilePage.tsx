@@ -1,7 +1,4 @@
-import { useState, useEffect, useRef } from "react"
-import accountService from "../services/account.service" 
-import { editProfileForm, User } from '../types'
-import Language from "../components/Language"
+import { useState, useRef } from "react"
 import '../styles/ProfilePage.css'
 import Avatar from "../components/Avatar"
 import useFormat from "../hooks/useFormat"
@@ -9,64 +6,11 @@ import useLanguages from "../hooks/useLanguages"
 import useCountries from "../hooks/useCountries"
 
 function ProfilePage() {
-    const [profile, setProfile] = useState({} as User)
-    const [editedFields, setEditedFields] = useState([] as string[])
-    
-    const [editForm, setEditForm] = useState<editProfileForm>({
-        username: '',
-        email: '',
-        profilePic: '',
-        birthdate: '',
-        country: '',
-        gender: '',
-        lang_teach: [],
-        lang_learn: [],
-        professional: false,
-        private: false
-    })
     const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>('');
     const fileInputRef = useRef(null);
     const { formatDate } = useFormat()
     const { languagesList } = useLanguages()
     const countries = useCountries()
-
-    useEffect(() => {
-        async function fetchUser() {
-            try {
-              const profileData = await accountService.getProfile()
-              setProfile(profileData)
-              // initialize based on user data
-              setPfpPreview(profileData.profilePic)
-              setEditForm(profileData)
-            } catch (error) {
-              console.error('Error fetching data in component:', error);
-            }
-        }
-
-        fetchUser()
-    }, [])
-
-    function toggleEdit(field: string) {
-        if (!editedFields.includes(field)) {
-            setEditedFields(prev => [...prev, field])
-        } else {
-            setEditedFields(prev => prev.filter(f => f !== field))
-        }
-        // set to user's data if starting to edit or cancelling edit
-        setEditForm(prev => {
-            return {...prev, [field]: profile[field as 
-                'username' | 'email' | 'birthdate' | 'country' | 'gender' | 'lang_teach' | 'lang_learn'
-            ]}
-        })
-    }
-
-    function handleChange(event: React.ChangeEvent) {
-        const field = (event.target as HTMLInputElement).name
-        const value = (event.target as HTMLInputElement).value
-        setEditForm(prev => {
-            return {...prev, [field]: value}
-        })
-    }
 
     function handleCheckbox(event: React.ChangeEvent, field: string) {
         const value = (event.target as HTMLInputElement).value
@@ -88,24 +32,6 @@ function ProfilePage() {
         }
         const file = event.target.files?.[0]
         if (file) reader.readAsDataURL(file);
-    }
-
-    async function handleSave(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget);
-        editForm.lang_teach.forEach((lang) => formData.append('lang_teach[]', lang));
-        editForm.lang_learn.forEach((lang) => formData.append('lang_learn[]', lang));
-        try {
-            const updatedProfile = await accountService.updateProfile(formData);
-            setProfile(updatedProfile)
-            setEditedFields([]); // Turn off edit mode for all fields
-        } catch (error) {
-            alert(error)
-        }
-    }
-    
-    async function handleDelete() {
-        
     }
 
     return (
@@ -271,7 +197,7 @@ function ProfilePage() {
                 <div className="form-check form-switch col">
                     <input className="form-check-input" type="checkbox" id="professional" name="professional" 
                         checked={editForm.professional} onChange={handleChange}/>
-                    <label className="form-check-label" htmlFor="professional"><small>I want to offer paid classNamees and educational content.
+                    <label className="form-check-label" htmlFor="professional"><small>I want to offer paid classes and educational content.
                     </small></label>
                     <input type="hidden" name="stripeAccountId" value={profile?.stripeAccountId}/>
                 </div>
@@ -294,11 +220,6 @@ function ProfilePage() {
                 </button>
             </div>
         </form>
-
-        <div className="d-flex justify-content-center mt-3">
-        <button className="btn btn-sm btn-outline-danger" onClick={handleDelete}>Delete Account</button>
-        </div>
-        
     </div>
     )
 }
