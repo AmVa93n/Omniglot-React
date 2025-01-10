@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Review } from "../types";
 import accountService from "../services/account.service";
-import ReviewCard from "../components/ReviewCard";
+import ReviewCard from "../components/ReviewCard/ReviewCard";
 
 function ReviewsPage() {
     const [reviews, setReviews] = useState<Review[]>([]);

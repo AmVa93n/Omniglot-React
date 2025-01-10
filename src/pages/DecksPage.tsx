@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Deck } from "../types";
-import DeckCard from "../components/DeckCard";
+import DeckCard from "../components/DeckCard/DeckCard";
 import accountService from "../services/account.service";
 import NewDeckForm from "../components/NewDeckForm";
 import EditDeckForm from "../components/EditDeckForm";

@@ -3,9 +3,9 @@ import { User } from '../../types'
 import { useParams } from "react-router-dom";
 import appService from "../../services/app.service";
 import LanguageChip from "../../components/LanguageChip/LanguageChip";
-import DeckCard from "../../components/DeckCard";
+import DeckCard from "../../components/DeckCard/DeckCard";
 import OfferCard from "../../components/OfferCard/OfferCard";
-import ReviewCard from "../../components/ReviewCard";
+import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import './UserPage.css'
 import Avatar from "../../components/Avatar";
 import useChat from "../../hooks/useChat";
@@ -41,7 +41,7 @@ function UserPage() {
             
                 {viewedUser.professional &&
                 <span className="prof-badge">
-                    <i className="bi bi-award-fill me-1"></i>Professional
+                    <i className="bi bi-award-fill"></i>Professional
                 </span>}
                 
                 <div className="user-info">
@@ -85,15 +85,15 @@ function UserPage() {
                     </div>
                 </div>
                 
-                <button onClick={() => handleMessage(viewedUser)}>
-                    <i className="bi bi-envelope-fill me-1"></i>Message {viewedUser.username}
+                <button className="message-button" onClick={() => handleMessage(viewedUser)}>
+                    <i className="bi bi-envelope-fill"></i>Message {viewedUser.username}
                 </button>
             </div>
             
             <div className="user-content-container">
                 <div className={"user-content" + (activeTab === 'decks' ? ' active' : '')}>
                     <button className={"user-content-tab" + (activeTab === 'decks' ? ' active' : '')} onClick={() => setActiveTab('decks')}>
-                        <i className="bi bi-stack me-1"></i>{viewedUser.username}'s Decks
+                        <i className="bi bi-stack"></i>{viewedUser.username}'s Decks
                     </button>
                     {activeTab === 'decks' && (
                         viewedUser.decks?.length === 0 ? <p>{viewedUser.username} has no decks yet.</p> : 
@@ -105,7 +105,7 @@ function UserPage() {
 
                 <div className={"user-content" + (activeTab === 'offers' ? ' active' : '')}>
                     <button className={"user-content-tab" + (activeTab === 'offers' ? ' active' : '')} onClick={() => setActiveTab('offers')}  disabled={!viewedUser.professional}>
-                        <i className="bi bi-clipboard2-fill me-1"></i>{viewedUser.username}'s Offers
+                        <i className="bi bi-clipboard2-fill"></i>{viewedUser.username}'s Offers
                     </button>
                     {activeTab === 'offers' && (
                         viewedUser.offers?.length === 0 ? <p>{viewedUser.username} has no offers yet.</p> : 
@@ -117,7 +117,7 @@ function UserPage() {
 
                 <div className={"user-content" + (activeTab === 'reviews' ? ' active' : '')}>
                     <button className={"user-content-tab" + (activeTab === 'reviews' ? ' active' : '')} onClick={() => setActiveTab('reviews')} disabled={!viewedUser.professional}>
-                        <i className="bi bi-star-fill me-1"></i>{viewedUser.username}'s Reviews
+                        <i className="bi bi-star-fill"></i>{viewedUser.username}'s Reviews
                     </button>
                     {activeTab === 'reviews' && (
                         viewedUser.reviews?.length === 0 ? <p>{viewedUser.username} has no reviews yet.</p> : 

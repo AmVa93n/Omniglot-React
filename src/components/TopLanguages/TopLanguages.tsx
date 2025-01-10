@@ -2,14 +2,15 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import appService from '../../services/app.service';
 import './TopLanguages.css';
-import Language from '../Language';
-import { statListItem } from '../../types';
+import { topLanguages } from '../../types';
+import useLanguages from '../../hooks/useLanguages';
 
 function TopLanguages() {
-    const [stats, setStats] = useState({
-        teach: [] as statListItem[],
-        learn: [] as statListItem[],
+    const [stats, setStats] = useState<topLanguages>({
+        teach: Array(10).fill(null).map((_, index) => ({ code: `placeholder-${index + 1}`, amount: 0 })),
+        learn: Array(10).fill(null).map((_, index) => ({ code: `placeholder-${index + 1}`, amount: 0 })),
     });
+    const { getLanguageName } = useLanguages();
 
     useEffect(() => {
         async function fetchStats() {
@@ -41,7 +42,14 @@ function TopLanguages() {
                                 <li className={`language-list-item ${getClassNameForRank(index)}`}>
                                     <div className="language-rank">{index + 1}</div>
                                     <div className="language-name">
-                                        <Language code={lang.code} />
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '4px'
+                                        }}>
+                                            <img src={`/flags/${lang.code}.svg`} style={{width: '20px'}}/>
+                                            <span>{getLanguageName(lang.code)}</span>
+                                        </div>
                                     </div>
                                     <span className='language-users'>({lang.amount} users)</span>
                                 </li>
@@ -63,7 +71,14 @@ function TopLanguages() {
                                 <li className={`language-list-item ${getClassNameForRank(index)}`}>
                                     <div className="language-rank">{index + 1}</div>
                                     <div className="language-name">
-                                        <Language code={lang.code} />
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '4px'
+                                        }}>
+                                            <img src={`/flags/${lang.code}.svg`} style={{width: '20px'}}/>
+                                            <span>{getLanguageName(lang.code)}</span>
+                                        </div>
                                     </div>
                                     <span className='language-users'>({lang.amount} users)</span>
                                 </li>

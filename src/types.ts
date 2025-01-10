@@ -188,9 +188,15 @@ export interface calendarEvent {
     display: string
 }
 
-export interface statListItem {
-    code: string;
-    amount: number;
+export interface topLanguages {
+    teach: {
+        code: string
+        amount: number
+    }[]
+    learn: {
+        code: string
+        amount: number
+    }[]
 }
 
 export interface searchFilters {

@@ -1,6 +1,6 @@
 import { Offer } from '../../types'
 import LanguageChip from '../LanguageChip/LanguageChip'
-import { ClassTypeChip, ClassLocationChip, LevelChip, Chip } from '../InfoChip/InfoChip'
+import InfoChip from '../InfoChip/InfoChip'
 import { Link } from 'react-router-dom'
 import './OfferCard.css'
 
@@ -21,17 +21,17 @@ function OfferCard({ offer, isOwn, handleDelete, handleEdit, disabled }: Props) 
             <div className="offer-card-content">
                 
                 <LanguageChip code={offer.language} />
-                <LevelChip level={offer.level} />
-                <ClassLocationChip type={offer.locationType} location={isOwn ? offer.location : ''} />
-                <ClassTypeChip type={offer.classType} maxGroupSize={offer.maxGroupSize} />
+                <InfoChip type="level" text={offer.level} />
+                <InfoChip type="location" text={offer.locationType} secondaryText={isOwn ? offer.location : ''} />
+                <InfoChip type="class" text={offer.classType} secondaryText={offer.maxGroupSize} />
 
                 {isOwn && <>
-                    <Chip type="weekdays" text={offer.weekdays.join(', ')} />
-                    <Chip type="timeslots" text={offer.timeslots.join(', ')} />
+                    <InfoChip type="weekdays" text={offer.weekdays.join(', ')} />
+                    <InfoChip type="timeslots" text={offer.timeslots.join(', ')} />
                 </>}
                 
-                <Chip type="duration" text={offer.duration.toString()} />
-                <Chip type="price" text={offer.price.toString()} />
+                <InfoChip type="duration" text={offer.duration.toString()} />
+                <InfoChip type="price" text={offer.price.toString()} />
             </div>
 
             <div className="offer-card-buttons">

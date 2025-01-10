@@ -87,7 +87,7 @@ button:disabled {
   color: #fff; /* Selected and hovered date text color */
 }
 
-.class-card:hover, .deck-card:hover {
+.class-card:hover {
   background-color: rgba(250, 250, 250, 1);
   transition: background-color 0.7s;
 }
