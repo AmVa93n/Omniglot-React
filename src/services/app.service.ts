@@ -52,6 +52,21 @@ class AppService {
     return response.data;
   }
 
+  async getChats() {
+    const response: AxiosResponse = await this.api.get('/api/inbox');
+    return response.data;
+  }
+
+  async createChat(requestBody: object) {
+    const response: AxiosResponse = await this.api.post('/api/inbox', requestBody);
+    return response.data;
+  }
+
+  async deleteMessages(chatId: string) {
+    const response: AxiosResponse = await this.api.delete(`/api/inbox/${chatId}`);
+    return response.data;
+  }
+
   async getOffer(offerId: string) {
     const response: AxiosResponse = await this.api.get(`/checkout/offers/${offerId}`);
     return response.data;

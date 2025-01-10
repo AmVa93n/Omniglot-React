@@ -17,7 +17,7 @@ import OffersPage from './pages/OffersPage';
 import DecksPage from './pages/DecksPage';
 import ReviewsPage from './pages/ReviewsPage';
 import WalletPage from './pages/WalletPage';
-import InboxPage from './pages/InboxPage';
+import InboxPage from './pages/InboxPage/InboxPage';
 import CheckoutPage from './pages/CheckoutPage';
 
 function App() {

@@ -1,0 +1,141 @@
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    width: 70%;
+}
+
+.chat-header {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.chat-header h2 {
+    margin: 5px;
+}
+
+.chat-header-buttons {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+.chat-window button {
+    padding: 6px 9px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+.delete-button {
+    background-color: #dc3545;
+    color: #fff;
+}
+  
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.profile-button {
+    background-color: #b300ff;
+    color: #fff;
+}
+  
+.profile-button:hover {
+    background-color: #9400cc;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #fff;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.message.by-user {
+    flex-direction: row-reverse;
+    align-self: flex-end;
+}
+
+.message.to-user {
+    flex-direction: row;
+    align-self: flex-start;
+}
+
+.message-text {
+    border-radius: 50px;
+    padding: 5px 10px;
+}
+
+.message.by-user .message-text {
+    background-color: #007bff;
+    color: white;
+}
+
+.message.to-user .message-text {
+    background-color: rgb(200, 200, 200);
+    color: black;
+}
+
+.message .timestamp {
+    font-size: 10px;
+    margin: 0 5px;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #f1f1f1;
+    position: relative;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button.emoji-button {
+    background-color: lightgrey;
+    padding: 3px;
+    font-size: 20px;
+    border-radius: 50px;
+}
+
+button.emoji-button:hover {
+    background-color: #ccc;
+}
+
+.emoji-picker {
+    position: absolute;
+    bottom: 60px;
+    right: 0px;
+}
+
+.send-button {
+    background-color: #007bff;
+    color: #fff;
+}
+  
+.send-button:hover {
+    background-color: #0056b3;
+}

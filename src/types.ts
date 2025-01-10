@@ -108,7 +108,7 @@ export interface Chat {
 export interface Message {
     _id: string
     sender: string
-    recepient: string
+    recipient: string
     message: string
     timestamp: string
     chat: string

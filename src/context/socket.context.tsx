@@ -2,7 +2,6 @@ import { createContext, PropsWithChildren, useContext, useEffect, useState } fro
 import io, { Socket } from 'socket.io-client';
 import { AuthContext } from "./auth.context";
 import { Chat, Message, User, Notification } from '../types';
-import accountService from '../services/account.service';
 import appService from '../services/app.service';
 import { useNavigate } from 'react-router-dom';
 
@@ -29,7 +28,7 @@ function SocketProvider({ children }: PropsWithChildren) {
 
     async function fetchChats() {
         try {
-            const chats = await accountService.getChats()
+            const chats = await appService.getChats()
             setChats(chats)
             setActiveChat(chats[0])
         } catch (error) {
@@ -49,7 +48,7 @@ function SocketProvider({ children }: PropsWithChildren) {
     async function handleMessage(viewedUser: User) {
         if (!user) return;
         if (!chats.some((chat) => chat.participants.includes(viewedUser) && chat.participants.includes(user))) {
-            const newChat = await accountService.createChat({ targetUserId: viewedUser._id });
+            const newChat = await appService.createChat({ targetUserId: viewedUser._id });
             setChats(prev => [...prev, newChat]);
             setActiveChat(newChat);
         }
