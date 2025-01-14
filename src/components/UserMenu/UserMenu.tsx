@@ -11,7 +11,7 @@ function UserMenu({ onClose }: Props) {
     const navigate = useNavigate()
 
     const menuItems = [
-        { title: 'Profile', icon: 'bi bi-person-circle', link: '/account/profile' },
+        { title: 'Account', icon: 'bi bi-person-circle', link: '/account' },
         { title: 'Inbox', icon: 'bi bi-inbox-fill', link: '/account/inbox' },
         { title: 'Classes', icon: 'bi bi-easel3-fill', link: '/account/classes' },
         { title: 'Decks', icon: 'bi bi-stack', link: '/account/decks' },

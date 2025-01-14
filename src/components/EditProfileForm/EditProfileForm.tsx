@@ -1,5 +1,5 @@
 import './EditProfileForm.css'
-import { useContext, useState } from 'react'
+import { useContext, useState, useRef } from 'react'
 import { editProfileForm, User } from '../../types'
 import accountService from '../../services/account.service'
 import useCountries from '../../hooks/useCountries'
@@ -8,6 +8,7 @@ import useLanguageSelect from '../../hooks/useLanguageSelect'
 import LanguageChip from '../LanguageChip/LanguageChip'
 import LanguageSelectModal from '../LanguageSelectModal/LanguageSelectModal'
 import { AccountContext } from '../../context/account.context'
+import Avatar from '../Avatar'
 
 interface Props {
     profile: User,
@@ -21,6 +22,8 @@ function EditProfileForm({ profile, onClose }: Props) {
     const { isModalOpen, modalField, handleAdd, handleDelete, handleConfirm, handleCancel } = useLanguageSelect(setEditForm)
     const availableLanguages = languagesList.filter(lang => !editForm.lang_teach.includes(lang) && !editForm.lang_learn.includes(lang))
     const { setProfile } = useContext(AccountContext)
+    const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>(profile.profilePic);
+    const fileInputRef = useRef<HTMLInputElement>(null)
 
     function handleChange(event: React.ChangeEvent) {
         const { name, value } = event.target as HTMLInputElement
@@ -43,6 +46,15 @@ function EditProfileForm({ profile, onClose }: Props) {
         }
     }
 
+    function handleFilePreview(event: React.ChangeEvent<HTMLInputElement>) {
+        const reader = new FileReader();
+        reader.onload = function(){
+          setPfpPreview(reader.result)
+        }
+        const file = event.target.files?.[0]
+        if (file) reader.readAsDataURL(file);
+    }
+
     async function handleSave(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const formData = new FormData(event.currentTarget);
@@ -60,6 +72,14 @@ function EditProfileForm({ profile, onClose }: Props) {
     return (
         <div className='edit-profile-form'>
             <form onSubmit={handleSave}>
+                <div className="user-avatar-container">
+                    <Avatar src={pfpPreview as string} size={200} />
+                    <button type="button" className="edit-profilePic-button" onClick={() => fileInputRef.current?.click()}>
+                        <i className="bi bi-pencil-square"></i>
+                    </button>
+                    <input type="file" name="profilePic" ref={fileInputRef} onChange={handleFilePreview} hidden />
+                </div>
+
                 <div className='form-group'>
                     <label htmlFor='username'>Username</label>
                     <input type='text' name='username' value={editForm.username} onChange={handleChange} />

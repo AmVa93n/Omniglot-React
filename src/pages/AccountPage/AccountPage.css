@@ -2,3 +2,42 @@
     display: flex;
     min-height: calc(100vh - 104px);
 }
+
+.account-page .user-content-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+.account-page .user-content-tabs {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.account-page .user-content-tab {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.account-page .user-content-tab:hover {
+    background-color: #e9ecef;
+}
+
+.account-page .user-content-tab.active {
+    font-weight: bold;
+}
+
+.account-page .user-content {
+    flex-grow: 1;
+    background-color: rgb(255, 255, 255, 0.8);
+    padding: 20px;
+}

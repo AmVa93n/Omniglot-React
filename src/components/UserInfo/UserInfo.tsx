@@ -37,6 +37,10 @@ function UserInfo({ user, isOwn }: Props) {
 
     return (
         <div className="user-info-container">
+            {isEditing ? 
+                <EditProfileForm profile={user} onClose={() => setIsEditing(false)} />
+            : <>
+
             <div className="user-main">
                 <Avatar src={user.profilePic} size={200} />
                 <h2 className="mb-3 center">{user.username}</h2>
@@ -52,7 +56,6 @@ function UserInfo({ user, isOwn }: Props) {
                 <i className="bi bi-eye-slash-fill"></i>Private
             </span>}
             
-            {!isEditing && <>
             <div className="user-info">
                 {isOwn &&
                 <div className="user-info-row">
@@ -112,9 +115,8 @@ function UserInfo({ user, isOwn }: Props) {
                 <button className="delete-button" onClick={handleDelete}>Delete Account</button>
                 </>}
             </div>
+            
             </>}
-
-            {isEditing && <EditProfileForm profile={user} onClose={() => setIsEditing(false)} />}
         </div>
     )
 }

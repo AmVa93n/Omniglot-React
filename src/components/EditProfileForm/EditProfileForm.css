@@ -43,3 +43,29 @@
     color: #666;
     cursor: not-allowed;
 }
+
+.user-avatar-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.edit-profilePic-button {
+    position: absolute;
+    bottom: 10%;
+    right: 30%;
+    transform: translate(50%, 50%);
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    color: white;
+}
+
+.edit-profilePic-button:hover {
+    background-color: #333;
+}
