@@ -23,7 +23,7 @@ function InfoChip({ type, text, secondaryText, onDelete }: Props) {
                     case "at-teacher": return 'bi-house-fill'
                 }; break
             case "level": return 'bi-mortarboard-fill'
-            case "duration": return 'bi-clock-fill'
+            case "duration": return 'bi-hourglass-split'
             case "price": return 'bi-tag-fill'
             case "weekdays": return 'bi-calendar-fill'
             case "timeslots": return 'bi-clock-fill'

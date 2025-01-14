@@ -1,15 +1,19 @@
 .user-info-container {
+    width: 30%;
+    padding: 22px;
+    background-image: linear-gradient(135deg, rgb(255, 255, 255, 0.9), rgba(230, 230, 230, 0.9));
+    box-sizing: border-box;
+    position: relative;
+    border-right: 1px solid #e0e0e0;
+}
+
+.user-info-container-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-    padding: 22px;
-    width: 30%;
-    position: relative;
-    background-image: linear-gradient(135deg, rgb(255, 255, 255, 0.9), rgba(230, 230, 230, 0.9));
-    box-sizing: border-box;
-    border-right: 1px solid #e0e0e0;
+    height: calc(100vh - 104px);
 }
 
 .user-info-container .user-main {

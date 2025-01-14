@@ -41,16 +41,16 @@ function PendingRequest({ cls, reschedule }: Props) {
     }
 
     return (
-        <div className="p-1 bg-warning">
-            <p className="m-0">Pending reschedule request</p>
-            <h6><span className="date">{formatDate(reschedule.new_date)}</span>, {reschedule.new_timeslot}</h6>
+        <div className="pending-request">
+            <span>Pending reschedule request</span>
+            <span className="date">{formatDate(reschedule.new_date)}</span>, {reschedule.new_timeslot}
             {reschedule.initiator !== user?._id &&
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-sm btn-success mx-1" style={{fontSize: 'smaller'}} onClick={handleAccept}>
-                        <i className="bi bi-check-circle-fill me-2"></i>Accept
+                <div className="pending-request-buttons">
+                    <button className="accept-button" onClick={handleAccept}>
+                        <i className="bi bi-check-circle-fill"></i>Accept
                     </button>
-                    <button className="btn btn-sm btn-danger mx-1" style={{fontSize: 'smaller'}} onClick={handleDecline}>
-                        <i className="bi bi-x-circle-fill me-2"></i>Decline
+                    <button className="decline-button" onClick={handleDecline}>
+                        <i className="bi bi-x-circle-fill"></i>Decline
                     </button>
                 </div>}
         </div>         

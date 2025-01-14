@@ -39,84 +39,83 @@ function UserInfo({ user, isOwn }: Props) {
         <div className="user-info-container">
             {isEditing ? 
                 <EditProfileForm profile={user} onClose={() => setIsEditing(false)} />
-            : <>
+            : 
+                <div className="user-info-container-content">
+                    <div className="user-main">
+                        <Avatar src={user.profilePic} size={200} />
+                        <h2 className="mb-3 center">{user.username}</h2>
+                    </div>
+                
+                    {user.professional &&
+                    <span className="badge prof">
+                        <i className="bi bi-award-fill"></i>Professional
+                    </span>}
 
-            <div className="user-main">
-                <Avatar src={user.profilePic} size={200} />
-                <h2 className="mb-3 center">{user.username}</h2>
-            </div>
-        
-            {user.professional &&
-            <span className="badge prof">
-                <i className="bi bi-award-fill"></i>Professional
-            </span>}
+                    {user.private &&
+                    <span className="badge private">
+                        <i className="bi bi-eye-slash-fill"></i>Private
+                    </span>}
+                    
+                    <div className="user-info">
+                        {isOwn &&
+                        <div className="user-info-row">
+                            <span className="user-info-field">Email</span>
+                            <span>{user.email}</span>
+                        </div>}
 
-            {user.private &&
-            <span className="badge private">
-                <i className="bi bi-eye-slash-fill"></i>Private
-            </span>}
-            
-            <div className="user-info">
-                {isOwn &&
-                <div className="user-info-row">
-                    <span className="user-info-field">Email</span>
-                    <span>{user.email}</span>
+                        <div className="user-info-row">
+                            <span className="user-info-field">Gender</span>
+                            <span>{user.gender}</span>
+                        </div>
+                    
+                        <div className="user-info-row">
+                            {!isOwn && <>
+                            <span className="user-info-field">Age</span>
+                            <span className="age">{getUserAge(user.birthdate)}</span>
+                            </>}
+                            {isOwn && <>
+                            <span className="user-info-field">Birthdate</span>
+                            <span>{formatDate(user.birthdate)} ({getUserAge(user.birthdate)})</span>
+                            </>}
+                        </div>
+                    
+                        <div className="user-info-row">
+                            <span className="user-info-field">Country</span>
+                            <span>{user.country}</span>
+                        </div>
+                    
+                        <div className="user-info-row">
+                            <span className="user-info-field">Teaching</span>
+                            <div className="languages">
+                                {user.lang_teach?.map(lang => (
+                                    <LanguageChip key={lang} code={lang} />
+                                ))}
+                            </div>
+                        </div>
+                    
+                        <div className="user-info-row">
+                            <span className="user-info-field">Learning</span>
+                            <div className="languages">
+                                {user.lang_learn?.map(lang => (
+                                    <LanguageChip key={lang} code={lang} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="user-info-buttons">
+                        {!isOwn && 
+                        <button className="message-button" onClick={() => handleMessage(user)}>
+                            <i className="bi bi-envelope-fill"></i>Message {user.username}
+                        </button>}
+                        {isOwn && <>
+                        <button className="edit-button" onClick={() => setIsEditing(true)}>
+                            <i className="bi bi-pencil-square"></i>Edit Profile
+                        </button>
+                        <button className="delete-button" onClick={handleDelete}>Delete Account</button>
+                        </>}
+                    </div>
                 </div>}
-
-                <div className="user-info-row">
-                    <span className="user-info-field">Gender</span>
-                    <span>{user.gender}</span>
-                </div>
-            
-                <div className="user-info-row">
-                    {!isOwn && <>
-                    <span className="user-info-field">Age</span>
-                    <span className="age">{getUserAge(user.birthdate)}</span>
-                    </>}
-                    {isOwn && <>
-                    <span className="user-info-field">Birthdate</span>
-                    <span>{formatDate(user.birthdate)} ({getUserAge(user.birthdate)})</span>
-                    </>}
-                </div>
-            
-                <div className="user-info-row">
-                    <span className="user-info-field">Country</span>
-                    <span>{user.country}</span>
-                </div>
-            
-                <div className="user-info-row">
-                    <span className="user-info-field">Teaching</span>
-                    <div className="languages">
-                        {user.lang_teach?.map(lang => (
-                            <LanguageChip key={lang} code={lang} />
-                        ))}
-                    </div>
-                </div>
-            
-                <div className="user-info-row">
-                    <span className="user-info-field">Learning</span>
-                    <div className="languages">
-                        {user.lang_learn?.map(lang => (
-                            <LanguageChip key={lang} code={lang} />
-                        ))}
-                    </div>
-                </div>
-            </div>
-            
-            <div className="user-info-buttons">
-                {!isOwn && 
-                <button className="message-button" onClick={() => handleMessage(user)}>
-                    <i className="bi bi-envelope-fill"></i>Message {user.username}
-                </button>}
-                {isOwn && <>
-                <button className="edit-button" onClick={() => setIsEditing(true)}>
-                    <i className="bi bi-pencil-square"></i>Edit Profile
-                </button>
-                <button className="delete-button" onClick={handleDelete}>Delete Account</button>
-                </>}
-            </div>
-            
-            </>}
         </div>
     )
 }
