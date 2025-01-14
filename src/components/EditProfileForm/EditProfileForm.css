@@ -1,0 +1,45 @@
+.edit-profile-form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.edit-profile-form-buttons button {
+    border-radius: 5px;
+    padding: 5px 7.5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    transition: background-color 0.2s;
+    background-color: #007bff;
+    color: white;
+}
+
+.edit-profile-form-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.edit-profile-form .add-button {
+    width: fit-content;
+    height: fit-content;
+    padding: 3px 5px 3px 4px;
+    gap: 5px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-profile-form .add-button:hover {
+    background-color: #0056b3;
+}
+
+.edit-profile-form .add-button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}

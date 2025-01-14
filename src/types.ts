@@ -204,6 +204,6 @@ export interface searchFilters {
     maxAge: string,
     country: string, 
     gender: string, 
-    learning: string[],
-    teaching: string[],
+    lang_teach: string[],
+    lang_learn: string[],
 }

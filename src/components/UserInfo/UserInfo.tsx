@@ -6,6 +6,9 @@ import useFormat from "../../hooks/useFormat";
 import { User } from '../../types';
 import { useState } from 'react';
 import EditProfileForm from '../EditProfileForm/EditProfileForm';
+import accountService from '../../services/account.service';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 interface Props {
     user: User
@@ -16,9 +19,20 @@ function UserInfo({ user, isOwn }: Props) {
     const { handleMessage } = useChat()
     const { getUserAge, formatDate } = useFormat()
     const [isEditing, setIsEditing] = useState(false)
+    const navigate = useNavigate()
+    const { logOutUser } = useAuth()
 
     async function handleDelete() {
-        
+        const confirm = window.confirm('Are you sure you want to delete your account? This action cannot be undone.')
+        if (confirm) {
+            try {
+                await accountService.deleteProfile()
+                logOutUser()
+                navigate('/')
+            } catch (error) {  
+                alert(error)
+            }
+        }
     }
 
     return (
@@ -100,7 +114,7 @@ function UserInfo({ user, isOwn }: Props) {
             </div>
             </>}
 
-            {isEditing && <EditProfileForm profile={user} onCancel={() => setIsEditing(false)} />}
+            {isEditing && <EditProfileForm profile={user} onClose={() => setIsEditing(false)} />}
         </div>
     )
 }

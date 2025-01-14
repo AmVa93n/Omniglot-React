@@ -4,7 +4,7 @@ import { searchFilters } from '../../types';
 import LanguageChip from '../LanguageChip/LanguageChip';
 import LanguageSelectModal from '../LanguageSelectModal/LanguageSelectModal';
 import './SearchFilterPanel.css';
-import { useState } from 'react';
+import useLanguageSelect from '../../hooks/useLanguageSelect';
 
 interface Props {
     filters: searchFilters
@@ -15,27 +15,8 @@ interface Props {
 function SearchFilterPanel({ filters, setFilters, onFilterChange }: Props) {
     const countries = useCountries();
     const { languagesList } = useLanguages();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalField, setModalField] = useState<'learning' | 'teaching'>('learning');
+    const { isModalOpen, modalField, handleAdd, handleDelete, handleConfirm, handleCancel } = useLanguageSelect(setFilters);
     const availableLanguages = languagesList.filter(lang => !filters[modalField].includes(lang));
-
-    function handleAddLanguage(field: 'learning' | 'teaching') {
-        setModalField(field)
-        setIsModalOpen(true)
-    }
-
-    function handleModalConfirm(selectedLanguages: string[], field: 'learning' | 'teaching') {
-        setFilters(prev => {
-            return {...prev, [field]: [...prev[field], ...selectedLanguages]}
-        })
-        setIsModalOpen(false)
-    }
-
-    function handleDeleteLanguage(code: string, field: 'learning' | 'teaching') {
-        setFilters(prev => {
-            return {...prev, [field]: prev[field].filter(lang => lang !== code)}
-        })
-    }
 
     return (
         <div className="search-filter-panel">
@@ -87,28 +68,28 @@ function SearchFilterPanel({ filters, setFilters, onFilterChange }: Props) {
                     ))}
                 </select>
                 
-                <button className="add-button" onClick={() => handleAddLanguage('learning')} disabled={filters.learning.length === languagesList.length}>
+                <button className="add-button" onClick={() => handleAdd('lang_learn')} disabled={filters.lang_learn.length === languagesList.length}>
                     <i className="bi bi-plus-circle-fill"></i>Learning
                 </button>
 
-                <button className="add-button" onClick={() => handleAddLanguage('teaching')} disabled={filters.teaching.length === languagesList.length}>
+                <button className="add-button" onClick={() => handleAdd('lang_teach')} disabled={filters.lang_teach.length === languagesList.length}>
                     <i className="bi bi-plus-circle-fill"></i>Teaching
                 </button>
             </div>
 
-            {(filters.learning.length > 0 || filters.teaching.length > 0) &&
+            {(filters.lang_learn.length > 0 || filters.lang_teach.length > 0) &&
             <div className="applied-filters-panel">
-                {filters.learning.length > 0 && <>
+                {filters.lang_learn.length > 0 && <>
                     <b>Learning:</b>
-                    {filters.learning.map(lang => (
-                        <LanguageChip key={lang} code={lang} onDelete={() => handleDeleteLanguage(lang, 'learning')} />
+                    {filters.lang_learn.map(lang => (
+                        <LanguageChip key={lang} code={lang} onDelete={() => handleDelete(lang, 'lang_learn')} />
                     ))}
                 </>}
 
-                {filters.teaching.length > 0 && <>
+                {filters.lang_teach.length > 0 && <>
                     <b>Teaching:</b>
-                    {filters.teaching.map(lang => (
-                        <LanguageChip key={lang} code={lang} onDelete={() => handleDeleteLanguage(lang, 'teaching')} />
+                    {filters.lang_teach.map(lang => (
+                        <LanguageChip key={lang} code={lang} onDelete={() => handleDelete(lang, 'lang_teach')} />
                     ))}
                 </>}
             </div>}
@@ -117,8 +98,8 @@ function SearchFilterPanel({ filters, setFilters, onFilterChange }: Props) {
                 <LanguageSelectModal 
                     languages={availableLanguages} 
                     field={modalField}
-                    onConfirm={handleModalConfirm}
-                    onCancel={() => setIsModalOpen(false)}
+                    onConfirm={handleConfirm}
+                    onCancel={handleCancel}
                 />}
         </div>
     );

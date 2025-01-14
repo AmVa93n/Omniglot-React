@@ -19,6 +19,7 @@ import WalletPage from './pages/WalletPage';
 import InboxPage from './pages/InboxPage/InboxPage';
 import CheckoutPage from './pages/CheckoutPage';
 import AccountPage from './pages/AccountPage/AccountPage';
+import { AccountProvider } from './context/account.context';
 
 function App() {
   return (
@@ -32,7 +33,9 @@ function App() {
 
         <Route path="/account" element={
             <IsPrivate>
-              <AccountPage />
+              <AccountProvider>
+                <AccountPage />
+              </AccountProvider>
             </IsPrivate>
           }/>
 

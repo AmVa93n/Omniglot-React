@@ -8,6 +8,7 @@ import './SignupPage.css'
 import LanguageSelectModal from "../../components/LanguageSelectModal/LanguageSelectModal"
 import LanguageChip from "../../components/LanguageChip/LanguageChip"
 import Avatar from "../../components/Avatar"
+import useLanguageSelect from "../../hooks/useLanguageSelect"
 
 function SignupPage() {
     const [signupForm, setSignupForm] = useState<signupForm>({
@@ -24,10 +25,9 @@ function SignupPage() {
         private: false
     })
     const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>('/images/Profile-PNG-File.png');
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [modalField, setModalField] = useState<'lang_teach' | 'lang_learn'>('lang_teach')
     const navigate = useNavigate()
     const { languagesList } = useLanguages()
+    const { isModalOpen, modalField, handleAdd, handleDelete, handleConfirm, handleCancel } = useLanguageSelect(setSignupForm)
     const countries = useCountries()
     const availableLanguages = languagesList.filter(lang => !signupForm.lang_teach.includes(lang) && !signupForm.lang_learn.includes(lang))
 
@@ -36,24 +36,6 @@ function SignupPage() {
         setSignupForm(prev => {
             return {...prev, [name]: value}
         })
-    }
-
-    function handleAddLanguage(field: 'lang_teach' | 'lang_learn') {
-        setModalField(field)
-        setIsModalOpen(true)
-    }
-
-    function handleDeleteLanguage(code: string, field: 'lang_teach' | 'lang_learn') {
-        setSignupForm(prev => {
-            return {...prev, [field]: prev[field].filter(lang => lang !== code)}
-        })
-    }
-
-    function handleModalConfirm(selectedLanguages: string[], field: 'lang_teach' | 'lang_learn') {
-        setSignupForm(prev => {
-            return {...prev, [field]: [...prev[field], ...selectedLanguages]}
-        })
-        setIsModalOpen(false)
     }
 
     function handleSwitch(event: React.ChangeEvent) {
@@ -162,10 +144,10 @@ function SignupPage() {
                             <label>I want to teach</label>
                             <div className="languages">
                                 {signupForm.lang_teach.map(lang => (
-                                    <LanguageChip key={lang} code={lang} onDelete={() => handleDeleteLanguage(lang, 'lang_teach')} />
+                                    <LanguageChip key={lang} code={lang} onDelete={() => handleDelete(lang, 'lang_teach')} />
                                 ))}
                             </div>
-                            <button className="add-button" type="button" onClick={() => handleAddLanguage('lang_teach')} disabled={availableLanguages.length === 0}>
+                            <button className="add-button" type="button" onClick={() => handleAdd('lang_teach')} disabled={availableLanguages.length === 0}>
                                 <i className="bi bi-plus-circle-fill"></i>Add Languages
                             </button>
                         </div>
@@ -174,10 +156,10 @@ function SignupPage() {
                             <label>I want to learn</label>
                             <div className="languages">
                                 {signupForm.lang_learn.map(lang => (
-                                    <LanguageChip key={lang} code={lang} onDelete={() => handleDeleteLanguage(lang, 'lang_learn')} />
+                                    <LanguageChip key={lang} code={lang} onDelete={() => handleDelete(lang, 'lang_learn')} />
                                 ))}
                             </div>
-                            <button className="add-button" type="button" onClick={() => handleAddLanguage('lang_learn')} disabled={availableLanguages.length === 0}>
+                            <button className="add-button" type="button" onClick={() => handleAdd('lang_learn')} disabled={availableLanguages.length === 0}>
                                 <i className="bi bi-plus-circle-fill"></i>Add Languages
                             </button>
                         </div>
@@ -186,8 +168,8 @@ function SignupPage() {
                             <LanguageSelectModal 
                                 languages={availableLanguages} 
                                 field={modalField}
-                                onConfirm={handleModalConfirm}
-                                onCancel={() => setIsModalOpen(false)}
+                                onConfirm={handleConfirm}
+                                onCancel={handleCancel}
                             />}
                     </div>
 
@@ -199,7 +181,6 @@ function SignupPage() {
                             </label>
                             <small>I want to offer paid classes and educational content.</small>
                         </div>
-
                         
                         <div className="form-group checkbox">
                             <label>
