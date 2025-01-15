@@ -144,7 +144,7 @@
 }
 
 .deck-view .flashcard-buttons button {
-    padding: 5px 10px;
+    padding: 5px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
     display: flex;

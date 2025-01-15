@@ -1,15 +1,17 @@
-import { Deck, Flashcard } from '../types';
-import { useState } from 'react';
-import accountService from '../services/account.service';
-import '../styles/FlashcardGame.css';
+import { Deck, Flashcard } from '../../types';
+import { useState, useContext } from 'react';
+import accountService from '../../services/account.service';
+import './FlashcardGame.css';
+import { AccountContext } from '../../context/account.context';
+import LanguageChip from '../LanguageChip/LanguageChip';
+import InfoChip from '../InfoChip/InfoChip';
 
 interface Props {
     deck: Deck;
     setPlayedDeck: React.Dispatch<React.SetStateAction<Deck | null>>;
-    setDecks: React.Dispatch<React.SetStateAction<Deck[]>>;
 }
 
-function FlashcardGame({ deck, setPlayedDeck, setDecks }: Props) {
+function FlashcardGame({ deck, setPlayedDeck }: Props) {
     const [cards, setCards] = useState<Flashcard[]>(deck.cards.filter(card => card.priority > -10))
     const [currentCardIndex, setCurrentCardIndex] = useState(0)
     const [sessionStats, setSessionStats] = useState({correct: 0, guess: 0, wrong: 0, skip: 0})
@@ -17,6 +19,7 @@ function FlashcardGame({ deck, setPlayedDeck, setDecks }: Props) {
     const [isRevealed, setIsRevealed] = useState(false)
     const [transition, setTransition] = useState(false)
     const [sessionEnded, setSessionEnded] = useState(false)
+    const { setDecks } = useContext(AccountContext)
 
     function flipCard() { 
         if (isRevealed) return
@@ -69,20 +72,16 @@ function FlashcardGame({ deck, setPlayedDeck, setDecks }: Props) {
     }
 
     return (
-        <div className="content-box" style={{width: '50%'}}>
-            <h2 className="mb-3">Playing "{deck.topic}"</h2>
-            <div className="row mb-5 mx-auto" style={{width: 'fit-content'}}>
-                <span className="card-text col-auto"> 
-                    <Language code={deck.language} />
-                </span>
-                <span className="card-text col-auto">
-                    <Level level={deck.level} />
-                </span>
-                <span className="card-text col-auto"><i className="bi bi-aspect-ratio-fill me-2"></i>{deck.cards.length} Cards</span>
-                <span className="card-text col-auto"><i className="bi bi-trophy-fill me-2"></i>{deck.mastered.length} Mastered</span>
+        <div className="flashcard-game">
+            <h2>Playing "{deck.topic}"</h2>
+            <div className="deck-info">
+                <LanguageChip code={deck.language} />
+                <InfoChip type='level' text={deck.level} />
+                <InfoChip type="cards" text={deck.cards.length.toString()} />
+                <InfoChip type="mastered" text={deck.cards.filter(card => card.priority === -10).length.toString()} />
             </div>
 
-            <div className="flashcard-container mx-auto" style={{width: 'fit-content'}}>
+            <div className="flashcard-container">
                 <p id="tracker" className="fw-bold center">
                     {sessionEnded ? 'Deck finished' : `Card ${currentCardIndex + 1} of ${cards.length}`}
                 </p>
@@ -103,26 +102,26 @@ function FlashcardGame({ deck, setPlayedDeck, setDecks }: Props) {
                 
                 {!sessionEnded &&
                 <>
-                    <div className={`flashcard mx-auto mb-3 ${isFlipped ? 'flipped' : ''}`} onClick={flipCard}>
+                    <div className={`flashcard ${isFlipped ? 'flipped' : ''}`} onClick={flipCard}>
                         <div className="fc-front">
-                            <h1 id="front" className="m-0">{cards[currentCardIndex]?.front}</h1>
+                            <h1>{cards[currentCardIndex]?.front}</h1>
                         </div>
                         <div className="fc-back">
-                            <h1 id="back" className="m-0">{cards[currentCardIndex]?.back}</h1>
+                            <h1>{cards[currentCardIndex]?.back}</h1>
                         </div>
                     </div>
 
-                    <div className="d-flex justify-content-center gap-1">
-                        <button id="knew" className="btn btn-sm btn-success" onClick={() => registerAnswer("correct")} disabled={!isFlipped}>
-                            <i className="bi bi-emoji-smile-fill me-2"></i>Knew it
+                    <div className="game-buttons">
+                        <button className="correct-button" onClick={() => registerAnswer("correct")} disabled={!isFlipped}>
+                            <i className="bi bi-emoji-smile-fill"></i>Knew it
                         </button>
-                        <button id="guessed" className="btn btn-sm btn-warning" onClick={() => registerAnswer("guess")} disabled={!isFlipped}>
-                            <i className="bi bi-emoji-neutral-fill me-2"></i>Guessed it
+                        <button className="guess-button" onClick={() => registerAnswer("guess")} disabled={!isFlipped}>
+                            <i className="bi bi-emoji-neutral-fill"></i>Guessed it
                         </button>
-                        <button id="wrong" className="btn btn-sm btn-danger" onClick={() => registerAnswer("wrong")} disabled={!isFlipped}>
-                            <i className="bi bi-emoji-frown-fill me-2"></i>Got it wrong
+                        <button className="wrong-button" onClick={() => registerAnswer("wrong")} disabled={!isFlipped}>
+                            <i className="bi bi-emoji-frown-fill"></i>Got it wrong
                         </button>
-                        <button id="skip" className="btn btn-sm btn-secondary" onClick={skipCard} disabled={isFlipped || transition}>
+                        <button className="skip-button" onClick={skipCard} disabled={isFlipped || transition}>
                             Skip for now
                         </button>
                     </div>

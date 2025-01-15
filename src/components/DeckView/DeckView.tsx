@@ -2,12 +2,30 @@ import { Deck } from "../../types";
 import "./DeckView.css";
 import LanguageChip from "../LanguageChip/LanguageChip";
 import InfoChip from "../InfoChip/InfoChip";
+import accountService from "../../services/account.service";
+import { useContext } from "react";
+import { AccountContext } from "../../context/account.context";
 
 interface Props {
     deck: Deck;
 }
 
 function DeckView({ deck }: Props) {
+    const { setDecks } = useContext(AccountContext);
+
+    function handleEdit(cardId: string) {
+        console.log(cardId);
+    }
+
+    async function handleDelete(cardId: string) {
+        try {
+            await accountService.deleteFlashcard(cardId)
+            setDecks(prev => prev.map(d => d._id === deck._id ? {...d, cards: d.cards.filter(c => c._id !== cardId)} : d));
+        } catch (error) {
+            alert(error);
+        }
+    }
+
     return (
         <div className="deck-view">
             <div className="deck-header">
@@ -19,12 +37,12 @@ function DeckView({ deck }: Props) {
                 <LanguageChip code={deck.language} />
                 <InfoChip type="level" text={deck.level} />
                 <InfoChip type="cards" text={deck.cards.length.toString()} />
-                <InfoChip type="mastered" text={deck.mastered.length.toString()} />
+                <InfoChip type="mastered" text={deck.cards.filter(card => card.priority === -10).length.toString()} />
             </div>
             
             <div className="flashcards">
                 {deck.cards.map((card, index) => (
-                    <div key={index} className="flashcard">
+                    <div key={card._id} className="flashcard">
                         <div className="flashcard-decorator">
                             <span className="hash">#</span>
                             <span>{index + 1}</span>
@@ -51,11 +69,11 @@ function DeckView({ deck }: Props) {
                         </div>
 
                         <div className="flashcard-buttons">
-                            <button className="edit-button">
-                                <i className="bi bi-pencil"></i>Edit
+                            <button className="edit-button" onClick={() => handleEdit(card._id)}>
+                                <i className="bi bi-pencil-square"></i>Edit
                             </button>
-                            <button className="delete-button">
-                                <i className="bi bi-trash"></i>Delete
+                            <button className="delete-button" onClick={() => handleDelete(card._id)}>
+                                <i className="bi bi-trash3-fill"></i>Delete
                             </button>
                         </div>
                     </div>

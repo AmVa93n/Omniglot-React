@@ -13,10 +13,9 @@ interface Props {
     handleView?: () => void
     handleEdit?: () => void
     handlePlay?: () => void
-    disabled?: boolean
 }
 
-function DeckCard({ deck, isOwn, handleView, handleEdit, handlePlay, disabled }: Props) {
+function DeckCard({ deck, isOwn, handleView, handleEdit, handlePlay }: Props) {
     const navigate = useNavigate()
     const { setDecks } = useContext(AccountContext)
 
@@ -44,7 +43,7 @@ function DeckCard({ deck, isOwn, handleView, handleEdit, handlePlay, disabled }:
                 <LanguageChip code={deck.language} />
                 <InfoChip type='level' text={deck.level} />
                 <InfoChip type='cards' text={deck.cards.length.toString()} />
-                {isOwn && <InfoChip type='mastered' text={deck.mastered?.length.toString()} />}
+                {isOwn && <InfoChip type='mastered' text={deck.cards.filter(card => card.priority === -10).length.toString()} />}
             </div>
                 
             <div className="deck-card-buttons">
@@ -58,13 +57,13 @@ function DeckCard({ deck, isOwn, handleView, handleEdit, handlePlay, disabled }:
                 </button>}
 
                 {isOwn && <>
-                <button className="play-button" onClick={handlePlay} disabled={disabled}>
+                <button className="play-button" onClick={handlePlay}>
                     <i className="bi bi-play-circle-fill"></i>Play
                 </button>
-                <button className="edit-button" onClick={handleEdit} disabled={disabled}>
+                <button className="edit-button" onClick={handleEdit}>
                     <i className="bi bi-pencil-square"></i>Edit
                 </button>
-                <button className="delete-button" onClick={handleDelete} disabled={disabled}>
+                <button className="delete-button" onClick={handleDelete}>
                     <i className="bi bi-trash3-fill"></i>Delete
                 </button>
                 </>}

@@ -32,10 +32,10 @@ export interface Deck {
     language: string
     level: string
     cards: Flashcard[]
-    mastered: Flashcard[]
 }
 
 export interface Flashcard {
+    _id: string
     front: string
     back: string
     priority: number
@@ -172,6 +172,12 @@ export interface deckForm {
     language: string
     level: string
     cards: Flashcard[]
+}
+
+export interface flashcardForm {
+    front: string
+    back: string
+    priority: number
 }
 
 export interface reviewForm {

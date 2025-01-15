@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { deckForm, Flashcard } from "../types";
+import { deckForm, flashcardForm, offerForm, Flashcard, Deck, Offer } from "../types";
 
 class AccountService {
   api: AxiosInstance
@@ -87,12 +87,12 @@ class AccountService {
     return response.data;
   }
 
-  async createOffer(requestBody: FormData) {
+  async createOffer(requestBody: offerForm) {
     const response: AxiosResponse = await this.api.post('/account/offers', requestBody);
     return response.data;
   }
 
-  async updateOffer(offerId: string, requestBody: FormData) {
+  async updateOffer(offerId: string, requestBody: Offer) {
     const response: AxiosResponse = await this.api.put(`/account/offers/${offerId}`, requestBody);
     return response.data;
   }
@@ -112,7 +112,7 @@ class AccountService {
     return response.data;
   }
 
-  async updateDeck(deckId: string, requestBody: FormData) {
+  async updateDeck(deckId: string, requestBody: Deck) {
     const response: AxiosResponse = await this.api.put(`/account/decks/${deckId}`, requestBody);
     return response.data;
   }
@@ -129,6 +129,21 @@ class AccountService {
 
   async cloneDeck(deckId: string) {
     const response: AxiosResponse = await this.api.post(`/account/decks/${deckId}/clone`);
+    return response.data;
+  }
+
+  async createFlashcard(deckId: string, requestBody: flashcardForm) {
+    const response: AxiosResponse = await this.api.post(`/account/flashcards/${deckId}`, requestBody);
+    return response.data;
+  }
+
+  async updateFlashcard(cardId: string, requestBody: Flashcard) {
+    const response: AxiosResponse = await this.api.put(`/account/flashcards/${cardId}`, requestBody);
+    return response.data;
+  }
+
+  async deleteFlashcard(cardId: string) {
+    const response: AxiosResponse = await this.api.delete(`/account/flashcards/${cardId}`);
     return response.data;
   }
 

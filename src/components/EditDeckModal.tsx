@@ -1,21 +1,17 @@
 import { useState, useContext } from 'react';
-import { deckForm } from '../types';
+import { deckForm, Deck } from '../types';
 import accountService from '../services/account.service';
 import useLanguages from '../hooks/useLanguages';
 import { AccountContext } from '../context/account.context';
 
 interface Props {
+    deck: Deck;
     onClose: () => void;
 }
 
-function CreateDeckModal({ onClose }: Props) {
+function EditDeckModal({ deck, onClose }: Props) {
     const { setDecks, profile } = useContext(AccountContext)
-    const [deckForm, setDeckForm] = useState<deckForm>({
-        topic: '',
-        language: profile.lang_teach[0],
-        level: 'beginner',
-        cards: []
-    })
+    const [deckForm, setDeckForm] = useState<deckForm>(deck)
     const { getLanguageName } = useLanguages()
 
     function handleChange(event: React.ChangeEvent) {
@@ -25,11 +21,10 @@ function CreateDeckModal({ onClose }: Props) {
         })
     }
 
-    async function handleSubmit() {
+    async function handleSave() {
         try {
-            const createdDeck = await accountService.createDeck(deckForm)
-            createdDeck.mastered = []
-            setDecks(prev => [...prev, createdDeck])
+            const updatedDeck = await accountService.updateDeck(deck._id, deckForm)
+            setDecks(prev => prev.map(deck => deck._id === updatedDeck._id ? updatedDeck : deck))
             onClose()
         } catch (error) {
             alert(error)
@@ -40,9 +35,9 @@ function CreateDeckModal({ onClose }: Props) {
         <div className="modal">
             <div className="modal-content">
                 <div className="modal-header">
-                    <h2>Create a new deck</h2>
+                    <h2>Edit your deck</h2>
                 </div>
-                
+
                 <div className="modal-body">
                     <div className="form-group">
                         <label htmlFor="topic">Topic</label>
@@ -69,13 +64,14 @@ function CreateDeckModal({ onClose }: Props) {
                 </div>
 
                 <div className="modal-buttons">
-                    <button onClick={handleSubmit} disabled={!deckForm.topic}>Submit</button>
+                    <button onClick={handleSave} disabled={!deckForm.topic}>
+                        <i className="bi bi-floppy2-fill"></i>Save Changes
+                    </button>
                     <button onClick={onClose}>Cancel</button>
                 </div>
             </div>
         </div>
     )
-
 }
 
-export default CreateDeckModal;
+export default EditDeckModal;
