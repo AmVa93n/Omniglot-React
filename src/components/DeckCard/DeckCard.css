@@ -43,12 +43,12 @@
     gap: 5px;
 }
 
-.clone-button {
+.clone-button, .view-button {
     background-color: #007bff;
     color: #fff;
 }
 
-.clone-button:hover {
+.clone-button:hover, .view-button:hover {
     background-color: #0056b3;
 }
 
@@ -59,22 +59,4 @@
 
 .play-button:hover {
     background-color: #218838;
-}
-
-.edit-button {
-    background-color: #ffc107;
-    color: #fff;
-}
-
-.edit-button:hover {
-    background-color: #e0a800;
-}
-
-.delete-button {
-    background-color: #dc3545;
-    color: #fff;
-}
-
-.delete-button:hover {
-    background-color: #c82333;
 }

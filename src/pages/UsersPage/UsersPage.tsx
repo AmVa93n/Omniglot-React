@@ -20,8 +20,8 @@ function UsersPage() {
         maxAge: '',
         country: '', 
         gender: '', 
-        learning: [],
-        teaching: [],
+        lang_learn: [],
+        lang_teach: [],
     });
     const { getUserAge } = useFormat();
     const { user } = useAuth();
@@ -74,8 +74,8 @@ function UsersPage() {
         (filters.maxAge === '' || getUserAge(user.birthdate) <= parseInt(filters.maxAge)) &&
         (!filters.country || user.country === filters.country) &&
         (!filters.gender || user.gender === filters.gender) &&
-        (!filters.learning.length || user.lang_learn.some(lang => filters.learning.includes(lang))) &&
-        (!filters.teaching.length || user.lang_teach.some(lang => filters.teaching.includes(lang)))
+        (!filters.lang_learn.length || user.lang_learn.some(lang => filters.lang_learn.includes(lang))) &&
+        (!filters.lang_teach.length || user.lang_teach.some(lang => filters.lang_teach.includes(lang)))
     );
 
     function handleNextPage() {

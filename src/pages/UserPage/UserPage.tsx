@@ -39,7 +39,7 @@ function UserPage() {
                     {activeTab === 'decks' && (
                         viewedUser.decks?.length === 0 ? <p>{viewedUser.username} has no decks yet.</p> : 
                         <div className="cards-container">
-                            {viewedUser.decks?.map(deck => <DeckCard deck={deck} />)}
+                            {viewedUser.decks?.map(deck => <DeckCard key={deck._id} deck={deck} />)}
                         </div>
                     )}
                 </div>
@@ -51,7 +51,7 @@ function UserPage() {
                     {activeTab === 'offers' && (
                         viewedUser.offers?.length === 0 ? <p>{viewedUser.username} has no offers yet.</p> : 
                         <div className="cards-container">
-                            {viewedUser.offers?.map(offer => <OfferCard offer={offer} />)}
+                            {viewedUser.offers?.map(offer => <OfferCard key={offer._id} offer={offer} />)}
                         </div>
                     )}
                 </div>
@@ -63,7 +63,7 @@ function UserPage() {
                     {activeTab === 'reviews' && (
                         viewedUser.reviews?.length === 0 ? <p>{viewedUser.username} has no reviews yet.</p> : 
                         <div className="cards-container">
-                            {viewedUser.reviews?.map(review => <ReviewCard review={review} />)}
+                            {viewedUser.reviews?.map(review => <ReviewCard key={review._id} review={review} />)}
                         </div>
                     )}
                 </div>

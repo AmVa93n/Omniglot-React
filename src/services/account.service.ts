@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { Flashcard } from "../types";
+import { deckForm, Flashcard } from "../types";
 
 class AccountService {
   api: AxiosInstance
@@ -107,7 +107,7 @@ class AccountService {
     return response.data;
   }
 
-  async createDeck(requestBody: FormData) {
+  async createDeck(requestBody: deckForm) {
     const response: AxiosResponse = await this.api.post('/account/decks', requestBody);
     return response.data;
   }

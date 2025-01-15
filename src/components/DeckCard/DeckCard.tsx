@@ -4,22 +4,34 @@ import { Deck } from '../../types'
 import LanguageChip from '../LanguageChip/LanguageChip'
 import InfoChip from '../InfoChip/InfoChip'
 import './DeckCard.css'
+import { useContext } from 'react'
+import { AccountContext } from '../../context/account.context'
 
 interface Props {
     deck: Deck,
     isOwn?: boolean
-    handleDelete?: () => void
+    handleView?: () => void
     handleEdit?: () => void
     handlePlay?: () => void
     disabled?: boolean
 }
 
-function DeckCard({ deck, isOwn, handleDelete, handleEdit, handlePlay, disabled }: Props) {
+function DeckCard({ deck, isOwn, handleView, handleEdit, handlePlay, disabled }: Props) {
     const navigate = useNavigate()
+    const { setDecks } = useContext(AccountContext)
 
     async function handleClone() {
         await accountService.cloneDeck(deck._id)
         navigate('/account/decks')
+    }
+
+    async function handleDelete() {
+        try {
+            await accountService.deleteDeck(deck._id)
+            setDecks(prev => prev.filter(d => d._id !== deck._id))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -36,6 +48,10 @@ function DeckCard({ deck, isOwn, handleDelete, handleEdit, handlePlay, disabled 
             </div>
                 
             <div className="deck-card-buttons">
+                <button className="view-button" onClick={handleView}>
+                    <i className="bi bi-eye-fill"></i>View
+                </button>
+
                 {!isOwn &&
                 <button className="clone-button" onClick={handleClone}>
                     <i className="bi bi-copy"></i>Clone

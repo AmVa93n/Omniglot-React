@@ -34,15 +34,6 @@
     display: flex;
     align-items: center;
     gap: 5px;
-  }
-
-.delete-button {
-    background-color: #dc3545;
-    color: #fff;
-}
-  
-.delete-button:hover {
-    background-color: #c82333;
 }
 
 .profile-button {

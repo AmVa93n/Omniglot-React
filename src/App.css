@@ -43,6 +43,24 @@ button:disabled {
   line-height: 0;
 }
 
+.edit-button {
+  background-color: #ccc;
+  color: black
+}
+
+.edit-button:hover {
+  background-color: #aaa;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
 .content-box {
   background-color: rgba(250, 250, 250, 0.8);
   border-radius: 20px;
