@@ -57,6 +57,11 @@ class AccountService {
     return response.data;
   }
 
+  async withdrawReschedule(classId: string) {
+    const response: AxiosResponse = await this.api.put(`/account/classes/${classId}/reschedule/withdraw`);
+    return response.data;
+  }
+
   async acceptReschedule(classId: string) {
     const response: AxiosResponse = await this.api.put(`/account/classes/${classId}/reschedule/accept`);
     return response.data;

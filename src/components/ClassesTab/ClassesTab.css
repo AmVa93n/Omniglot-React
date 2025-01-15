@@ -1,0 +1,52 @@
+.timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-section {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.timeline-year {
+    margin-bottom: 1rem;
+}
+
+.timeline-month {
+    margin-bottom: 1rem;
+}
+
+.timeline-year h2,
+.timeline-month h3 {
+    margin: 0;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+.timeline-year h2 {
+    font-size: 1rem;
+    color: #333;
+}
+
+.timeline-month h3 {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.timeline-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    display: block;
+    text-align: center;
+}
+
+.timeline-classes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
