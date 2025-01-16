@@ -13,13 +13,16 @@ interface context {
   setDecks: React.Dispatch<React.SetStateAction<Deck[]>>;
   offers: Offer[];
   setOffers: React.Dispatch<React.SetStateAction<Offer[]>>;
+  calendar: Class[];
+  setCalendar: React.Dispatch<React.SetStateAction<Class[]>>;
 }
 
 function AccountProvider({ children }: PropsWithChildren) {
   const [profile, setProfile] = useState({} as User)
   const [classes, setClasses] = useState([] as Class[])
   const [decks, setDecks] = useState([] as Deck[])
-  const [offers, setOffers] = useState<Offer[]>([])
+  const [offers, setOffers] = useState([] as Offer[])
+  const [calendar, setCalendar] = useState([] as Class[])
 
   useEffect(() => {
     async function fetchUserData() {
@@ -32,6 +35,8 @@ function AccountProvider({ children }: PropsWithChildren) {
           setDecks(decksData)
           const offersData = await accountService.getOffers()
           setOffers(offersData)
+          const calendarData = await accountService.getCalendar()
+          setCalendar(calendarData)
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
@@ -43,7 +48,7 @@ function AccountProvider({ children }: PropsWithChildren) {
   return (
     <AccountContext.Provider
       value={{
-        profile, setProfile, classes, setClasses, decks, setDecks, offers, setOffers
+        profile, setProfile, classes, setClasses, decks, setDecks, offers, setOffers, calendar, setCalendar
       }}
     >
       {children}

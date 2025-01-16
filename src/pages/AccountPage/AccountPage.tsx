@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ClassesTab from '../../components/ClassesTab/ClassesTab';
 import DecksTab from '../../components/DecksTab/DecksTab';
 import OffersTab from '../../components/OffersTab/OffersTab';
+import CalendarTab from '../../components/CalendarTab/CalendarTab';
 
 function AccountPage() {
     const { profile } = useContext(AccountContext)
@@ -37,6 +38,7 @@ function AccountPage() {
                     {activeTab === 'Classes' ? <ClassesTab />
                     : activeTab === 'Decks' ? <DecksTab />
                     : activeTab === 'Offers' ? <OffersTab />
+                    : activeTab === 'Calendar' ? <CalendarTab />
                     : null
                     }
                 </div>

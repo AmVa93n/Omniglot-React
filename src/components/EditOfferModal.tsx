@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Offer } from '../types';
 import accountService from '../services/account.service';
 import useLanguages from '../hooks/useLanguages';
-import useDatePicker from '../hooks/useDatePicker';
+import useDate from '../hooks/useDate';
 import { AccountContext } from '../context/account.context';
 
 interface Props {
@@ -14,7 +14,7 @@ function EditOfferModal({ offer, onClose }: Props) {
     const { setOffers, profile } = useContext(AccountContext)
     const [offerForm, setOfferForm] = useState<Offer>(offer)
     const { getLanguageName } = useLanguages()
-    const { timeslots, weekdays } = useDatePicker()
+    const { timeslots, weekdays } = useDate()
 
     function handleChange(event: React.ChangeEvent) {
         const { name, value } = event.target as HTMLInputElement

@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import useDatePicker from "../../hooks/useDatePicker";
+import useDate from "../../hooks/useDate";
 import { Class } from "../../types";
 import accountService from "../../services/account.service";
 import { AccountContext } from "../../context/account.context";
@@ -12,7 +12,7 @@ interface Props {
 function RescheduleModal({ cls, onClose }: Props) {
     const [newDate, setNewDate] = useState(cls?.date || '')
     const [newTimeslot, setNewTimeslot] = useState(cls?.timeslot || '')
-    const { timeslots } = useDatePicker()
+    const { timeslots } = useDate()
     const { setClasses } = useContext(AccountContext)
 
     async function handleSend() {

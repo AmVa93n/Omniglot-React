@@ -188,9 +188,9 @@ export interface reviewForm {
 export interface calendarEvent {
     title: string
     id: string
-    start: string
-    end: string
-    display: string
+    student: string
+    start: Date
+    end: Date
 }
 
 export interface topLanguages {

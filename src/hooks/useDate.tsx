@@ -1,7 +1,8 @@
 import $ from 'jquery'
 import useFormat from './useFormat'
+import { Class } from '../types'
 
-function useDatePicker() {
+function useDate() {
     const { flipDayAndYear } = useFormat()
 
     function generateTimeslots() {
@@ -20,6 +21,16 @@ function useDatePicker() {
     const timeslots = generateTimeslots()
 
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+    function getEndTime(cls: Class) {
+      const [hours, minutes] = cls.timeslot.split(':').map(Number);
+      const totalMinutes = hours * 60 + minutes + Number(cls.duration);
+      let newHours: number | string = Math.floor(totalMinutes / 60) % 24;
+      let newMinutes: number | string = totalMinutes % 60;
+      newHours = newHours.toString().padStart(2, '0');
+      newMinutes = newMinutes.toString().padStart(2, '0');
+      return `${newHours}:${newMinutes}`;
+    }
       
     function createDatePicker() {
         // Calculate start date (1 day from today)
@@ -41,7 +52,7 @@ function useDatePicker() {
         });
     }
 
-    return { timeslots, weekdays, createDatePicker }
+    return { timeslots, weekdays, getEndTime, createDatePicker }
 }
 
-export default useDatePicker;
+export default useDate;

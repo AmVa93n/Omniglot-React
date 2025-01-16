@@ -1,0 +1,56 @@
+.calendar-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    position: absolute;
+    z-index: 1000;
+    padding: 10px;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.calendar-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.calendar-card-date-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.calendar-card-date-time .date {
+    font-size: 12px;
+}
+
+.calendar-card-date-time .time {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.calendar-card-student {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.calendar-card-student .username {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.calendar-card-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
