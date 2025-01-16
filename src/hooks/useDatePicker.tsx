@@ -18,6 +18,8 @@ function useDatePicker() {
     }
       
     const timeslots = generateTimeslots()
+
+    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
       
     function createDatePicker() {
         // Calculate start date (1 day from today)
@@ -39,7 +41,7 @@ function useDatePicker() {
         });
     }
 
-    return { timeslots, createDatePicker }
+    return { timeslots, weekdays, createDatePicker }
 }
 
 export default useDatePicker;

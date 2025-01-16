@@ -5,6 +5,7 @@ import { AccountContext } from '../../context/account.context';
 import { useState } from 'react';
 import ClassesTab from '../../components/ClassesTab/ClassesTab';
 import DecksTab from '../../components/DecksTab/DecksTab';
+import OffersTab from '../../components/OffersTab/OffersTab';
 
 function AccountPage() {
     const { profile } = useContext(AccountContext)
@@ -34,7 +35,9 @@ function AccountPage() {
 
                 <div className="user-content">
                     {activeTab === 'Classes' ? <ClassesTab />
-                    : activeTab === 'Decks' && <DecksTab />
+                    : activeTab === 'Decks' ? <DecksTab />
+                    : activeTab === 'Offers' ? <OffersTab />
+                    : null
                     }
                 </div>
             </div>

@@ -3,16 +3,28 @@ import LanguageChip from '../LanguageChip/LanguageChip'
 import InfoChip from '../InfoChip/InfoChip'
 import { Link } from 'react-router-dom'
 import './OfferCard.css'
+import { useContext } from 'react'
+import { AccountContext } from '../../context/account.context'
+import accountService from '../../services/account.service'
 
 interface Props {
     offer: Offer
     isOwn?: boolean
     handleEdit?: () => void
-    handleDelete?: () => void
-    disabled?: boolean
 }
 
-function OfferCard({ offer, isOwn, handleDelete, handleEdit, disabled }: Props) {
+function OfferCard({ offer, isOwn, handleEdit }: Props) {
+    const { setOffers } = useContext(AccountContext)
+
+    async function handleDelete() {
+        try {
+            await accountService.deleteOffer(offer._id)
+            setOffers(prev => prev.filter(o => o._id !== offer._id))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="offer-card">
             <div className="offer-card-header">
@@ -44,10 +56,10 @@ function OfferCard({ offer, isOwn, handleDelete, handleEdit, disabled }: Props) 
                 }
 
                 {isOwn && <>
-                    <button className="edit-button" onClick={handleEdit} disabled={disabled}>
+                    <button className="edit-button" onClick={handleEdit}>
                         <i className="bi bi-pencil-square"></i>Edit
                     </button>
-                    <button className="delete-button" onClick={handleDelete} disabled={disabled}>
+                    <button className="delete-button" onClick={handleDelete}>
                         <i className="bi bi-trash3-fill"></i>Delete
                     </button>
                 </>}
