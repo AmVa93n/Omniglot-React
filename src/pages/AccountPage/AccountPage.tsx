@@ -7,6 +7,8 @@ import ClassesTab from '../../components/ClassesTab/ClassesTab';
 import DecksTab from '../../components/DecksTab/DecksTab';
 import OffersTab from '../../components/OffersTab/OffersTab';
 import CalendarTab from '../../components/CalendarTab/CalendarTab';
+import ReviewsTab from '../../components/ReviewsTab/ReviewsTab';
+import EarningsTab from '../../components/EarningsTab/EarningsTab';
 
 function AccountPage() {
     const { profile } = useContext(AccountContext)
@@ -15,7 +17,7 @@ function AccountPage() {
         {name: 'Decks', icon: 'bi-stack'},
         {name: 'Offers', icon: 'bi-clipboard2-fill', prof: true},
         {name: 'Calendar', icon: 'bi-calendar-week', prof: true},
-        {name: 'Wallet', icon: 'bi-cash-coin', prof: true},
+        {name: 'Earnings', icon: 'bi-cash-coin', prof: true},
         {name: 'Reviews', icon: 'bi-star-fill', prof: true},
     ]
     const [activeTab, setActiveTab] = useState('Classes')
@@ -39,6 +41,8 @@ function AccountPage() {
                     : activeTab === 'Decks' ? <DecksTab />
                     : activeTab === 'Offers' ? <OffersTab />
                     : activeTab === 'Calendar' ? <CalendarTab />
+                    : activeTab === 'Earnings' ? <EarningsTab />
+                    : activeTab === 'Reviews' ? <ReviewsTab />
                     : null
                     }
                 </div>

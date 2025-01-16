@@ -152,8 +152,8 @@ class AccountService {
     return response.data;
   }
 
-  async getWallet() {
-    const response: AxiosResponse = await this.api.get('/account/wallet');
+  async getEarnings() {
+    const response: AxiosResponse = await this.api.get('/account/earnings');
     return response.data;
   }
 }

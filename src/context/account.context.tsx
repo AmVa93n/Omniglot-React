@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, PropsWithChildren } from "react";
-import { User, Class, Deck, Offer } from "../types";
+import { User, Class, Deck, Offer, Review, transaction } from "../types";
 import accountService from "../services/account.service";
 
 const AccountContext = createContext({} as context);
@@ -15,6 +15,8 @@ interface context {
   setOffers: React.Dispatch<React.SetStateAction<Offer[]>>;
   calendar: Class[];
   setCalendar: React.Dispatch<React.SetStateAction<Class[]>>;
+  reviews: Review[];
+  transactions: transaction[];
 }
 
 function AccountProvider({ children }: PropsWithChildren) {
@@ -23,6 +25,8 @@ function AccountProvider({ children }: PropsWithChildren) {
   const [decks, setDecks] = useState([] as Deck[])
   const [offers, setOffers] = useState([] as Offer[])
   const [calendar, setCalendar] = useState([] as Class[])
+  const [reviews, setReviews] = useState([] as Review[])
+  const [transactions, setTransactions] = useState([] as transaction[])
 
   useEffect(() => {
     async function fetchUserData() {
@@ -37,6 +41,10 @@ function AccountProvider({ children }: PropsWithChildren) {
           setOffers(offersData)
           const calendarData = await accountService.getCalendar()
           setCalendar(calendarData)
+          const transactions = await accountService.getEarnings()
+          setTransactions(transactions)
+          const reviewsData = await accountService.getReviews()
+          setReviews(reviewsData)
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
@@ -48,7 +56,7 @@ function AccountProvider({ children }: PropsWithChildren) {
   return (
     <AccountContext.Provider
       value={{
-        profile, setProfile, classes, setClasses, decks, setDecks, offers, setOffers, calendar, setCalendar
+        profile, setProfile, classes, setClasses, decks, setDecks, offers, setOffers, calendar, setCalendar, reviews, transactions
       }}
     >
       {children}
