@@ -12,13 +12,13 @@ function DecksTab() {
     const { decks } = useContext(AccountContext)
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-    const [viewedDeck, setViewedDeck] = useState<Deck | null>(null)
+    const [viewedDeckId, setViewedDeckId] = useState<string>('')
     const [editedDeck, setEditedDeck] = useState<Deck | null>(null)
     const [playedDeck, setPlayedDeck] = useState<Deck | null>(null)
 
     return (
         <div className="decks-tab">
-            { viewedDeck ? <DeckView deck={viewedDeck} />
+            { viewedDeckId ? <DeckView deck={decks.find(deck => deck._id === viewedDeckId)!} />
             : playedDeck ? <FlashcardGame deck={playedDeck} setPlayedDeck={setPlayedDeck} />
             : <>
                 <div className="decks-container">
@@ -27,7 +27,7 @@ function DecksTab() {
                             key={deck._id} 
                             deck={deck} 
                             isOwn={true}
-                            handleView={() => setViewedDeck(deck)}
+                            handleView={() => setViewedDeckId(deck._id)}
                             handleEdit={() => {setEditedDeck(deck); setIsEditModalOpen(true)}}
                             handlePlay={() => setPlayedDeck(deck)}
                         />

@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { deckForm, Deck } from '../types';
+import { Deck } from '../types';
 import accountService from '../services/account.service';
 import useLanguages from '../hooks/useLanguages';
 import { AccountContext } from '../context/account.context';
@@ -11,7 +11,7 @@ interface Props {
 
 function EditDeckModal({ deck, onClose }: Props) {
     const { setDecks, profile } = useContext(AccountContext)
-    const [deckForm, setDeckForm] = useState<deckForm>(deck)
+    const [deckForm, setDeckForm] = useState<Deck>(deck)
     const { getLanguageName } = useLanguages()
 
     function handleChange(event: React.ChangeEvent) {

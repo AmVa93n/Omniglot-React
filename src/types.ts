@@ -39,6 +39,7 @@ export interface Flashcard {
     front: string
     back: string
     priority: number
+    deck: string
 }
 
 export interface Offer {
@@ -177,7 +178,6 @@ export interface deckForm {
 export interface flashcardForm {
     front: string
     back: string
-    priority: number
 }
 
 export interface reviewForm {
