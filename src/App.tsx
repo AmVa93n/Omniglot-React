@@ -10,7 +10,7 @@ import Footer from "./components/Footer/Footer"
 import IsPrivate from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
 import InboxPage from './pages/InboxPage/InboxPage';
-import CheckoutPage from './pages/CheckoutPage';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import AccountPage from './pages/AccountPage/AccountPage';
 import { AccountProvider } from './context/account.context';
 

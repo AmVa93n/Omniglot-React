@@ -68,7 +68,17 @@ class AppService {
   }
 
   async getOffer(offerId: string) {
-    const response: AxiosResponse = await this.api.get(`/checkout/offers/${offerId}`);
+    const response: AxiosResponse = await this.api.get(`/checkout/${offerId}`);
+    return response.data;
+  }
+
+  async bookOffer(offerId: string) {
+    const response: AxiosResponse = await this.api.post(`/checkout/${offerId}`);
+    return response.data;
+  }
+
+  async createClass(offerId: string, requestBody: object) {
+    const response: AxiosResponse = await this.api.post(`/checkout/${offerId}/confirm`, requestBody);
     return response.data;
   }
 }
