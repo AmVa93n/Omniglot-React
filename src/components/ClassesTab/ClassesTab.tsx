@@ -1,13 +1,13 @@
 import { useState, useContext } from 'react'
 import { Class } from '../../types'
 import ClassCard from '../ClassCard/ClassCard'
-import RescheduleModal from '../RescheduleModal/RescheduleModal'
-import ReviewForm from '../ReviewForm'
+import RescheduleModal from '../RescheduleModal'
+import CreateReviewModal from '../CreateReviewModal/CreateReviewModal'
 import './ClassesTab.css'
 import { AccountContext } from '../../context/account.context'
 
 function ClassesTab() {
-    const { classes, setClasses } = useContext(AccountContext)
+    const { classes } = useContext(AccountContext)
     const [managedClass, setManagedClass] = useState<Class | null>(null)
     const [ratedClass, setRatedClass] = useState<Class | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -114,7 +114,7 @@ function ClassesTab() {
 
             {isModalOpen && <RescheduleModal cls={managedClass} onClose={() => setIsModalOpen(false)} />}
 
-            {ratedClass && <ReviewForm cls={ratedClass} setRatedClass={setRatedClass} setClasses={setClasses} />}
+            {ratedClass && <CreateReviewModal cls={ratedClass} setRatedClass={setRatedClass} />}
         </>
     )
 }

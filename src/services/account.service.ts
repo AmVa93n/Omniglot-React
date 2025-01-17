@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { deckForm, flashcardForm, offerForm, Flashcard, Deck, Offer } from "../types";
+import { deckForm, flashcardForm, offerForm, Flashcard, Deck, Offer, reviewForm } from "../types";
 
 class AccountService {
   api: AxiosInstance
@@ -72,7 +72,7 @@ class AccountService {
     return response.data;
   }
 
-  async createReview(classId: string, requestBody: FormData) {
+  async createReview(classId: string, requestBody: reviewForm) {
     const response: AxiosResponse = await this.api.post(`/account/reviews/${classId}`, requestBody);
     return response.data;
   }
