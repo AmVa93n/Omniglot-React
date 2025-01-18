@@ -30,6 +30,7 @@ function PaymentForm({ offerId, date, timeslot }: Props) {
           confirmParams: {
             return_url: `${domain}/offers/${offerId}/book`,
           },
+          redirect: 'if_required',
         });
     
         if (error) {
@@ -48,7 +49,9 @@ function PaymentForm({ offerId, date, timeslot }: Props) {
     return (
         <form onSubmit={handleSubmit} className='payment-form'>
             <PaymentElement />
-            <button type="submit" className='pay-button' disabled={!stripe}>Complete Payment</button>
+            <button type="submit" className='pay-button' disabled={!stripe}>
+              <i className="bi bi-credit-card"></i>Complete Payment
+            </button>
         </form>
     )
 }

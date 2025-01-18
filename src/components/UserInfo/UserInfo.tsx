@@ -43,7 +43,7 @@ function UserInfo({ user, isOwn }: Props) {
                 <div className="user-info-container-content">
                     <div className="user-main">
                         <Avatar src={user.profilePic} size={200} />
-                        <h2 className="mb-3 center">{user.username}</h2>
+                        <h2>{user.username}</h2>
                     </div>
                 
                     {user.professional &&
@@ -71,11 +71,11 @@ function UserInfo({ user, isOwn }: Props) {
                         <div className="user-info-row">
                             {!isOwn && <>
                             <span className="user-info-field">Age</span>
-                            <span className="age">{getUserAge(user.birthdate)}</span>
+                            <span className="age">{getUserAge(user.birthdate) || ''}</span>
                             </>}
                             {isOwn && <>
                             <span className="user-info-field">Birthdate</span>
-                            <span>{formatDate(user.birthdate)} ({getUserAge(user.birthdate)})</span>
+                            <span>{formatDate(user.birthdate)} ({getUserAge(user.birthdate) || ''})</span>
                             </>}
                         </div>
                     

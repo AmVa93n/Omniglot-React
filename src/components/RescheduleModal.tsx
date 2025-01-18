@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
-import useDate from "../../hooks/useDate";
-import { Class } from "../../types";
-import accountService from "../../services/account.service";
-import { AccountContext } from "../../context/account.context";
+import useDate from "../hooks/useDate";
+import { Class } from "../types";
+import accountService from "../services/account.service";
+import { AccountContext } from "../context/account.context";
 
 interface Props {
     cls: Class | null
