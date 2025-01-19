@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { Deck } from "../../types";
-import DeckCard from "../DeckCard/DeckCard";
-import CreateDeckModal from "../CreateDeckModal";
-import EditDeckModal from "../EditDeckModal";
-import FlashcardGame from "../FlashcardGame/FlashcardGame";
-import DeckView from "../DeckView/DeckView";
-import { AccountContext } from "../../context/account.context";
+import { Deck } from "../../../types";
+import DeckCard from "../../DeckCard/DeckCard";
+import CreateDeckModal from "../../CreateDeckModal";
+import EditDeckModal from "../../EditDeckModal";
+import FlashcardGame from "../../FlashcardGame/FlashcardGame";
+import DeckView from "../../DeckView/DeckView";
+import { AccountContext } from "../../../context/account.context";
 import "./DecksTab.css";
 
 function DecksTab() {

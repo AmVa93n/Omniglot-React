@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react"
-import { calendarEvent, Class } from '../../types'
-import CalendarEvent from "../CalendarEvent/CalendarEvent"
+import { calendarEvent, Class } from '../../../types'
+import CalendarEvent from "../../CalendarEvent/CalendarEvent"
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import './CalendarTab.css'
-import { AccountContext } from "../../context/account.context"
-import Avatar from "../Avatar";
-import useDate from "../../hooks/useDate";
+import { AccountContext } from "../../../context/account.context"
+import Avatar from "../../Avatar";
+import useDate from "../../../hooks/useDate";
 
 function CalendarTab() {
     const { calendar } = useContext(AccountContext)

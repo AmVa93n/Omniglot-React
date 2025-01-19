@@ -44,6 +44,11 @@
     text-align: center;
 }
 
+.timeline-empty {
+    display: block;
+    text-align: center;
+}
+
 .timeline-classes {
     display: flex;
     flex-direction: column;

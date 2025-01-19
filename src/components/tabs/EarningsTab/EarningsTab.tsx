@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AccountContext } from "../../context/account.context";
+import { AccountContext } from "../../../context/account.context";
 import "./EarningsTab.css";
 
 function EarningsTab() {
@@ -14,24 +14,24 @@ function EarningsTab() {
                 <table className="earnings-table">
                     <thead>
                         <tr>
-                            <th>Transaction ID</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Offer</th>
-                            <th>Customer</th>
+                            <th>Student</th>
                             <th>Amount</th>
+                            <th>Class</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {transactions.map(transaction => (
                         <tr key={transaction.id}>
-                            <td>{transaction.id}</td>
                             <td>{transaction.date}</td>
                             <td>{transaction.time}</td>
-                            <td>{transaction.offer?._id}</td>
-                            <td>{transaction.customer?.name}</td>
-                            <td>{transaction.amount} {transaction.currency}</td>
+                            <td>{transaction.offer.name}</td>
+                            <td>{transaction.student.username}</td>
+                            <td>{transaction.amount} $</td>
+                            <td>{transaction.class}</td>
                         </tr>
                         ))}
                     </tbody>

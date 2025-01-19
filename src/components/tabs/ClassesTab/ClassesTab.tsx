@@ -1,10 +1,10 @@
 import { useState, useContext } from 'react'
-import { Class } from '../../types'
-import ClassCard from '../ClassCard/ClassCard'
-import RescheduleModal from '../RescheduleModal'
-import CreateReviewModal from '../CreateReviewModal/CreateReviewModal'
+import { Class } from '../../../types'
+import ClassCard from '../../ClassCard/ClassCard'
+import RescheduleModal from '../../RescheduleModal'
+import CreateReviewModal from '../../CreateReviewModal/CreateReviewModal'
 import './ClassesTab.css'
-import { AccountContext } from '../../context/account.context'
+import { AccountContext } from '../../../context/account.context'
 
 function ClassesTab() {
     const { classes } = useContext(AccountContext)
@@ -61,6 +61,7 @@ function ClassesTab() {
             <div className="timeline">
                 <div className="timeline-section">
                     <span className='timeline-title'>Upcoming</span>
+                    {sortedUpcomingYears.length === 0 && <span className='timeline-empty'>You have no upcoming classes</span>}
                     {upcomingClasses && sortedUpcomingYears.map(year => (
                         <div key={year} className="timeline-year">
                             <h2>{year}</h2>
@@ -87,6 +88,7 @@ function ClassesTab() {
 
                 <div className="timeline-section">
                     <span className='timeline-title'>Past</span>
+                    {sortedPastYears.length === 0 && <span className='timeline-empty'>You have no completed classes</span>}
                     {pastClasses && sortedPastYears.map(year => (
                         <div key={year} className="timeline-year">
                             <h2>{year}</h2>

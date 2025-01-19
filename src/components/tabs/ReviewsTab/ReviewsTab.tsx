@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import ReviewCard from "../ReviewCard/ReviewCard";
-import { AccountContext } from "../../context/account.context";
+import ReviewCard from "../../ReviewCard/ReviewCard";
+import { AccountContext } from "../../../context/account.context";
 import "./ReviewsTab.css";
 
 function ReviewsTab() {

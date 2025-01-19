@@ -2,13 +2,13 @@ import UserInfo from '../../components/UserInfo/UserInfo';
 import './AccountPage.css'
 import { useContext } from 'react';
 import { AccountContext } from '../../context/account.context';
-import { useState } from 'react';
-import ClassesTab from '../../components/ClassesTab/ClassesTab';
-import DecksTab from '../../components/DecksTab/DecksTab';
-import OffersTab from '../../components/OffersTab/OffersTab';
-import CalendarTab from '../../components/CalendarTab/CalendarTab';
-import ReviewsTab from '../../components/ReviewsTab/ReviewsTab';
-import EarningsTab from '../../components/EarningsTab/EarningsTab';
+import ClassesTab from '../../components/tabs/ClassesTab/ClassesTab';
+import DecksTab from '../../components/tabs/DecksTab/DecksTab';
+import OffersTab from '../../components/tabs/OffersTab/OffersTab';
+import CalendarTab from '../../components/tabs/CalendarTab/CalendarTab';
+import ReviewsTab from '../../components/tabs/ReviewsTab/ReviewsTab';
+import EarningsTab from '../../components/tabs/EarningsTab/EarningsTab';
+import { Routes, Route, Link, Outlet, useLocation } from 'react-router-dom';
 
 function AccountPage() {
     const { profile } = useContext(AccountContext)
@@ -20,7 +20,7 @@ function AccountPage() {
         {name: 'Earnings', icon: 'bi-cash-coin', prof: true},
         {name: 'Reviews', icon: 'bi-star-fill', prof: true},
     ]
-    const [activeTab, setActiveTab] = useState('Classes')
+    const location = useLocation()
 
     return (
         <div className='account-page'>
@@ -30,21 +30,26 @@ function AccountPage() {
                 <div className="user-content-tabs">
                     {tabs.map(tab => (
                         tab.prof && !profile.professional ? null :
-                        <button key={tab.name} className={`user-content-tab ${tab.name === activeTab ? 'active' : ''}`} onClick={() => setActiveTab(tab.name)}>
+                        <Link to={`/account/${tab.name.toLowerCase()}`} key={tab.name}>
+                        <button 
+                            className={`user-content-tab ${location.pathname.includes(tab.name.toLowerCase()) ? 'active' : ''}`}
+                        >
                             <i className={`bi ${tab.icon}`}></i>{tab.name}
                         </button>
+                        </Link>
                     ))}
                 </div>
 
                 <div className="user-content">
-                    {activeTab === 'Classes' ? <ClassesTab />
-                    : activeTab === 'Decks' ? <DecksTab />
-                    : activeTab === 'Offers' ? <OffersTab />
-                    : activeTab === 'Calendar' ? <CalendarTab />
-                    : activeTab === 'Earnings' ? <EarningsTab />
-                    : activeTab === 'Reviews' ? <ReviewsTab />
-                    : null
-                    }
+                    <Routes>
+                        <Route path="classes" element={<ClassesTab />} />
+                        <Route path="decks" element={<DecksTab />} />
+                        <Route path="offers" element={<OffersTab />} />
+                        <Route path="calendar" element={<CalendarTab />} />
+                        <Route path="earnings" element={<EarningsTab />} />
+                        <Route path="reviews" element={<ReviewsTab />} />
+                    </Routes>
+                    <Outlet />
                 </div>
             </div>
         </div>

@@ -121,16 +121,14 @@ export interface country {
     }
 }
 
-export interface transaction {
+export interface Transaction {
     id: string
     date: string
     time: string
     amount: number
-    currency: string
     offer: Offer
-    customer: {
-        name: string
-    }
+    student: User
+    class: string
 }
 
 export interface signupForm {

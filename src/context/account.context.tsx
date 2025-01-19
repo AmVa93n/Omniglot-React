@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, PropsWithChildren } from "react";
-import { User, Class, Deck, Offer, Review, transaction } from "../types";
+import { User, Class, Deck, Offer, Review, Transaction } from "../types";
 import accountService from "../services/account.service";
 
 const AccountContext = createContext({} as context);
@@ -16,7 +16,7 @@ interface context {
   calendar: Class[];
   setCalendar: React.Dispatch<React.SetStateAction<Class[]>>;
   reviews: Review[];
-  transactions: transaction[];
+  transactions: Transaction[];
 }
 
 function AccountProvider({ children }: PropsWithChildren) {
@@ -26,7 +26,7 @@ function AccountProvider({ children }: PropsWithChildren) {
   const [offers, setOffers] = useState([] as Offer[])
   const [calendar, setCalendar] = useState([] as Class[])
   const [reviews, setReviews] = useState([] as Review[])
-  const [transactions, setTransactions] = useState([] as transaction[])
+  const [transactions, setTransactions] = useState([] as Transaction[])
 
   useEffect(() => {
     async function fetchUserData() {

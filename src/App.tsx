@@ -24,7 +24,7 @@ function App() {
         <Route path="/users" element={<UsersPage />}/>
         <Route path="/users/:userId" element={<UserPage />}/>
 
-        <Route path="/account" element={
+        <Route path="/account/*" element={
             <IsPrivate>
               <AccountProvider>
                 <AccountPage />
