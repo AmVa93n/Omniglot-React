@@ -28,6 +28,7 @@ function CreateDeckModal({ onClose }: Props) {
     async function handleSubmit() {
         try {
             const createdDeck = await accountService.createDeck(deckForm)
+            createdDeck.cards = []
             setDecks(prev => [...prev, createdDeck])
             onClose()
         } catch (error) {

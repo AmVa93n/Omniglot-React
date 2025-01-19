@@ -12,10 +12,9 @@ interface Props {
     isOwn?: boolean
     handleView?: () => void
     handleEdit?: () => void
-    handlePlay?: () => void
 }
 
-function DeckCard({ deck, isOwn, handleView, handleEdit, handlePlay }: Props) {
+function DeckCard({ deck, isOwn, handleView, handleEdit }: Props) {
     const navigate = useNavigate()
     const { setDecks } = useContext(AccountContext)
 
@@ -57,9 +56,6 @@ function DeckCard({ deck, isOwn, handleView, handleEdit, handlePlay }: Props) {
                 </button>}
 
                 {isOwn && <>
-                <button className="play-button" onClick={handlePlay}>
-                    <i className="bi bi-play-circle-fill"></i>Play
-                </button>
                 <button className="edit-button" onClick={handleEdit}>
                     <i className="bi bi-pencil-square"></i>Edit
                 </button>

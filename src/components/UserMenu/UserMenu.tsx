@@ -20,7 +20,7 @@ function UserMenu({ onClose }: Props) {
     const professionalItems = [
         { title: 'Offers', icon: 'bi bi-clipboard2-fill', link: '/account/offers' },
         { title: 'Calendar', icon: 'bi bi-calendar-week', link: '/account/calendar' },
-        { title: 'Wallet', icon: 'bi bi-cash-coin', link: '/account/wallet' },
+        { title: 'Earnings', icon: 'bi bi-cash-coin', link: '/account/earnings' },
         { title: 'Reviews', icon: 'bi bi-star-fill', link: '/account/reviews' },
     ]
 

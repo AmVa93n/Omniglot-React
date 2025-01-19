@@ -1,4 +1,4 @@
-.deck-view .flashcard {
+.flashcards .flashcard {
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -8,7 +8,7 @@
     overflow: hidden;
 }
 
-.deck-view .flashcard.edited {
+.flashcards .flashcard.edited {
     background-color: rgb(255, 255, 149);
 }
 
@@ -38,13 +38,13 @@
     padding: 10px;
 }
 
-.deck-view .flashcard-content {
+.flashcards .flashcard-content {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
 }
 
-.deck-view .flashcard-front, .deck-view .flashcard-back {
+.flashcards .flashcard-front, .flashcards .flashcard-back {
     padding: 20px;
     border: 1px solid #eee;
     border-radius: 4px;
@@ -57,7 +57,7 @@
     white-space: pre-wrap;
 }
 
-.deck-view .flashcard-tag {
+.flashcards .flashcard-tag {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -126,23 +126,4 @@
     align-items: center;
     justify-content: center;
     gap: 5px;
-}
-
-.deck-view .add-button {
-    padding: 8px;
-    padding-right: 10px;
-    gap: 5px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 50px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
-    line-height: 0;
-}
-
-.deck-view .add-button:hover {
-    background-color: #0056b3;
 }

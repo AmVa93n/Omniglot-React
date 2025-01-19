@@ -1,18 +1,18 @@
-import { Deck } from "../../types";
 import "./DeckView.css";
 import LanguageChip from "../LanguageChip/LanguageChip";
 import InfoChip from "../InfoChip/InfoChip";
 import accountService from "../../services/account.service";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AccountContext } from "../../context/account.context";
 import FlashcardCard from "../Flashcard/Flashcard";
+import FlashcardGame from "../FlashcardGame/FlashcardGame";
+import { useParams } from "react-router-dom";
 
-interface Props {
-    deck: Deck;
-}
-
-function DeckView({ deck }: Props) {
-    const { setDecks } = useContext(AccountContext);
+function DeckView() {
+    const { decks, setDecks } = useContext(AccountContext);
+    const [isPlaying, setIsPlaying] = useState(false)
+    const { deckId } = useParams()
+    const deck = decks.find(deck => deck._id === deckId)!
 
     async function handleAdd() {
         const cardForm = { front: " ", back: " " };
@@ -29,6 +29,11 @@ function DeckView({ deck }: Props) {
             <div className="deck-header">
                 <i className="bi bi-stack"></i>
                 <h1>{deck.topic}</h1>
+
+                <button className={`play-button ${isPlaying ? 'stop' : ''}`} onClick={() => setIsPlaying(!isPlaying)}>
+                    <i className={`bi bi-${!isPlaying ? 'play' : 'stop'}-circle-fill`}></i>
+                    {!isPlaying ? 'Play' : 'Stop'}
+                </button>
             </div>
 
             <div className="deck-info">
@@ -38,15 +43,18 @@ function DeckView({ deck }: Props) {
                 <InfoChip type="mastered" text={deck.cards.filter(card => card.priority === -10).length.toString()} />
             </div>
             
-            <div className="flashcards">
-                {deck.cards.map((card, index) => (
-                    <FlashcardCard key={card._id} flashcard={card} index={index + 1} />
-                ))}
-            </div>
+            {!isPlaying ? <>
+                <div className="flashcards">
+                    {deck.cards.map((card, index) => (
+                        <FlashcardCard key={card._id} flashcard={card} index={index + 1} />
+                    ))}
+                </div>
 
-            <button className="add-button" onClick={handleAdd}>
-                <i className="bi bi-plus-circle-fill"></i>Add Card
-            </button>
+                <button className="add-button" onClick={handleAdd}>
+                    <i className="bi bi-plus-circle-fill"></i>Add Card
+                </button>
+            </>
+            : <FlashcardGame deck={deck} onClose={() => setIsPlaying(false)} />}
         </div>
     );
 }

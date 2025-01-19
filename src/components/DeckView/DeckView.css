@@ -8,7 +8,8 @@
 
 .deck-header {
     display: flex;
-    align-items: start;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
     font-size: 24px;
     width: 100%;
@@ -20,7 +21,7 @@
 
 .deck-info {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     width: 100%;
@@ -29,6 +30,53 @@
 .flashcards {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
     width: 100%;
+}
+
+.deck-view .add-button {
+    padding: 8px;
+    padding-right: 10px;
+    gap: 5px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    line-height: 0;
+}
+
+.deck-view .add-button:hover {
+    background-color: #0056b3;
+}
+
+.play-button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 6px;
+    padding-right: 9px;
+    gap: 5px;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    line-height: 0;
+}
+
+.play-button:hover {
+    background-color: #218838;
+}
+
+.play-button.stop {
+    background-color: #dc3545;
+}
+
+.play-button.stop:hover {
+    background-color: #c82333;
 }

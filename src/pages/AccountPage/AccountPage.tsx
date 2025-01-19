@@ -43,7 +43,7 @@ function AccountPage() {
                 <div className="user-content">
                     <Routes>
                         <Route path="classes" element={<ClassesTab />} />
-                        <Route path="decks" element={<DecksTab />} />
+                        <Route path="decks/*" element={<DecksTab />} />
                         <Route path="offers" element={<OffersTab />} />
                         <Route path="calendar" element={<CalendarTab />} />
                         <Route path="earnings" element={<EarningsTab />} />
