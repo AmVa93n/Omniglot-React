@@ -57,8 +57,6 @@
 }
 
 .user-page .message-button {
-    background-color: #007bff;
-    color: white;
     border-radius: 5px;
     padding: 5px 7.5px;
     display: flex;
@@ -66,8 +64,4 @@
     gap: 5px;
     width: fit-content;
     transition: background-color 0.2s;
-}
-
-.user-page .message-button:hover {
-    background-color: #0056b3;
 }

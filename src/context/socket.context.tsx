@@ -47,10 +47,16 @@ function SocketProvider({ children }: PropsWithChildren) {
 
     async function handleMessage(viewedUser: User) {
         if (!user) return;
-        if (!chats.some((chat) => chat.participants.includes(viewedUser) && chat.participants.includes(user))) {
+        const existingChat = chats.find((chat) => 
+            chat.participants.some((p) => p._id === viewedUser._id)
+            && chat.participants.some((p) => p._id === user._id))
+        if (!existingChat) {
             const newChat = await appService.createChat({ targetUserId: viewedUser._id });
+            newChat.messages = [];
             setChats(prev => [...prev, newChat]);
             setActiveChat(newChat);
+        } else {
+            setActiveChat(existingChat);
         }
         navigate('/account/inbox');
     }

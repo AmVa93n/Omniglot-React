@@ -32,12 +32,12 @@ class AppService {
   }
 
   async readNotification(notificationId: string) {
-    const response: AxiosResponse = await this.api.put(`/api/notification/${notificationId}`);
+    const response: AxiosResponse = await this.api.put(`/api/notifications/${notificationId}`);
     return response.data;
   }
 
   async deleteNotification(notificationId: string) {
-    const response: AxiosResponse = await this.api.delete(`/api/notification/${notificationId}`);
+    const response: AxiosResponse = await this.api.delete(`/api/notifications/${notificationId}`);
     return response.data;
   }
 

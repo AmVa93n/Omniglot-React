@@ -25,7 +25,7 @@ function EarningsTab() {
 
                     <tbody>
                         {transactions.map(transaction => (
-                        <tr key={transaction.id}>
+                        <tr key={transaction._id}>
                             <td>{transaction.date}</td>
                             <td>{transaction.time}</td>
                             <td>{transaction.offer.name}</td>

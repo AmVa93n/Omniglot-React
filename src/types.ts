@@ -122,7 +122,7 @@ export interface country {
 }
 
 export interface Transaction {
-    id: string
+    _id: string
     date: string
     time: string
     amount: number

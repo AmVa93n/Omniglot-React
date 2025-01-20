@@ -45,7 +45,7 @@ function AccountPage() {
                         <Route path="classes" element={<ClassesTab />} />
                         <Route path="decks/*" element={<DecksTab />} />
                         <Route path="offers" element={<OffersTab />} />
-                        <Route path="calendar" element={<CalendarTab />} />
+                        <Route path="calendar/*" element={<CalendarTab />} />
                         <Route path="earnings" element={<EarningsTab />} />
                         <Route path="reviews" element={<ReviewsTab />} />
                     </Routes>

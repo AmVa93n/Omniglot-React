@@ -25,7 +25,7 @@ function CalendarEvent({ cls, position }: Props) {
 
                 <div className="calendar-card-date-time">
                     <span className='date'>{formatDate(cls.date)}</span>
-                    <span className='time'>{cls.timeslot} - {getEndTime(cls)}</span>
+                    <span className='time'>{cls.timeslot} - {getEndTime(cls.timeslot, cls.duration)}</span>
                 </div>
             </div>
             

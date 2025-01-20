@@ -61,6 +61,15 @@ button:disabled {
   background-color: #c82333;
 }
 
+.message-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.message-button:hover {
+  background-color: #0056b3;
+}
+
 /* Custom styles for bootstrap-datepicker */
 .datepicker {
   background-color: #f8f9fa; /* Light background */

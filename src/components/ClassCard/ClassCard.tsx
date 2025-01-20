@@ -9,6 +9,7 @@ import accountService from '../../services/account.service'
 import { useContext } from 'react'
 import { AccountContext } from '../../context/account.context'
 import useAuth from '../../hooks/useAuth'
+import useNotifications from '../../hooks/useNotifications'
 
 interface Props {
     cls: Class
@@ -20,11 +21,13 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
     const { formatDate } = useFormat()
     const { setClasses } = useContext(AccountContext)
     const { user } = useAuth()
+    const { sendNotification } = useNotifications()
 
     async function handleCancel(cls: Class) {
         try {
             await accountService.cancelClass(cls._id)
             setClasses(prev => prev.filter(c => c._id !== cls._id))
+            sendNotification(user!._id, cls.teacher._id, 'cancel-student')
         } catch (error) {
             alert(error)
         }
@@ -34,6 +37,7 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
         try {
             const updatedClass = await accountService.acceptReschedule(cls._id)
             setClasses(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
+            sendNotification(user!._id, cls.teacher._id, 'reschedule-student-accept')
         } catch (error) {
             alert(error)
         }
@@ -43,6 +47,7 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
         try {
             const updatedClass = await accountService.declineReschedule(cls._id)
             setClasses(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
+            sendNotification(user!._id, cls.teacher._id, 'reschedule-student-decline')
         } catch (error) {
             alert(error)
         }

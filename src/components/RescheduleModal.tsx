@@ -3,6 +3,7 @@ import useDate from "../hooks/useDate";
 import { Class } from "../types";
 import accountService from "../services/account.service";
 import { AccountContext } from "../context/account.context";
+import useNotifications from "../hooks/useNotifications";
 
 interface Props {
     cls: Class | null
@@ -14,11 +15,13 @@ function RescheduleModal({ cls, onClose }: Props) {
     const [newTimeslot, setNewTimeslot] = useState(cls?.timeslot || '')
     const { timeslots } = useDate()
     const { setClasses } = useContext(AccountContext)
+    const { sendNotification } = useNotifications()
 
     async function handleSend() {
         if (!cls) return
         const updatedClass = await accountService.rescheduleClass(cls._id, {date: newDate, timeslot: newTimeslot})
         setClasses(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
+        sendNotification(cls.student._id, cls.teacher._id, 'reschedule-student-pending')
         onClose()
     }
 

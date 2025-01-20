@@ -1,5 +1,3 @@
-import { Class } from '../types'
-
 function useDate() {
     function generateTimeslots() {
         const timeslots = []
@@ -18,9 +16,9 @@ function useDate() {
 
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-    function getEndTime(cls: Class) {
-      const [hours, minutes] = cls.timeslot.split(':').map(Number);
-      const totalMinutes = hours * 60 + minutes + Number(cls.duration);
+    function getEndTime(timeslot: string, duration: number) {
+      const [hours, minutes] = timeslot.split(':').map(Number);
+      const totalMinutes = hours * 60 + minutes + Number(duration);
       let newHours: number | string = Math.floor(totalMinutes / 60) % 24;
       let newMinutes: number | string = totalMinutes % 60;
       newHours = newHours.toString().padStart(2, '0');

@@ -42,11 +42,6 @@ class AccountService {
     return response.data;
   }
 
-  async getClass(classId: string) {
-    const response: AxiosResponse = await this.api.get(`/account/classes/${classId}`);
-    return response.data;
-  }
-
   async cancelClass(classId: string) {
     const response: AxiosResponse = await this.api.delete(`/account/classes/${classId}`);
     return response.data;
