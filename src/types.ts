@@ -32,6 +32,7 @@ export interface Deck {
     language: string
     level: string
     cards: Flashcard[]
+    creator: string
 }
 
 export interface Flashcard {

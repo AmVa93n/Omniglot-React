@@ -1,17 +1,22 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import appService from '../services/app.service';
+import useNotifications from '../hooks/useNotifications';
+import useAuth from '../hooks/useAuth';
+import { Offer } from '../types';
 
 interface Props {
-    offerId: string;
+    offer: Offer;
     date: string;
     timeslot: string;
 }
 
 const domain = import.meta.env.VITE_DOMAIN;
 
-function PaymentForm({ offerId, date, timeslot }: Props) {
+function PaymentForm({ offer, date, timeslot }: Props) {
     const stripe = useStripe();
     const elements = useElements();
+    const { sendNotification } = useNotifications();
+    const { user } = useAuth();
 
     const handleSubmit = async (event: React.FormEvent) => {
         // We don't want to let default form submission happen here,
@@ -28,7 +33,7 @@ function PaymentForm({ offerId, date, timeslot }: Props) {
           //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
-            return_url: `${domain}/offers/${offerId}/book`,
+            return_url: `${domain}/offers/${offer._id}/book`,
           },
           redirect: 'if_required',
         });
@@ -42,7 +47,8 @@ function PaymentForm({ offerId, date, timeslot }: Props) {
           // Your customer will be redirected to your `return_url`. For some payment
           // methods like iDEAL, your customer will be redirected to an intermediate
           // site first to authorize the payment, then redirected to the `return_url`.
-          await appService.createClass(offerId, { date, timeslot });
+          await appService.createClass(offer._id, { date, timeslot });
+          sendNotification(user!._id, offer.creator._id, 'booking');
         }
     };
 

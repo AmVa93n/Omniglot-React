@@ -78,9 +78,9 @@ function CheckoutPage() {
                 </div>
                 
                 <h3>Payment Details</h3>
-                {clientSecret && offerId &&
+                {clientSecret && offer &&
                 <Elements stripe={stripePromise} options={{clientSecret: clientSecret}} >
-                    <PaymentForm offerId={offerId} date={date} timeslot={timeslot} />
+                    <PaymentForm offer={offer} date={date} timeslot={timeslot} />
                 </Elements>}
             </div>
         </div>

@@ -6,6 +6,8 @@ import InfoChip from '../InfoChip/InfoChip'
 import './DeckCard.css'
 import { useContext } from 'react'
 import { AccountContext } from '../../context/account.context'
+import useNotifications from '../../hooks/useNotifications'
+import useAuth from '../../hooks/useAuth'
 
 interface Props {
     deck: Deck,
@@ -17,9 +19,12 @@ interface Props {
 function DeckCard({ deck, isOwn, handleView, handleEdit }: Props) {
     const navigate = useNavigate()
     const { setDecks } = useContext(AccountContext)
+    const { sendNotification } = useNotifications()
+    const { user } = useAuth()
 
     async function handleClone() {
         await accountService.cloneDeck(deck._id)
+        sendNotification(user!._id, deck.creator, 'clone')
         navigate('/account/decks')
     }
 

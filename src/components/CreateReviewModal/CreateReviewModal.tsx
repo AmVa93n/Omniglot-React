@@ -3,19 +3,23 @@ import { useContext, useState } from "react";
 import accountService from "../../services/account.service";
 import { AccountContext } from "../../context/account.context";
 import './CreateReviewModal.css';
+import useNotifications from "../../hooks/useNotifications";
+import useAuth from "../../hooks/useAuth";
 
 interface Props {
     cls: Class;
-    setRatedClass: React.Dispatch<React.SetStateAction<Class | null>>;
+    onClose: () => void;
 }
 
-function ReviewForm({ cls, setRatedClass }: Props) {
+function ReviewForm({ cls, onClose }: Props) {
     const [reviewForm, setReviewForm] = useState<reviewForm>({
         text: "",
         rating: 0
     });
     const [hoverRating, setHoverRating] = useState(0);
     const { setClasses } = useContext(AccountContext);
+    const { sendNotification } = useNotifications();
+    const { user } = useAuth();
 
     function handleMouseOver(event: React.MouseEvent) {
         const rating = Number((event.target as HTMLSpanElement).id)
@@ -41,8 +45,10 @@ function ReviewForm({ cls, setRatedClass }: Props) {
 
     async function handleSubmit() {
         try {
-            const updatedClass = await accountService.createReview(cls._id, reviewForm)
-            setClasses(prev => prev.map(cls => cls._id === updatedClass._id ? updatedClass : cls))
+            await accountService.createReview(cls._id, reviewForm)
+            setClasses(prev => prev.map(c => c._id === cls._id ? {...c, isRated: true} : c))
+            sendNotification(user!._id, cls.teacher._id, 'review')
+            onClose()
         } catch (error) {
             alert(error)
         }
@@ -90,7 +96,7 @@ function ReviewForm({ cls, setRatedClass }: Props) {
 
                 <div className="modal-buttons">
                     <button onClick={handleSubmit} >Submit</button>
-                    <button onClick={() => setRatedClass(null)}>Cancel</button>
+                    <button onClick={onClose}>Cancel</button>
                 </div>
             </div>
         </div>

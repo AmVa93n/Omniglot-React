@@ -116,7 +116,7 @@ function ClassesTab() {
 
             {isModalOpen && <RescheduleModal cls={managedClass} onClose={() => setIsModalOpen(false)} />}
 
-            {ratedClass && <CreateReviewModal cls={ratedClass} setRatedClass={setRatedClass} />}
+            {ratedClass && <CreateReviewModal cls={ratedClass} onClose={() => setRatedClass(null)} />}
         </>
     )
 }
