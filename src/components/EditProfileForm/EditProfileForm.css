@@ -1,3 +1,7 @@
+.edit-profile-form {
+    padding: 22px;
+}
+
 .edit-profile-form-buttons {
     display: flex;
     justify-content: center;
