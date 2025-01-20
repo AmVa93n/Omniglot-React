@@ -1,8 +1,8 @@
-import { Flashcard } from "../../types";
+import { Flashcard } from "../../../types";
 import './Flashcard.css'
 import { useContext, useState } from "react";
-import { AccountContext } from "../../context/account.context";
-import accountService from "../../services/account.service";
+import { AccountContext } from "../../../context/account.context";
+import accountService from "../../../services/account.service";
 
 interface Props {
     flashcard: Flashcard;

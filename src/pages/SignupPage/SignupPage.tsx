@@ -5,9 +5,9 @@ import { useState } from "react"
 import authService from "../../services/auth.service" 
 import { useNavigate } from "react-router-dom"
 import './SignupPage.css'
-import LanguageSelectModal from "../../components/LanguageSelectModal/LanguageSelectModal"
-import LanguageChip from "../../components/LanguageChip/LanguageChip"
-import Avatar from "../../components/Avatar"
+import LanguageSelectModal from "../../components/modals/LanguageSelectModal/LanguageSelectModal"
+import LanguageChip from "../../components/reusable/LanguageChip/LanguageChip"
+import Avatar from "../../components/reusable/Avatar"
 import useLanguageSelect from "../../hooks/useLanguageSelect"
 
 function SignupPage() {

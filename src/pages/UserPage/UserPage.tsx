@@ -2,9 +2,9 @@ import { useState, useEffect } from "react"
 import { User } from '../../types'
 import { useParams } from "react-router-dom";
 import appService from "../../services/app.service";
-import DeckCard from "../../components/DeckCard/DeckCard";
-import OfferCard from "../../components/OfferCard/OfferCard";
-import ReviewCard from "../../components/ReviewCard/ReviewCard";
+import DeckCard from "../../components/reusable/DeckCard/DeckCard";
+import OfferCard from "../../components/reusable/OfferCard/OfferCard";
+import ReviewCard from "../../components/reusable/ReviewCard/ReviewCard";
 import './UserPage.css'
 import UserInfo from "../../components/UserInfo/UserInfo";
 

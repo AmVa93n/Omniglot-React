@@ -1,17 +1,23 @@
 import { useState, useContext } from 'react';
-import { Deck } from '../types';
-import accountService from '../services/account.service';
-import useLanguages from '../hooks/useLanguages';
-import { AccountContext } from '../context/account.context';
+import { deckForm } from '../../types';
+import accountService from '../../services/account.service';
+import useLanguages from '../../hooks/useLanguages';
+import { AccountContext } from '../../context/account.context';
+import useAuth from '../../hooks/useAuth';
 
 interface Props {
-    deck: Deck;
     onClose: () => void;
 }
 
-function EditDeckModal({ deck, onClose }: Props) {
-    const { setDecks, profile } = useContext(AccountContext)
-    const [deckForm, setDeckForm] = useState<Deck>(deck)
+function CreateDeckModal({ onClose }: Props) {
+    const { setDecks } = useContext(AccountContext)
+    const { profile } = useAuth()
+    const [deckForm, setDeckForm] = useState<deckForm>({
+        topic: '',
+        language: profile!.lang_teach[0],
+        level: 'beginner',
+        cards: []
+    })
     const { getLanguageName } = useLanguages()
 
     function handleChange(event: React.ChangeEvent) {
@@ -21,10 +27,11 @@ function EditDeckModal({ deck, onClose }: Props) {
         })
     }
 
-    async function handleSave() {
+    async function handleSubmit() {
         try {
-            const updatedDeck = await accountService.updateDeck(deck._id, deckForm)
-            setDecks(prev => prev.map(deck => deck._id === updatedDeck._id ? updatedDeck : deck))
+            const createdDeck = await accountService.createDeck(deckForm)
+            createdDeck.cards = []
+            setDecks(prev => [...prev, createdDeck])
             onClose()
         } catch (error) {
             alert(error)
@@ -35,9 +42,9 @@ function EditDeckModal({ deck, onClose }: Props) {
         <div className="modal">
             <div className="modal-content">
                 <div className="modal-header">
-                    <h2>Edit your deck</h2>
+                    <h2>Create a new deck</h2>
                 </div>
-
+                
                 <div className="modal-body">
                     <div className="form-group">
                         <label htmlFor="topic">Topic</label>
@@ -47,7 +54,7 @@ function EditDeckModal({ deck, onClose }: Props) {
                     <div className="form-group">
                         <label htmlFor="language">Language</label>
                         <select id="language" name="language" value={deckForm.language} onChange={handleChange}>
-                            {profile.lang_teach.map(lang => (
+                            {profile?.lang_teach.map(lang => (
                                 <option key={lang} value={lang}>{getLanguageName(lang)}</option>
                             ))}
                         </select>
@@ -64,14 +71,13 @@ function EditDeckModal({ deck, onClose }: Props) {
                 </div>
 
                 <div className="modal-buttons">
-                    <button onClick={handleSave} disabled={!deckForm.topic}>
-                        <i className="bi bi-floppy2-fill"></i>Save Changes
-                    </button>
+                    <button onClick={handleSubmit} disabled={!deckForm.topic}>Submit</button>
                     <button onClick={onClose}>Cancel</button>
                 </div>
             </div>
         </div>
     )
+
 }
 
-export default EditDeckModal;
+export default CreateDeckModal;

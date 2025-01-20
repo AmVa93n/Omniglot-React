@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './LanguageSelectModal.css';
-import useLanguages from '../../hooks/useLanguages';
-import Avatar from '../Avatar';
+import useLanguages from '../../../hooks/useLanguages';
+import Avatar from '../../reusable/Avatar';
 
 interface Props {
     languages: string[];

@@ -1,15 +1,15 @@
-import { Class } from '../../types'
+import { Class } from '../../../types'
 import { Link } from 'react-router-dom'
 import './ClassCard.css'
 import Avatar from '../Avatar'
-import useFormat from '../../hooks/useFormat'
+import useFormat from '../../../hooks/useFormat'
 import LanguageChip from '../LanguageChip/LanguageChip'
 import InfoChip from '../InfoChip/InfoChip'
-import accountService from '../../services/account.service'
+import accountService from '../../../services/account.service'
 import { useContext } from 'react'
-import { AccountContext } from '../../context/account.context'
-import useAuth from '../../hooks/useAuth'
-import useNotifications from '../../hooks/useNotifications'
+import { AccountContext } from '../../../context/account.context'
+import useAuth from '../../../hooks/useAuth'
+import useNotifications from '../../../hooks/useNotifications'
 
 interface Props {
     cls: Class

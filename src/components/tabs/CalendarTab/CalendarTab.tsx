@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import { calendarEvent, Class } from '../../../types'
-import CalendarEvent from "../../CalendarEvent/CalendarEvent"
+import CalendarEvent from "../../reusable/CalendarEvent/CalendarEvent"
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -8,10 +8,10 @@ import listPlugin from '@fullcalendar/list';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import './CalendarTab.css'
 import { AccountContext } from "../../../context/account.context"
-import Avatar from "../../Avatar";
+import Avatar from "../../reusable/Avatar";
 import useDate from "../../../hooks/useDate";
 import { Routes, Route, Outlet } from "react-router-dom";
-import CalendarEventModal from "../../CalendarEventModal/CalendarEventModal";
+import CalendarEventModal from "../../modals/CalendarEventModal/CalendarEventModal";
 
 function CalendarTab() {
     const { calendar } = useContext(AccountContext)

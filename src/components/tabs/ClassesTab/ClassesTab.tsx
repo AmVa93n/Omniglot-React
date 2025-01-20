@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react'
 import { Class } from '../../../types'
-import ClassCard from '../../ClassCard/ClassCard'
-import RescheduleModal from '../../RescheduleModal'
-import CreateReviewModal from '../../CreateReviewModal/CreateReviewModal'
+import ClassCard from '../../reusable/ClassCard/ClassCard'
+import RescheduleModal from '../../modals/RescheduleModal'
+import CreateReviewModal from '../../modals/CreateReviewModal/CreateReviewModal'
 import './ClassesTab.css'
 import { AccountContext } from '../../../context/account.context'
 

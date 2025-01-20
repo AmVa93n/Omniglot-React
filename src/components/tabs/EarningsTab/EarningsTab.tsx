@@ -1,14 +1,16 @@
 import { useContext } from "react";
 import { AccountContext } from "../../../context/account.context";
 import "./EarningsTab.css";
+import useAuth from "../../../hooks/useAuth";
 
 function EarningsTab() {
-    const { profile, transactions } = useContext(AccountContext)
+    const { transactions } = useContext(AccountContext)
+    const { profile } = useAuth()
 
     return (
         <div className="earnings-tab">
             <div className="stripe">
-                <span>Stripe account ID: <span className="stripe-id">{profile.stripeAccountId}</span></span>
+                <span>Stripe account ID: <span className="stripe-id">{profile?.stripeAccountId}</span></span>
             </div>
             <div className="earnings-table-container">
                 <table className="earnings-table">

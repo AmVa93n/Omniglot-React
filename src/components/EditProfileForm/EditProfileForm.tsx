@@ -1,14 +1,14 @@
 import './EditProfileForm.css'
-import { useContext, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { editProfileForm, User } from '../../types'
 import accountService from '../../services/account.service'
 import useCountries from '../../hooks/useCountries'
 import useLanguages from '../../hooks/useLanguages'
 import useLanguageSelect from '../../hooks/useLanguageSelect'
-import LanguageChip from '../LanguageChip/LanguageChip'
-import LanguageSelectModal from '../LanguageSelectModal/LanguageSelectModal'
-import { AccountContext } from '../../context/account.context'
-import Avatar from '../Avatar'
+import LanguageChip from '../reusable/LanguageChip/LanguageChip'
+import LanguageSelectModal from '../modals/LanguageSelectModal/LanguageSelectModal'
+import useAuth from '../../hooks/useAuth'
+import Avatar from '../reusable/Avatar'
 
 interface Props {
     profile: User,
@@ -21,7 +21,7 @@ function EditProfileForm({ profile, onClose }: Props) {
     const { languagesList } = useLanguages()
     const { isModalOpen, modalField, handleAdd, handleDelete, handleConfirm, handleCancel } = useLanguageSelect(setEditForm)
     const availableLanguages = languagesList.filter(lang => !editForm.lang_teach.includes(lang) && !editForm.lang_learn.includes(lang))
-    const { setProfile } = useContext(AccountContext)
+    const { setProfile } = useAuth()
     const [pfpPreview, setPfpPreview] = useState<string | ArrayBuffer | null>(profile.profilePic);
     const fileInputRef = useRef<HTMLInputElement>(null)
 

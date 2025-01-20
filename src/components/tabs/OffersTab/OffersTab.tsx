@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
-import OfferCard from '../../OfferCard/OfferCard';
+import OfferCard from '../../reusable/OfferCard/OfferCard';
 import { Offer } from '../../../types';
-import CreateOfferModal from '../../CreateOfferModal';
-import EditOfferModal from '../../EditOfferModal';
+import CreateOfferModal from '../../modals/CreateOfferModal';
+import EditOfferModal from '../../modals/EditOfferModal';
 import { AccountContext } from '../../../context/account.context';
 import './OffersTab.css';
 

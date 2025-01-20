@@ -1,10 +1,10 @@
 import "./DeckView.css";
-import LanguageChip from "../LanguageChip/LanguageChip";
-import InfoChip from "../InfoChip/InfoChip";
+import LanguageChip from "../reusable/LanguageChip/LanguageChip";
+import InfoChip from "../reusable/InfoChip/InfoChip";
 import accountService from "../../services/account.service";
 import { useContext, useState } from "react";
 import { AccountContext } from "../../context/account.context";
-import FlashcardCard from "../Flashcard/Flashcard";
+import FlashcardCard from "../reusable/Flashcard/Flashcard";
 import FlashcardGame from "../FlashcardGame/FlashcardGame";
 import { useParams } from "react-router-dom";
 

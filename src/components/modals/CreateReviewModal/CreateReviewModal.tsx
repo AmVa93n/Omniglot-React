@@ -1,10 +1,10 @@
-import { Class, reviewForm } from "../../types";
+import { Class, reviewForm } from "../../../types";
 import { useContext, useState } from "react";
-import accountService from "../../services/account.service";
-import { AccountContext } from "../../context/account.context";
+import accountService from "../../../services/account.service";
+import { AccountContext } from "../../../context/account.context";
 import './CreateReviewModal.css';
-import useNotifications from "../../hooks/useNotifications";
-import useAuth from "../../hooks/useAuth";
+import useNotifications from "../../../hooks/useNotifications";
+import useAuth from "../../../hooks/useAuth";
 
 interface Props {
     cls: Class;

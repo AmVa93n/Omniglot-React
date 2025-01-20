@@ -1,12 +1,10 @@
 import { createContext, useState, useEffect, PropsWithChildren } from "react";
-import { User, Class, Deck, Offer, Review, Transaction } from "../types";
+import { Class, Deck, Offer, Review, Transaction } from "../types";
 import accountService from "../services/account.service";
 
 const AccountContext = createContext({} as context);
 
 interface context {
-  profile: User;
-  setProfile: (profile: User) => void;
   classes: Class[];
   setClasses: React.Dispatch<React.SetStateAction<Class[]>>;
   decks: Deck[];
@@ -20,7 +18,6 @@ interface context {
 }
 
 function AccountProvider({ children }: PropsWithChildren) {
-  const [profile, setProfile] = useState({} as User)
   const [classes, setClasses] = useState([] as Class[])
   const [decks, setDecks] = useState([] as Deck[])
   const [offers, setOffers] = useState([] as Offer[])
@@ -31,8 +28,6 @@ function AccountProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     async function fetchUserData() {
         try {
-          const profileData = await accountService.getProfile()
-          setProfile(profileData)
           const classesData = await accountService.getClasses()
           setClasses(classesData)
           const decksData = await accountService.getDecks()
@@ -56,7 +51,7 @@ function AccountProvider({ children }: PropsWithChildren) {
   return (
     <AccountContext.Provider
       value={{
-        profile, setProfile, classes, setClasses, decks, setDecks, offers, setOffers, calendar, setCalendar, reviews, transactions
+        classes, setClasses, decks, setDecks, offers, setOffers, calendar, setCalendar, reviews, transactions
       }}
     >
       {children}

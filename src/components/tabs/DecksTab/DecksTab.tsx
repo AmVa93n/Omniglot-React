@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Deck } from "../../../types";
-import DeckCard from "../../DeckCard/DeckCard";
-import CreateDeckModal from "../../CreateDeckModal";
-import EditDeckModal from "../../EditDeckModal";
+import DeckCard from "../../reusable/DeckCard/DeckCard";
+import CreateDeckModal from "../../modals/CreateDeckModal";
+import EditDeckModal from "../../modals/EditDeckModal";
 import DeckView from "../../DeckView/DeckView";
 import { AccountContext } from "../../../context/account.context";
 import "./DecksTab.css";

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { searchFilters, User } from '../../types'
 import { useLocation } from "react-router-dom";
 import appService from "../../services/app.service";
-import UserCard from "../../components/UserCard/UserCard";
+import UserCard from "../../components/reusable/UserCard/UserCard";
 import './UsersPage.css'
 import SearchFilterPanel from "../../components/SearchFilterPanel/SearchFilterPanel";
 import useFormat from "../../hooks/useFormat";

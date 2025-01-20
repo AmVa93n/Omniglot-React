@@ -1,6 +1,6 @@
 import './UserInfo.css'
-import LanguageChip from "../../components/LanguageChip/LanguageChip";
-import Avatar from "../../components/Avatar";
+import LanguageChip from "../reusable/LanguageChip/LanguageChip";
+import Avatar from "../reusable/Avatar";
 import useChat from "../../hooks/useChat";
 import useFormat from "../../hooks/useFormat";
 import { User } from '../../types';

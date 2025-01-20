@@ -2,14 +2,14 @@ import './Navbar.css'
 import { Link } from "react-router-dom"
 import { useState } from 'react'
 import Notifications from '../Notifications/Notifications'
-import Avatar from '../Avatar'
+import Avatar from '../reusable/Avatar'
 import useAuth from '../../hooks/useAuth'
 import useChat from '../../hooks/useChat'
 import UserMenu from '../UserMenu/UserMenu'
 
 function Navbar() {
     const { notifications } = useChat()
-    const { user } = useAuth()
+    const { profile } = useAuth()
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
 
@@ -42,7 +42,7 @@ function Navbar() {
 
             <div className="navbar-buttons-container">
 
-                {user ?
+                {profile ?
                 <>
                 <Link to={{pathname: "/users"}}>
                     <button className="navbar-button">
@@ -67,7 +67,7 @@ function Navbar() {
                 {isNotificationsOpen && <Notifications onClose={() => setIsNotificationsOpen(false)} />}
                 
                 <button onClick={toggleUserMenu}>
-                    <Avatar src={user.profilePic} size={50}/>
+                    <Avatar src={profile.profilePic} size={50}/>
                 </button>
                 {isUserMenuOpen && <UserMenu onClose={() => setIsUserMenuOpen(false)} />}
 

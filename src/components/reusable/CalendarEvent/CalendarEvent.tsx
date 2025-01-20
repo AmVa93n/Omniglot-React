@@ -1,10 +1,10 @@
-import { Class } from '../../types'
+import { Class } from '../../../types'
 import './CalendarEvent.css'
 import Avatar from '../Avatar'
-import useFormat from '../../hooks/useFormat'
+import useFormat from '../../../hooks/useFormat'
 import LanguageChip from '../LanguageChip/LanguageChip'
 import InfoChip from '../InfoChip/InfoChip'
-import useDate from '../../hooks/useDate'
+import useDate from '../../../hooks/useDate'
 
 interface Props {
     cls: Class

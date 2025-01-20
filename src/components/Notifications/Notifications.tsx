@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import appService from "../../services/app.service";
 import { useContext } from "react";
 import { SocketContext } from "../../context/socket.context";
-import Avatar from "../Avatar";
+import Avatar from "../reusable/Avatar";
 import './Notifications.css'
 
 interface Props {

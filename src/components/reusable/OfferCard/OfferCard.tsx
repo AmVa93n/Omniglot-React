@@ -1,11 +1,11 @@
-import { Offer } from '../../types'
+import { Offer } from '../../../types'
 import LanguageChip from '../LanguageChip/LanguageChip'
 import InfoChip from '../InfoChip/InfoChip'
 import { Link } from 'react-router-dom'
 import './OfferCard.css'
 import { useContext } from 'react'
-import { AccountContext } from '../../context/account.context'
-import accountService from '../../services/account.service'
+import { AccountContext } from '../../../context/account.context'
+import accountService from '../../../services/account.service'
 
 interface Props {
     offer: Offer

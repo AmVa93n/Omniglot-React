@@ -1,10 +1,10 @@
-import { Review } from '../../types'
+import { Review } from '../../../types'
 import LanguageChip from '../LanguageChip/LanguageChip';
 import InfoChip from '../InfoChip/InfoChip';
 import { Link } from 'react-router-dom';
 import './ReviewCard.css'
 import Avatar from '../Avatar';
-import useFormat from '../../hooks/useFormat';
+import useFormat from '../../../hooks/useFormat';
 
 interface Props {
     review: Review

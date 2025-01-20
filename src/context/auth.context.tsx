@@ -1,13 +1,16 @@
-import { createContext, useState, useEffect, PropsWithChildren } from "react";
+import React, { createContext, useState, useEffect, PropsWithChildren } from "react";
 import authService from "../services/auth.service";
 import { User } from "../types";
+import accountService from "../services/account.service";
 
 const AuthContext = createContext({} as context);
 
 interface context {
   isLoggedIn: boolean
   isAuthenticating: boolean
-  user: null | User
+  user: null | { _id: string }
+  profile: null | User
+  setProfile: React.Dispatch<React.SetStateAction<User | null>>
   storeToken: (token: string)=> void
   authenticateUser: ()=> void
   logOutUser: ()=> void
@@ -17,6 +20,7 @@ function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState<User | null>(null);
 
   function storeToken(token: string) {
     localStorage.setItem("authToken", token);
@@ -32,10 +36,12 @@ function AuthProvider({ children }: PropsWithChildren) {
       try {
         // If the server verifies that JWT token is valid  ✅
         const response = await authService.verify()
-        const user = response.data;
+        const user = response.data
+        const profile = await accountService.getProfile()
+        setUser(user);
+        setProfile(profile);
         setIsLoggedIn(true);
         setIsAuthenticating(false);
-        setUser(user);
       } catch (error) {
         // If the server sends an error response (invalid token) ❌
         console.log(error)
@@ -75,6 +81,7 @@ function AuthProvider({ children }: PropsWithChildren) {
         isLoggedIn,
         isAuthenticating,
         user,
+        profile, setProfile,
         storeToken,
         authenticateUser,
         logOutUser,

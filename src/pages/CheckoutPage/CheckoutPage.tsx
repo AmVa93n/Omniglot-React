@@ -2,9 +2,9 @@ import appService from "../../services/app.service";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Offer } from "../../types";
-import Avatar from "../../components/Avatar";
-import LanguageChip from "../../components/LanguageChip/LanguageChip";
-import InfoChip from "../../components/InfoChip/InfoChip";
+import Avatar from "../../components/reusable/Avatar";
+import LanguageChip from "../../components/reusable/LanguageChip/LanguageChip";
+import InfoChip from "../../components/reusable/InfoChip/InfoChip";
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import PaymentForm from "../../components/PaymentForm";

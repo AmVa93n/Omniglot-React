@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom'
-import accountService from '../../services/account.service'
-import { Deck } from '../../types'
+import accountService from '../../../services/account.service'
+import { Deck } from '../../../types'
 import LanguageChip from '../LanguageChip/LanguageChip'
 import InfoChip from '../InfoChip/InfoChip'
 import './DeckCard.css'
 import { useContext } from 'react'
-import { AccountContext } from '../../context/account.context'
-import useNotifications from '../../hooks/useNotifications'
-import useAuth from '../../hooks/useAuth'
+import { AccountContext } from '../../../context/account.context'
+import useNotifications from '../../../hooks/useNotifications'
+import useAuth from '../../../hooks/useAuth'
 
 interface Props {
     deck: Deck,

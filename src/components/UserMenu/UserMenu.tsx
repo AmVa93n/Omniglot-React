@@ -7,11 +7,10 @@ interface Props {
 }
 
 function UserMenu({ onClose }: Props) {
-    const { user, logOutUser } = useAuth()
+    const { profile, logOutUser } = useAuth()
     const navigate = useNavigate()
 
     const menuItems = [
-        { title: 'Account', icon: 'bi bi-person-circle', link: '/account' },
         { title: 'Inbox', icon: 'bi bi-inbox-fill', link: '/account/inbox' },
         { title: 'Classes', icon: 'bi bi-easel3-fill', link: '/account/classes' },
         { title: 'Decks', icon: 'bi bi-stack', link: '/account/decks' },
@@ -38,7 +37,7 @@ function UserMenu({ onClose }: Props) {
                 </li>
             ))}
             
-            {user?.professional &&
+            {profile?.professional &&
             <>
                 <hr className="user-menu-divider"/>
                 {professionalItems.map(item => (

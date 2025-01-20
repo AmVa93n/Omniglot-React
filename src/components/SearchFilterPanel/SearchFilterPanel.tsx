@@ -1,8 +1,8 @@
 import useCountries from '../../hooks/useCountries';
 import useLanguages from '../../hooks/useLanguages';
 import { searchFilters } from '../../types';
-import LanguageChip from '../LanguageChip/LanguageChip';
-import LanguageSelectModal from '../LanguageSelectModal/LanguageSelectModal';
+import LanguageChip from '../reusable/LanguageChip/LanguageChip';
+import LanguageSelectModal from '../modals/LanguageSelectModal/LanguageSelectModal';
 import './SearchFilterPanel.css';
 import useLanguageSelect from '../../hooks/useLanguageSelect';
 

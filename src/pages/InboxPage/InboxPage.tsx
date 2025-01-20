@@ -1,6 +1,6 @@
 import { Chat } from "../../types";
 import "./InboxPage.css";
-import Avatar from "../../components/Avatar";
+import Avatar from "../../components/reusable/Avatar";
 import useChat from "../../hooks/useChat";
 import useAuth from "../../hooks/useAuth";
 import useFormat from "../../hooks/useFormat";

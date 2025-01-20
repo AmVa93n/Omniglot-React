@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react';
-import { Offer } from '../types';
-import accountService from '../services/account.service';
-import useLanguages from '../hooks/useLanguages';
-import useDate from '../hooks/useDate';
-import { AccountContext } from '../context/account.context';
+import { Offer } from '../../types';
+import accountService from '../../services/account.service';
+import useLanguages from '../../hooks/useLanguages';
+import useDate from '../../hooks/useDate';
+import { AccountContext } from '../../context/account.context';
+import useAuth from '../../hooks/useAuth';
 
 interface Props {
     offer: Offer
@@ -11,7 +12,8 @@ interface Props {
 }
 
 function EditOfferModal({ offer, onClose }: Props) {
-    const { setOffers, profile } = useContext(AccountContext)
+    const { setOffers } = useContext(AccountContext)
+    const { profile } = useAuth()
     const [offerForm, setOfferForm] = useState<Offer>(offer)
     const { getLanguageName } = useLanguages()
     const { timeslots, weekdays } = useDate()
@@ -57,7 +59,7 @@ function EditOfferModal({ offer, onClose }: Props) {
                     <div className="form-group">
                         <label htmlFor="language">Language</label>
                         <select id="language" name="language" value={offerForm.language} onChange={handleChange}>
-                            {profile.lang_teach.map(lang => (
+                            {profile?.lang_teach.map(lang => (
                                 <option key={lang} value={lang}>{getLanguageName(lang)}</option>
                             ))}
                         </select>

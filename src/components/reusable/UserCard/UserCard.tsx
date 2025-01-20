@@ -1,10 +1,10 @@
 import { useLocation, Link } from 'react-router-dom';
-import { User } from '../../types';
+import { User } from '../../../types';
 import LanguageChip from '../LanguageChip/LanguageChip';
 import "./UserCard.css"
 import Avatar from '../Avatar';
-import useChat from '../../hooks/useChat';
-import useFormat from '../../hooks/useFormat';
+import useChat from '../../../hooks/useChat';
+import useFormat from '../../../hooks/useFormat';
 
 interface Props {
     user: User;

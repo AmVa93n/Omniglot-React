@@ -1,17 +1,17 @@
-import { Class } from "../../types";
-import useFormat from "../../hooks/useFormat";
-import useDate from "../../hooks/useDate";
+import { Class } from "../../../types";
+import useFormat from "../../../hooks/useFormat";
+import useDate from "../../../hooks/useDate";
 import './CalendarEventModal.css';
-import Avatar from "../Avatar";
-import LanguageChip from "../LanguageChip/LanguageChip";
-import InfoChip from "../InfoChip/InfoChip";
+import Avatar from "../../reusable/Avatar";
+import LanguageChip from "../../reusable/LanguageChip/LanguageChip";
+import InfoChip from "../../reusable/InfoChip/InfoChip";
 import { Link } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import { useContext, useState } from "react";
-import accountService from "../../services/account.service";
-import { AccountContext } from "../../context/account.context";
-import useChat from "../../hooks/useChat";
-import useNotifications from "../../hooks/useNotifications";
+import accountService from "../../../services/account.service";
+import { AccountContext } from "../../../context/account.context";
+import useChat from "../../../hooks/useChat";
+import useNotifications from "../../../hooks/useNotifications";
 
 interface Props {
     cls: Class;

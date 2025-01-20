@@ -1,4 +1,4 @@
-import useLanguages from "../../hooks/useLanguages"
+import useLanguages from "../../../hooks/useLanguages"
 import Avatar from "../Avatar"
 import './LanguageChip.css'
 

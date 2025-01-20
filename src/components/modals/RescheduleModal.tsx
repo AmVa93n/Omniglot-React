@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
-import useDate from "../hooks/useDate";
-import { Class } from "../types";
-import accountService from "../services/account.service";
-import { AccountContext } from "../context/account.context";
-import useNotifications from "../hooks/useNotifications";
-import useAuth from "../hooks/useAuth";
+import useDate from "../../hooks/useDate";
+import { Class } from "../../types";
+import accountService from "../../services/account.service";
+import { AccountContext } from "../../context/account.context";
+import useNotifications from "../../hooks/useNotifications";
+import useAuth from "../../hooks/useAuth";
 
 interface Props {
     cls: Class | null
