@@ -36,10 +36,10 @@ function ReviewCard({ review }: Props) {
             </div>
     
             <div className="review-card-footer">
-                <LanguageChip code={review.language} />
-                <InfoChip type='level' text={review.level} />
-                <InfoChip type='location' text={review.locationType} />
-                <InfoChip type='class' text={review.classType} secondaryText={review.maxGroupSize} />
+                <LanguageChip code={review.class.language} />
+                <InfoChip type='level' text={review.class.level} />
+                <InfoChip type='location' text={review.class.locationType} />
+                <InfoChip type='class' text={review.class.classType} />
             </div>
         </div>
     )

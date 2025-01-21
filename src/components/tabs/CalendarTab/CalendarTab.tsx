@@ -26,7 +26,7 @@ function CalendarTab() {
         const dateString = [date.getFullYear(), (date.getMonth() + 1).toString().padStart(2, '0'), 
             date.getDate().toString().padStart(2, '0')].join('-');
 
-        const endTime = getEndTime(cls.timeslot, cls.duration);
+        const endTime = getEndTime(cls.timeslot || '7:00', cls.duration);
     
         return { 
             id: cls._id, 

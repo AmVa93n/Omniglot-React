@@ -4,6 +4,7 @@ import useNotifications from '../hooks/useNotifications';
 import useAuth from '../hooks/useAuth';
 import { Offer } from '../types';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 interface Props {
     offer: Offer;
@@ -30,6 +31,8 @@ function PaymentForm({ offer, date, timeslot }: Props) {
           // Make sure to disable form submission until Stripe.js has loaded.
           return;
         }
+
+        toast.info('Processing payment...');
     
         const {error} = await stripe.confirmPayment({
           //`Elements` instance that was used to create the Payment Element
@@ -44,7 +47,8 @@ function PaymentForm({ offer, date, timeslot }: Props) {
           // This point will only be reached if there is an immediate error when
           // confirming the payment. Show error to your customer (for example, payment
           // details incomplete)
-          alert(error.message);
+          toast.dismiss();
+          toast.error(`Payment failed: ${error.message}`);
         } else {
           // Your customer will be redirected to your `return_url`. For some payment
           // methods like iDEAL, your customer will be redirected to an intermediate
@@ -52,6 +56,8 @@ function PaymentForm({ offer, date, timeslot }: Props) {
           await appService.createClass(offer._id, { date, timeslot });
           sendNotification(user!._id, offer.creator._id, 'booking');
           navigate('/account/classes');
+          toast.dismiss();
+          toast.success('Successfully booked class!');
         }
     };
 

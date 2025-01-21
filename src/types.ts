@@ -88,16 +88,11 @@ export interface Class {
 export interface Review {
     _id: string
     name: string
-    locationType: string
-    classType: string
-    maxGroupSize: number
-    duration: number
-    language: string
-    level: string
     date: string
     author: User
     text: string
     rating: number
+    class: Class
 }
 
 export interface Chat {

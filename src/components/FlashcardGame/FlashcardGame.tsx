@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import accountService from '../../services/account.service';
 import './FlashcardGame.css';
 import { AccountContext } from '../../context/account.context';
+import { toast } from 'react-toastify';
 
 interface Props {
     deck: Deck;
@@ -48,9 +49,11 @@ function FlashcardGame({ deck, onClose }: Props) {
         try {
             const updatedCards = await accountService.updateCards(deck._id, cards)
             setDecks(prev => prev.map(d => d._id === deck._id ? {...d, cards: updatedCards} : d))
+            toast.success('Progress saved!')
             onClose()
         } catch (error) {
-            console.log(error)
+            toast.error('Failed to save progress')
+            console.error(error)
         }
     }
 
