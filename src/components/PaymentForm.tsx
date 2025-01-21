@@ -3,6 +3,7 @@ import appService from '../services/app.service';
 import useNotifications from '../hooks/useNotifications';
 import useAuth from '../hooks/useAuth';
 import { Offer } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     offer: Offer;
@@ -17,6 +18,7 @@ function PaymentForm({ offer, date, timeslot }: Props) {
     const elements = useElements();
     const { sendNotification } = useNotifications();
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent) => {
         // We don't want to let default form submission happen here,
@@ -49,6 +51,7 @@ function PaymentForm({ offer, date, timeslot }: Props) {
           // site first to authorize the payment, then redirected to the `return_url`.
           await appService.createClass(offer._id, { date, timeslot });
           sendNotification(user!._id, offer.creator._id, 'booking');
+          navigate('/account/classes');
         }
     };
 

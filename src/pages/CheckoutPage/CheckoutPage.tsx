@@ -10,6 +10,8 @@ import { loadStripe } from '@stripe/stripe-js'
 import PaymentForm from "../../components/PaymentForm";
 import './CheckoutPage.css';
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import useDate from "../../hooks/useDate";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY!)
 
@@ -22,6 +24,7 @@ function CheckoutPage() {
     const [date, setDate] = useState(tomorrow.toISOString().split('T')[0]);
     const [timeslot, setTimeslot] = useState<string>('');
     const [clientSecret, setClientSecret] = useState('');
+    const { weekdays } = useDate();
 
     useEffect(() => {
         async function fetchOffer() {
@@ -33,6 +36,19 @@ function CheckoutPage() {
         }
         fetchOffer();
     }, [offerId]);
+
+    function handleDateChange(date: Date | null) {
+        if (date) {
+            setDate(date.toISOString().split('T')[0])
+        } else {
+            setDate('')
+        }
+    }
+
+    function isValidWeekday(date: Date) {
+        const dayIndex = date.getDay() === 0 ? 6 : date.getDay() - 1;
+        return offer?.weekdays.includes(weekdays[dayIndex]) || false;
+    }
 
     return (
         <div className="checkout-page">
@@ -64,7 +80,15 @@ function CheckoutPage() {
                 <div className="booking-details">
                     <div className="form-group">
                         <label htmlFor="date">Choose a date</label>
-                        <input type="date" id="date" placeholder="Choose a date" name="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                        <DatePicker 
+                            selected={new Date(date)} 
+                            onChange={handleDateChange} 
+                            dateFormat="dd / MM / yyyy" 
+                            id="date"
+                            minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
+                            maxDate={new Date(new Date().setMonth(new Date().getMonth() + 3))}
+                            filterDate={(date) => isValidWeekday(date)}
+                        />
                     </div>
                     
                     <div className="form-group">

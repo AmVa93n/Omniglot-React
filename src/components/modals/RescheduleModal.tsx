@@ -5,6 +5,7 @@ import accountService from "../../services/account.service";
 import { AccountContext } from "../../context/account.context";
 import useNotifications from "../../hooks/useNotifications";
 import useAuth from "../../hooks/useAuth";
+import DatePicker from "react-datepicker";
 
 interface Props {
     cls: Class | null
@@ -27,6 +28,14 @@ function RescheduleModal({ cls, onClose }: Props) {
         onClose()
     }
 
+    function handleDateChange(date: Date | null) {
+        if (date) {
+            setNewDate(date.toISOString().split('T')[0])
+        } else {
+            setNewDate('')
+        }
+    }
+
     return (
         <div className="modal">
             <div className="modal-content">
@@ -37,12 +46,19 @@ function RescheduleModal({ cls, onClose }: Props) {
                 <div className="modal-body">
                     <div className="form-group">
                         <label htmlFor="date">Choose a new date</label>
-                        <input type="date" id="date" name="date" value={newDate} onChange={(e)=> setNewDate(e.target.value)} placeholder="Choose a date" required />
+                        <DatePicker 
+                            selected={new Date(newDate)} 
+                            onChange={handleDateChange} 
+                            dateFormat="dd / MM / yyyy" 
+                            id="date"
+                            minDate={new Date()}
+                            maxDate={new Date(new Date().setMonth(new Date().getMonth() + 3))}
+                        />
                     </div>
                 
                     <div className="form-group">
                         <label htmlFor="timeslot">Choose a new time slot</label>
-                        <select id="timeslot" name="timeslot" value={newTimeslot} onChange={(e)=> setNewTimeslot(e.target.value)}> 
+                        <select id="timeslot" value={newTimeslot} onChange={(e)=> setNewTimeslot(e.target.value)}> 
                             {timeslots.map(timeslot => (
                                 <option key={timeslot} value={timeslot}>{timeslot}</option>
                             ))}

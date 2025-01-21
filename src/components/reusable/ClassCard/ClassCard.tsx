@@ -2,7 +2,6 @@ import { Class } from '../../../types'
 import { Link } from 'react-router-dom'
 import './ClassCard.css'
 import Avatar from '../Avatar'
-import useFormat from '../../../hooks/useFormat'
 import LanguageChip from '../LanguageChip/LanguageChip'
 import InfoChip from '../InfoChip/InfoChip'
 import accountService from '../../../services/account.service'
@@ -10,6 +9,7 @@ import { useContext } from 'react'
 import { AccountContext } from '../../../context/account.context'
 import useAuth from '../../../hooks/useAuth'
 import useNotifications from '../../../hooks/useNotifications'
+import PendingRequest from '../PendingRequest/PendingRequest'
 
 interface Props {
     cls: Class
@@ -18,7 +18,6 @@ interface Props {
 }
 
 function ClassCard({ cls, handleReschedule, handleRate }: Props) {
-    const { formatDate } = useFormat()
     const { setClasses } = useContext(AccountContext)
     const { user } = useAuth()
     const { sendNotification } = useNotifications()
@@ -64,29 +63,6 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
 
     return (
         <div className="class-card">
-            {!cls.isPast && cls.reschedule?.status === 'pending' &&
-                <div className="pending-request">
-                    <span>Pending Reschedule Request</span>
-                    <span>{formatDate(cls.reschedule.new_date)}, {cls.reschedule.new_timeslot}</span>
-                    
-                        <div className="pending-request-buttons">
-                        {cls.reschedule.initiator === user?._id && 
-                            <button className="withdraw-button" onClick={handleWithdraw}>
-                                <i className="bi bi-x-circle-fill"></i>Withdraw
-                            </button>
-                        }
-                        {cls.reschedule.initiator !== user?._id && <>
-                            <button className="accept-button" onClick={handleAccept}>
-                                <i className="bi bi-check-circle-fill"></i>Accept
-                            </button>
-                            <button className="decline-button" onClick={handleDecline}>
-                                <i className="bi bi-x-circle-fill"></i>Decline
-                            </button>
-                        </>}
-                        </div>
-                </div>         
-            }
-
             <div className='class-card-main'>
                 <div className="class-card-header">
                     <Link to={"/users/" + cls.teacher._id}>
@@ -95,6 +71,10 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
                             <span className="username">{cls.teacher.username}</span>
                         </div>
                     </Link>
+                    {!cls.isPast && cls.reschedule?.status === 'pending' &&
+                        <PendingRequest cls={cls} page='classes'
+                        onAccept={handleAccept} onDecline={handleDecline} onWithdraw={handleWithdraw} />
+                    }
                 </div>
                 
                 <div className="class-card-content">

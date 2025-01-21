@@ -1,0 +1,59 @@
+.pending-request {
+    display: flex;
+    gap: 10px;
+    background-color: rgb(255, 255, 142);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.pending-request-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pending-request .comparison {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.pending-request-date-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.pending-request-date-time .date {
+    font-size: 12px;
+}
+
+.pending-request-date-time .time {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.pending-request-date-time.old {
+    text-decoration: line-through;
+}
+
+.pending-request .arrow {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.pending-request-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pending-request-buttons button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

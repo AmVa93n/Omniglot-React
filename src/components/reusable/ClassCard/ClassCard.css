@@ -150,18 +150,6 @@
     background-color: darkgray;
 }
 
-.pending-request {
-    background-color: rgb(255, 255, 142);
-    border-radius: 8px;
-    padding: 10px;
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
 .class-card-decorator {
     background-image: linear-gradient(90deg, #007bff, #00bfff);
     color: #fff;

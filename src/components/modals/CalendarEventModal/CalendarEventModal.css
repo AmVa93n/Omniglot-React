@@ -30,10 +30,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-bottom: 20px;
 }
 
-.calendar-event-reschedule,
-.calendar-event-pending-request {
+.calendar-event-reschedule {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -41,26 +41,6 @@
     background-color: rgb(240, 240, 240);
     padding: 10px;
     border-radius: 5px;
-}
-
-.calendar-event-pending-request {
-    background-color: rgb(255, 255, 142);
-}
-
-.calendar-event-pending-request .comparison {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-}
-
-.calendar-event-date-time.old {
-    text-decoration: line-through;
-}
-
-.calendar-event-pending-request .arrow {
-    font-weight: 600;
-    font-size: 20px;
 }
 
 .calendar-event-buttons {

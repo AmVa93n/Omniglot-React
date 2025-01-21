@@ -12,6 +12,8 @@ import accountService from "../../../services/account.service";
 import { AccountContext } from "../../../context/account.context";
 import useChat from "../../../hooks/useChat";
 import useNotifications from "../../../hooks/useNotifications";
+import DatePicker from "react-datepicker";
+import PendingRequest from "../../reusable/PendingRequest/PendingRequest";
 
 interface Props {
     cls: Class;
@@ -76,6 +78,14 @@ function CalendarEventModal({ cls, onClose }: Props) {
         setIsRescheduling(false)
     }
 
+    function handleDateChange(date: Date | null) {
+        if (date) {
+            setNewDate(date.toISOString().split('T')[0])
+        } else {
+            setNewDate('')
+        }
+    }
+
     return (
         <div className="modal">
             <div className="modal-content" style={{position: 'relative'}}>
@@ -102,36 +112,8 @@ function CalendarEventModal({ cls, onClose }: Props) {
                     </div>
 
                     {!cls.isPast && cls.reschedule?.status === 'pending' &&
-                        <div className="calendar-event-pending-request">
-                            <h4>Pending Reschedule Request</h4>
-                            <div className="comparison">
-                                <div className="calendar-event-date-time old">
-                                    <span className='date'>{formatDate(cls.date)}</span>
-                                    <span className='time'>{cls.timeslot} - {getEndTime(cls.timeslot, cls.duration)}</span>
-                                </div>
-                                <span className="arrow">→</span>
-                                <div className="calendar-event-date-time">
-                                    <span className='date'>{formatDate(cls.reschedule.new_date)}</span>
-                                    <span className='time'>{cls.reschedule.new_timeslot} - {getEndTime(cls.reschedule.new_timeslot, cls.duration)}</span>
-                                </div>
-                            </div>
-                            
-                            <div className="pending-request-buttons">
-                            {cls.reschedule.initiator === user?._id && 
-                                <button className="withdraw-button" onClick={handleWithdraw}>
-                                    <i className="bi bi-x-circle-fill"></i>Withdraw
-                                </button>
-                            }
-                            {cls.reschedule.initiator !== user?._id && <>
-                                <button className="accept-button" onClick={handleAccept}>
-                                    <i className="bi bi-check-circle-fill"></i>Accept
-                                </button>
-                                <button className="decline-button" onClick={handleDecline}>
-                                    <i className="bi bi-x-circle-fill"></i>Decline
-                                </button>
-                            </>}
-                            </div>
-                        </div>         
+                        <PendingRequest cls={cls} page="calendar"
+                        onAccept={handleAccept} onDecline={handleDecline} onWithdraw={handleWithdraw} />
                     }
 
                     {isRescheduling &&
@@ -139,7 +121,14 @@ function CalendarEventModal({ cls, onClose }: Props) {
                         <h4>Send a reschedule request</h4>
                         <div className="form-group">
                             <label htmlFor="date">Choose a new date</label>
-                            <input type="date" id="date" name="date" value={newDate} onChange={(e)=> setNewDate(e.target.value)} placeholder="Choose a date" required />
+                            <DatePicker 
+                                selected={new Date(newDate)} 
+                                onChange={handleDateChange} 
+                                dateFormat="dd / MM / yyyy" 
+                                id="date"
+                                minDate={new Date()}
+                                maxDate={new Date(new Date().setMonth(new Date().getMonth() + 3))}
+                            />
                         </div>
                     
                         <div className="form-group">
