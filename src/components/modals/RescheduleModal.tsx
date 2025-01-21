@@ -6,6 +6,7 @@ import { AccountContext } from "../../context/account.context";
 import useNotifications from "../../hooks/useNotifications";
 import useAuth from "../../hooks/useAuth";
 import DatePicker from "react-datepicker";
+import { toast } from "react-toastify";
 
 interface Props {
     cls: Class | null
@@ -21,11 +22,16 @@ function RescheduleModal({ cls, onClose }: Props) {
     const { user } = useAuth()
 
     async function handleSend() {
-        if (!cls) return
-        const updatedClass = await accountService.rescheduleClass(cls._id, {date: newDate, timeslot: newTimeslot})
-        setClasses(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
-        sendNotification(user!._id, cls.teacher._id, 'reschedule-student-pending')
-        onClose()
+        try {
+            const updatedClass = await accountService.rescheduleClass(cls!._id, {date: newDate, timeslot: newTimeslot})
+            setClasses(prev => prev.map(c => c._id === cls!._id ? updatedClass : c))
+            sendNotification(user!._id, cls!.teacher._id, 'reschedule-student-pending')
+            toast.success('Reschedule request sent successfully!')
+            onClose()
+        } catch (error) {
+            toast.error('Failed to send reschedule request')
+            console.error(error)
+        }
     }
 
     function handleDateChange(date: Date | null) {

@@ -4,6 +4,7 @@ import accountService from '../../services/account.service';
 import useLanguages from '../../hooks/useLanguages';
 import { AccountContext } from '../../context/account.context';
 import useAuth from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 interface Props {
     deck: Deck;
@@ -27,9 +28,11 @@ function EditDeckModal({ deck, onClose }: Props) {
         try {
             const updatedDeck = await accountService.updateDeck(deck._id, deckForm)
             setDecks(prev => prev.map(deck => deck._id === updatedDeck._id ? updatedDeck : deck))
+            toast.success('Deck updated successfully!')
             onClose()
         } catch (error) {
-            alert(error)
+            toast.error('Failed to update deck')
+            console.error(error)
         }
     }
 

@@ -10,6 +10,7 @@ export interface User {
     _id: string
     username: string
     email: string
+    password: string
     profilePic: string
     professional: boolean
     private: boolean
@@ -20,10 +21,10 @@ export interface User {
     lang_learn: string[]
     stripeAccountId: string
     ratingAvg?: number
-    decks: Deck[]
-    offers: Offer[]
-    reviews: Review[]
-    reviewsNr: number
+    decks?: Deck[]
+    offers?: Offer[]
+    reviews?: Review[]
+    reviewsNr?: number
 }
 
 export interface Deck {
@@ -73,17 +74,15 @@ export interface Class {
     timeslot: string
     teacher: User
     student: User
-    reschedule: rescheduleRequest
+    reschedule: {
+        status: string
+        new_date: string
+        new_timeslot: string
+        initiator: User | string
+    }
     isRated: boolean
     isPast: boolean
     endTime: string
-}
-
-export interface rescheduleRequest {
-    status: string
-    new_date: string
-    new_timeslot: string
-    initiator: User | string
 }
 
 export interface Review {
@@ -130,63 +129,6 @@ export interface Transaction {
     offer: Offer
     student: User
     class: string
-}
-
-export interface signupForm {
-    username: string
-    email: string
-    password: string
-    profilePic: string
-    birthdate: string
-    country: string
-    gender: string
-    lang_teach: string[]
-    lang_learn: string[]
-    professional: boolean
-    private: boolean
-}
-
-export interface editProfileForm {
-    username: string
-    email: string
-    birthdate: string
-    country: string
-    gender: string
-    lang_teach: string[]
-    lang_learn: string[]
-    professional: boolean
-    private: boolean
-}
-
-export interface offerForm {
-    name: string
-    locationType: string
-    location: string
-    classType: string
-    maxGroupSize: number
-    duration: number
-    price: number
-    language: string
-    level: string
-    weekdays: string[]
-    timeslots: string[]
-}
-
-export interface deckForm {
-    topic: string
-    language: string
-    level: string
-    cards: Flashcard[]
-}
-
-export interface flashcardForm {
-    front: string
-    back: string
-}
-
-export interface reviewForm {
-    text: string
-    rating: number
 }
 
 export interface calendarEvent {

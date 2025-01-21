@@ -14,6 +14,7 @@ import useChat from "../../../hooks/useChat";
 import useNotifications from "../../../hooks/useNotifications";
 import DatePicker from "react-datepicker";
 import PendingRequest from "../../reusable/PendingRequest/PendingRequest";
+import { toast } from "react-toastify";
 
 interface Props {
     cls: Class;
@@ -36,8 +37,10 @@ function CalendarEventModal({ cls, onClose }: Props) {
             await accountService.cancelClass(cls._id)
             setCalendar(prev => prev.filter(c => c._id !== cls._id))
             sendNotification(user!._id, cls.student._id, 'cancel-teacher')
+            toast.success('Class cancelled successfully!')
         } catch (error) {
-            alert(error)
+            toast.error('Failed to cancel class')
+            console.error(error)
         }
     }
 
@@ -46,8 +49,10 @@ function CalendarEventModal({ cls, onClose }: Props) {
             const updatedClass = await accountService.acceptReschedule(cls._id)
             setCalendar(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
             sendNotification(user!._id, cls.student._id, 'reschedule-teacher-accept')
+            toast.success('Reschedule request accepted!')
         } catch (error) {
-            alert(error)
+            toast.error('Failed to accept reschedule request')
+            console.error(error)
         }
     }
 
@@ -56,8 +61,10 @@ function CalendarEventModal({ cls, onClose }: Props) {
             const updatedClass = await accountService.declineReschedule(cls._id)
             setCalendar(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
             sendNotification(user!._id, cls.student._id, 'reschedule-teacher-decline')
+            toast.success('Reschedule request declined!')
         } catch (error) {
-            alert(error)
+            toast.error('Failed to decline reschedule request')
+            console.error(error)
         }
     }
 
@@ -65,17 +72,24 @@ function CalendarEventModal({ cls, onClose }: Props) {
         try {
             const updatedClass = await accountService.withdrawReschedule(cls._id)
             setCalendar(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
+            toast.success('Reschedule request withdrawn!')
         } catch (error) {
-            alert(error)
+            toast.error('Failed to withdraw reschedule request')
+            console.error(error)
         }
     }
 
     async function handleSend() {
-        if (!cls) return
-        const updatedClass = await accountService.rescheduleClass(cls._id, {date: newDate, timeslot: newTimeslot})
-        setCalendar(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
-        sendNotification(user!._id, cls.student._id, 'reschedule-teacher-pending')
-        setIsRescheduling(false)
+        try {
+            const updatedClass = await accountService.rescheduleClass(cls._id, {date: newDate, timeslot: newTimeslot})
+            setCalendar(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
+            sendNotification(user!._id, cls.student._id, 'reschedule-teacher-pending')
+            toast.success('Reschedule request sent successfully!')
+            setIsRescheduling(false)
+        } catch (error) {
+            toast.error('Failed to send reschedule request')
+            console.error(error)
+        }
     }
 
     function handleDateChange(date: Date | null) {

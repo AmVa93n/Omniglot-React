@@ -5,6 +5,7 @@ import useLanguages from '../../hooks/useLanguages';
 import useDate from '../../hooks/useDate';
 import { AccountContext } from '../../context/account.context';
 import useAuth from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 interface Props {
     offer: Offer
@@ -37,9 +38,11 @@ function EditOfferModal({ offer, onClose }: Props) {
         try {
             const updatedOffer = await accountService.updateOffer(offer._id, offerForm)
             setOffers(prev => prev.map(offer => offer._id === updatedOffer._id ? updatedOffer : offer))
+            toast.success('Offer updated successfully!')
             onClose()
         } catch (error) {
-            alert(error)
+            toast.error('Failed to update offer')
+            console.error(error)
         }
     }
 

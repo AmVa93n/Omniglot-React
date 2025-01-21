@@ -1,6 +1,6 @@
 import './EditProfileForm.css'
 import { useState, useRef } from 'react'
-import { editProfileForm, User } from '../../types'
+import { User } from '../../types'
 import accountService from '../../services/account.service'
 import useCountries from '../../hooks/useCountries'
 import useLanguages from '../../hooks/useLanguages'
@@ -9,6 +9,7 @@ import LanguageChip from '../reusable/LanguageChip/LanguageChip'
 import LanguageSelectModal from '../modals/LanguageSelectModal/LanguageSelectModal'
 import useAuth from '../../hooks/useAuth'
 import Avatar from '../reusable/Avatar'
+import { toast } from 'react-toastify'
 
 interface Props {
     profile: User,
@@ -16,7 +17,7 @@ interface Props {
 }
 
 function EditProfileForm({ profile, onClose }: Props) {
-    const [editForm, setEditForm] = useState<editProfileForm>(profile)
+    const [editForm, setEditForm] = useState<User>(profile)
     const countries = useCountries()
     const { languagesList } = useLanguages()
     const { isModalOpen, modalField, handleAdd, handleDelete, handleConfirm, handleCancel } = useLanguageSelect(setEditForm)
@@ -60,12 +61,17 @@ function EditProfileForm({ profile, onClose }: Props) {
         const formData = new FormData(event.currentTarget);
         editForm.lang_teach.forEach((lang) => formData.append('lang_teach[]', lang));
         editForm.lang_learn.forEach((lang) => formData.append('lang_learn[]', lang));
+        toast.info('Saving changes...');
         try {
             const updatedProfile = await accountService.updateProfile(formData);
-            setProfile(updatedProfile)
-            onClose()
+            setProfile(updatedProfile);
+            toast.dismiss();
+            toast.success('Profile updated successfully!');
+            onClose();
         } catch (error) {
-            alert(error)
+            toast.dismiss();
+            toast.error('Failed to update profile');
+            console.error(error);
         }
     }
 

@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
-import { offerForm } from '../../types';
+import { Offer } from '../../types';
 import accountService from '../../services/account.service';
 import useLanguages from '../../hooks/useLanguages';
 import useDate from '../../hooks/useDate';
 import { AccountContext } from '../../context/account.context';
 import useAuth from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 interface Props {
     onClose: () => void
@@ -13,7 +14,7 @@ interface Props {
 function CreateOfferModal({ onClose }: Props) {
     const { setOffers } = useContext(AccountContext)
     const { profile } = useAuth()
-    const [offerForm, setOfferForm] = useState<offerForm>({
+    const [offerForm, setOfferForm] = useState<Omit<Offer, "_id" | "creator">>({
         name: '',
         language: '',
         level: 'beginner',
@@ -48,9 +49,11 @@ function CreateOfferModal({ onClose }: Props) {
         try {
             const createdOffer = await accountService.createOffer(offerForm)
             setOffers(prev => [...prev, createdOffer])
+            toast.success('Offer created successfully!')
             onClose()
         } catch (error) {
-            alert(error)
+            toast.error('Failed to create offer')
+            console.error(error)
         }
     }
 

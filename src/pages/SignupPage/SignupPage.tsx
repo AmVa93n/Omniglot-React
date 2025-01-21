@@ -1,4 +1,4 @@
-import { signupForm } from "../../types"
+import { User } from "../../types"
 import useCountries from "../../hooks/useCountries"
 import useLanguages from "../../hooks/useLanguages"
 import { useState } from "react"
@@ -9,9 +9,10 @@ import LanguageSelectModal from "../../components/modals/LanguageSelectModal/Lan
 import LanguageChip from "../../components/reusable/LanguageChip/LanguageChip"
 import Avatar from "../../components/reusable/Avatar"
 import useLanguageSelect from "../../hooks/useLanguageSelect"
+import { toast } from "react-toastify"
 
 function SignupPage() {
-    const [signupForm, setSignupForm] = useState<signupForm>({
+    const [signupForm, setSignupForm] = useState<Omit<User, '_id' | 'stripeAccountId'>>({
         username: '',
         email: '',
         password: '',
@@ -66,11 +67,16 @@ function SignupPage() {
         const formData = new FormData(event.currentTarget);
         signupForm.lang_teach.forEach((lang) => formData.append('lang_teach[]', lang));
         signupForm.lang_learn.forEach((lang) => formData.append('lang_learn[]', lang));
+        toast.info('Creating account...');
         try {
             await authService.signup(formData)
             navigate("/login");
+            toast.dismiss();
+            toast.success('Account created successfully!');
         } catch (error) {
-            alert(error)
+            toast.dismiss();
+            toast.error('Failed to create account');
+            console.error(error);
         }
     }
 

@@ -6,6 +6,7 @@ import './OfferCard.css'
 import { useContext } from 'react'
 import { AccountContext } from '../../../context/account.context'
 import accountService from '../../../services/account.service'
+import { toast } from 'react-toastify'
 
 interface Props {
     offer: Offer
@@ -20,8 +21,10 @@ function OfferCard({ offer, isOwn, handleEdit }: Props) {
         try {
             await accountService.deleteOffer(offer._id)
             setOffers(prev => prev.filter(o => o._id !== offer._id))
+            toast.success('Offer deleted successfully!')
         } catch (error) {
-            console.log(error)
+            toast.error('Failed to delete offer')
+            console.error(error)
         }
     }
 

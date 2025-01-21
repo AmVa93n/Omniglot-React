@@ -10,6 +10,7 @@ import { AccountContext } from '../../../context/account.context'
 import useAuth from '../../../hooks/useAuth'
 import useNotifications from '../../../hooks/useNotifications'
 import PendingRequest from '../PendingRequest/PendingRequest'
+import { toast } from "react-toastify";
 
 interface Props {
     cls: Class
@@ -27,8 +28,10 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
             await accountService.cancelClass(cls._id)
             setClasses(prev => prev.filter(c => c._id !== cls._id))
             sendNotification(user!._id, cls.teacher._id, 'cancel-student')
+            toast.success('Class cancelled successfully!')
         } catch (error) {
-            alert(error)
+            toast.error('Failed to cancel class')
+            console.error(error)
         }
     }
 
@@ -37,8 +40,10 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
             const updatedClass = await accountService.acceptReschedule(cls._id)
             setClasses(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
             sendNotification(user!._id, cls.teacher._id, 'reschedule-student-accept')
+            toast.success('Reschedule request accepted!')
         } catch (error) {
-            alert(error)
+            toast.error('Failed to accept reschedule request')
+            console.error(error)
         }
     }
 
@@ -47,8 +52,10 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
             const updatedClass = await accountService.declineReschedule(cls._id)
             setClasses(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
             sendNotification(user!._id, cls.teacher._id, 'reschedule-student-decline')
+            toast.success('Reschedule request declined!')
         } catch (error) {
-            alert(error)
+            toast.error('Failed to decline reschedule request')
+            console.error(error)
         }
     }
 
@@ -56,8 +63,10 @@ function ClassCard({ cls, handleReschedule, handleRate }: Props) {
         try {
             const updatedClass = await accountService.withdrawReschedule(cls._id)
             setClasses(prev => prev.map(c => c._id === cls._id ? updatedClass : c))
+            toast.success('Reschedule request withdrawn!')
         } catch (error) {
-            alert(error)
+            toast.error('Failed to withdraw reschedule request')
+            console.error(error)
         }
     }
 

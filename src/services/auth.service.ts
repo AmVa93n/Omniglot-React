@@ -26,7 +26,7 @@ class AuthService {
     return response.data
   };
 
-  signup(requestBody: object) {
+  signup(requestBody: FormData) {
     return this.api.post("/auth/signup", requestBody);
   };
 

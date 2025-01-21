@@ -13,6 +13,7 @@ import InboxPage from './pages/InboxPage/InboxPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import AccountPage from './pages/AccountPage/AccountPage';
 import { AccountProvider } from './context/account.context';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
       </Routes>
 
       <Footer />
+      <ToastContainer position='bottom-left'/>
     </>
   )
 }

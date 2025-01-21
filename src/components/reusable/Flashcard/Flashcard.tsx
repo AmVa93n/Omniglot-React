@@ -3,6 +3,7 @@ import './Flashcard.css'
 import { useContext, useState } from "react";
 import { AccountContext } from "../../../context/account.context";
 import accountService from "../../../services/account.service";
+import { toast } from "react-toastify";
 
 interface Props {
     flashcard: Flashcard;
@@ -24,8 +25,10 @@ function FlashcardCard({ flashcard, index }: Props) {
             const updatedCard = await accountService.updateFlashcard(flashcard._id, cardForm);
             setDecks(prev => prev.map(d => d._id === flashcard.deck ? {...d, cards: d.cards.map(c => c._id === flashcard._id ? updatedCard : c)} : d));
             setIsEdited(false);
+            toast.success('Flashcard updated successfully!');
         } catch (error) {
-            alert(error);
+            toast.error('Failed to update flashcard');
+            console.error(error);
         }
     }
 
@@ -38,8 +41,10 @@ function FlashcardCard({ flashcard, index }: Props) {
         try {
             await accountService.deleteFlashcard(flashcard._id);
             setDecks(prev => prev.map(d => d._id === flashcard.deck ? {...d, cards: d.cards.filter(c => c._id !== flashcard._id)} : d));
+            toast.success('Flashcard deleted successfully!');
         } catch (error) {
-            alert(error);
+            toast.error('Failed to delete flashcard');
+            console.error(error);
         }
     }
 

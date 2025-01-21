@@ -7,6 +7,7 @@ import { AccountContext } from "../../context/account.context";
 import FlashcardCard from "../reusable/Flashcard/Flashcard";
 import FlashcardGame from "../FlashcardGame/FlashcardGame";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function DeckView() {
     const { decks, setDecks } = useContext(AccountContext);
@@ -19,8 +20,10 @@ function DeckView() {
         try {
             const newCard = await accountService.createFlashcard(deck._id, cardForm);
             setDecks(prev => prev.map(d => d._id === deck._id ? {...d, cards: [...d.cards, newCard]} : d));
+            toast.success('Card added successfully!');
         } catch (error) {
-            alert(error);
+            toast.error('Failed to add card');
+            console.error(error);
         }
     }
 

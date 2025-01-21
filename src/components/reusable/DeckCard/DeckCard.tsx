@@ -8,6 +8,7 @@ import { useContext } from 'react'
 import { AccountContext } from '../../../context/account.context'
 import useNotifications from '../../../hooks/useNotifications'
 import useAuth from '../../../hooks/useAuth'
+import { toast } from 'react-toastify'
 
 interface Props {
     deck: Deck,
@@ -23,17 +24,25 @@ function DeckCard({ deck, isOwn, handleView, handleEdit }: Props) {
     const { user } = useAuth()
 
     async function handleClone() {
-        await accountService.cloneDeck(deck._id)
-        sendNotification(user!._id, deck.creator, 'clone')
-        navigate('/account/decks')
+        try {
+            await accountService.cloneDeck(deck._id)
+            sendNotification(user!._id, deck.creator, 'clone')
+            toast.success('Deck cloned successfully!')
+            navigate('/account/decks')
+        } catch (error) {
+            toast.error('Failed to clone deck')
+            console.error(error)
+        }
     }
 
     async function handleDelete() {
         try {
             await accountService.deleteDeck(deck._id)
             setDecks(prev => prev.filter(d => d._id !== deck._id))
+            toast.success('Deck deleted successfully!')
         } catch (error) {
-            console.log(error)
+            toast.error('Failed to delete deck')
+            console.error(error)
         }
     }
 

@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { deckForm, flashcardForm, offerForm, Flashcard, Deck, Offer, reviewForm } from "../types";
+import { Flashcard, Deck, Offer, Review } from "../types";
 
 class AccountService {
   api: AxiosInstance
@@ -67,7 +67,7 @@ class AccountService {
     return response.data;
   }
 
-  async createReview(classId: string, requestBody: reviewForm) {
+  async createReview(classId: string, requestBody: Pick<Review, "text" | "rating">) {
     const response: AxiosResponse = await this.api.post(`/account/reviews/${classId}`, requestBody);
     return response.data;
   }
@@ -82,7 +82,7 @@ class AccountService {
     return response.data;
   }
 
-  async createOffer(requestBody: offerForm) {
+  async createOffer(requestBody: Omit<Offer, '_id' | 'creator'>) {
     const response: AxiosResponse = await this.api.post('/account/offers', requestBody);
     return response.data;
   }
@@ -102,7 +102,7 @@ class AccountService {
     return response.data;
   }
 
-  async createDeck(requestBody: deckForm) {
+  async createDeck(requestBody: Omit<Deck, '_id' | 'creator'>) {
     const response: AxiosResponse = await this.api.post('/account/decks', requestBody);
     return response.data;
   }
@@ -127,7 +127,7 @@ class AccountService {
     return response.data;
   }
 
-  async createFlashcard(deckId: string, requestBody: flashcardForm) {
+  async createFlashcard(deckId: string, requestBody: Pick<Flashcard, "front" | "back">) {
     const response: AxiosResponse = await this.api.post(`/account/flashcards/${deckId}`, requestBody);
     return response.data;
   }

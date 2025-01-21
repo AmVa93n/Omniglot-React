@@ -1,10 +1,11 @@
-import { Class, reviewForm } from "../../../types";
+import { Class, Review } from "../../../types";
 import { useContext, useState } from "react";
 import accountService from "../../../services/account.service";
 import { AccountContext } from "../../../context/account.context";
 import './CreateReviewModal.css';
 import useNotifications from "../../../hooks/useNotifications";
 import useAuth from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 interface Props {
     cls: Class;
@@ -12,7 +13,7 @@ interface Props {
 }
 
 function ReviewForm({ cls, onClose }: Props) {
-    const [reviewForm, setReviewForm] = useState<reviewForm>({
+    const [reviewForm, setReviewForm] = useState<Pick<Review, "text" | "rating">>({
         text: "",
         rating: 0
     });
@@ -48,9 +49,11 @@ function ReviewForm({ cls, onClose }: Props) {
             await accountService.createReview(cls._id, reviewForm)
             setClasses(prev => prev.map(c => c._id === cls._id ? {...c, isRated: true} : c))
             sendNotification(user!._id, cls.teacher._id, 'review')
+            toast.success('Review submitted successfully!')
             onClose()
         } catch (error) {
-            alert(error)
+            toast.error('Failed to submit review')
+            console.error(error)
         }
     }
 

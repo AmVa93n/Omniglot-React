@@ -1,9 +1,10 @@
 import { useState, useContext } from 'react';
-import { deckForm } from '../../types';
+import { Deck } from '../../types';
 import accountService from '../../services/account.service';
 import useLanguages from '../../hooks/useLanguages';
 import { AccountContext } from '../../context/account.context';
 import useAuth from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 interface Props {
     onClose: () => void;
@@ -12,7 +13,7 @@ interface Props {
 function CreateDeckModal({ onClose }: Props) {
     const { setDecks } = useContext(AccountContext)
     const { profile } = useAuth()
-    const [deckForm, setDeckForm] = useState<deckForm>({
+    const [deckForm, setDeckForm] = useState<Omit<Deck, "_id" | "creator">>({
         topic: '',
         language: profile!.lang_teach[0],
         level: 'beginner',
@@ -32,9 +33,11 @@ function CreateDeckModal({ onClose }: Props) {
             const createdDeck = await accountService.createDeck(deckForm)
             createdDeck.cards = []
             setDecks(prev => [...prev, createdDeck])
+            toast.success('Deck created successfully!')
             onClose()
         } catch (error) {
-            alert(error)
+            toast.error('Failed to create deck')
+            console.error(error)
         }
     }
 

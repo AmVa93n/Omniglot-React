@@ -61,7 +61,7 @@ function UserCard({ user }: Props) {
                 <div className="card-text">
                     Rating
                 </div>
-                {user.reviewsNr > 0 && <div className='stars'>{drawStars(user.ratingAvg || 0)}</div>}
+                {user.reviewsNr! > 0 && <div className='stars'>{drawStars(user.ratingAvg || 0)}</div>}
                 ({user.reviewsNr} Reviews)
             </div>}
 
